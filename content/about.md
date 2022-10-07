@@ -19,6 +19,10 @@ Tessa is a senior majoring in Neuroscience with minors in Math and Computer Scie
 
 Priya is a senior majoring in Economics and minoring in Statistics. 
 
+## Veer Sawhney
+
+Veer is a senior majoring in Statistics and minoring in Biology, Computer Science, and Economics
+
 <!-- Please leave in the information below -->
 
 ### Info About this Template.
