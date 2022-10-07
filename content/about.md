@@ -11,13 +11,9 @@ This comes from the file `content/about.md`.
 This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
 The members of this team are below.
 
-## Luis Iberico
+## Tessa Sharma
 
-Luis is a Ph.D. student in Stats and is the Teaching Fellow for the course.
-
-## Dan Sussman
-
-Dan is a professor in the Math/Stat department and is the instructor for the course.
+Tessa is a senior majoring in Neuroscience with minors in Math and Computer Science.
 
 <!-- Please leave in the information below -->
 
