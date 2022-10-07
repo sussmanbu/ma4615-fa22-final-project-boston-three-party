@@ -15,6 +15,10 @@ The members of this team are below.
 
 Tessa is a senior majoring in Neuroscience with minors in Math and Computer Science.
 
+## Priya Kaneria 
+
+Priya is a senior majoring in Economics and minoring in Statistics. 
+
 <!-- Please leave in the information below -->
 
 ### Info About this Template.
