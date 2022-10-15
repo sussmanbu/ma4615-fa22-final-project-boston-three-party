@@ -16,7 +16,7 @@ featuredImage: ~
 
 
 https://www.kaggle.com/datasets/mrmorj/gentrification-and-demographic-analysis?resource=download
-
+ 
 The data in this Kaggle dataset was originally collected from three different independent data sources. These are the US Census Bureau, censusreporter.org, and Logan et al.’s Longitudinal Tract Data Base from the 2000 and 2010 census. There are 17 columns and 8281 rows. This dataset examines census data for the different census tracts for certain cities of interest. These cities are Atlanta, Baltimore, New York, Oakland and Washington, DC. The columns represent categories examining the makeup of each of the census tracts, including statistics such as population, median income, median home value, average level of education attained, as well as percentage of different racial groups (white, black, native, asian, hispanic, other). The data can be downloaded as a .csv file which can then be loaded into R to further analyze and clean the data. One of the main questions we hope to address is how the make up the different boroughs of New York City changed over time. Specifically, we want to examine the effect of gentrification in neighborhoods, and whether it will disproportionately impact people of lower income and people of color. One problem we anticipate is that there is a 10 year gap between the data, which may make it difficult to have a good estimate of what the data will look like today. Another problem from having such large gaps is that this makes it more difficult to make definitive causation conclusions based on the data. We may need to find a more current dataset, or takes more frequent measurements of these variables, perhaps specific to New York City. 
 
 
