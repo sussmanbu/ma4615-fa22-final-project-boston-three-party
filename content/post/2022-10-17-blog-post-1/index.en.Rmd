@@ -1,0 +1,15 @@
+---
+title: Blog Post 1
+author: Maryam Bhuttor, Priya Kaneria, Veer Sawhney, Tessa Sharma
+date: '2022-10-17'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-10-17T09:55:30-04:00'
+featuredVideo: ~
+featuredImage: ~
+---
