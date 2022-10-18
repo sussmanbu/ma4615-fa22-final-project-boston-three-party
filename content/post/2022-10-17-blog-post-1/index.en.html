@@ -12,6 +12,7 @@ series: []
 lastmod: '2022-10-17T09:55:30-04:00'
 featuredVideo: ~
 featuredImage: ~
+
 ---
 
 
@@ -19,3 +20,19 @@ featuredImage: ~
 
 </div>
 
+<p><a href="https://www.kaggle.com/datasets/mrmorj/gentrification-and-demographic-analysis?resource=download" class="uri">https://www.kaggle.com/datasets/mrmorj/gentrification-and-demographic-analysis?resource=download</a></p>
+<p>The data in this Kaggle dataset was originally collected from three different independent data sources. These are the US Census Bureau, censusreporter.org, and Logan et al.’s Longitudinal Tract Data Base from the 2000 and 2010 census. There are 17 columns and 8281 rows. This dataset examines census data for the different census tracts for certain cities of interest. These cities are Atlanta, Baltimore, New York, Oakland and Washington, DC. The columns represent categories examining the makeup of each of the census tracts, including statistics such as population, median income, median home value, average level of education attained, as well as percentage of different racial groups (white, black, native, asian, hispanic, other). The data can be downloaded as a .csv file which can then be loaded into R to further analyze and clean the data. One of the main questions we hope to address is how the make up the different boroughs of New York City changed over time. Specifically, we want to examine the effect of gentrification in neighborhoods, and whether it will disproportionately impact people of lower income and people of color. One problem we anticipate is that there is a 10 year gap between the data, which may make it difficult to have a good estimate of what the data will look like today. Another problem from having such large gaps is that this makes it more difficult to make definitive causation conclusions based on the data. We may need to find a more current dataset, or takes more frequent measurements of these variables, perhaps specific to New York City.</p>
+<p><a href="https://data.cityofnewyork.us/City-Government/Demographic-Statistics-By-Zip-Code/kku6-nxdu" class="uri">https://data.cityofnewyork.us/City-Government/Demographic-Statistics-By-Zip-Code/kku6-nxdu</a></p>
+<p>This dataset contains 46 columns and 236 rows with information about the demographic makeup of New York City, organized by jurisdiction (zip code). Specifically, the dataset describes the ethnicity and residency statuses of New Yorkers, updated in 2013. The data was collected by the Department of Youth and Community Development, which is an organization that works to tear down racial and economic inequalities in New York City through programming and intervention. The data can be downloaded as a CSV file. We hope to use this data to further understand the demographics of New York and to examine the racial makeup of the city 10 years ago. We will compare this data with other datasets to see how these demographics have changed since then.</p>
+<p>Unfortunately, this dataset does not look at these demographics over time, so we may need to do some additional cleaning in order to be able to compare it to more current as well as older data about the racial makeup of New York. This will help us to better understand how gentrification has affected city residents.</p>
+<p><a href="https://data.cityofnewyork.us/City-Government/Demographic-and-Housing-Profiles-by-Borough/cu9u-3r5e" class="uri">https://data.cityofnewyork.us/City-Government/Demographic-and-Housing-Profiles-by-Borough/cu9u-3r5e</a></p>
+<p>This dataset comes from the New York City Government and contains around 25 columns and 100 rows. The columns are divided into the different boroughs of New York City. Each column gives the estimate of different characteristics of the population. The rows describe these numbers by race, age, and gender. This data is from 5 years from 2012-2016. The data tended to estimate the urban and rural populations. The most important rows would in our case is the total housing units and the estimate of the different racial makeup of the population. This data directly comes from the U.S Census Bureau. It is in an excel spreadsheet and can be easily cleaned if needed. A challenge we might deal with is how to show how the population of different races and age groups in different boroughs based on race.</p>
+<p>Variables
+Burough
+Population
+Race
+Educational attainment
+household income</p>
+<p>Column</p>
+<p>In the Kaggle dataset, there is no breakdown of the population between the different boroughs, it has the New York City population as a whole.</p>
+<p>One challenge we foresee is combining the different individual variables of which we are interested in into one final dataset which we want to analyze. One problem with combining datasets is that they may have different frequencies of how often data is recorded, or that they may be recorded over different dates.</p>
