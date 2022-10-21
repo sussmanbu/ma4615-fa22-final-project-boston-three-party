@@ -17,7 +17,7 @@ Tessa is a senior majoring in Neuroscience with minors in Math and Computer Scie
 
 ## Priya Kaneria 
 
-Priya is a senior majoring in Economics and minoring in Statistics. 
+Priya is a senior majoring in Economics and minoring in Statistics.  
 
 <!-- Please leave in the information below -->
 
