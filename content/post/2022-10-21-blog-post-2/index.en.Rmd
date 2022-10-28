@@ -1,0 +1,20 @@
+---
+title: Blog Post 2
+author: Maryam, Priya, Tessa, Veer
+date: '2022-10-21'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-10-21T18:21:47-04:00'
+featuredVideo: ~
+featuredImage: ~
+
+
+---
+After reading through your comments on our last blog post we decided to change topic, and find new data. We are now using world bank data that would allows to perform time series analysis. We have included the dataset. We want to hear your feedback about our new topic and dataset before go ahead and find summary statistics and make plots. However, we went ahead and performed exploratory data analysis. 
+
+While,analzying the data we noticed our response variable, CO2 emissions(kt) is not available for the years 1972 to 1990. So, that is one area that we have to clean. Also, our exploratory variables forrest area(% of land area), renewable electricity(% of total electricity output), total green ouse gas emission(%change from 1990), and research and devlopment expenditure(% of GDP) is also not available during that time period. We plan on removing missing values in the columns with no data to see the relationship between CO2 emissions and the factor contribute. While exploring the data we noticed that CO2 emission has increased over the years, and peaked around 2004 to 2005.However, since then there has been steady decrease. While, we look at the x variables, we noticed that population growth since 2004/ 2005  had steady decrease. We also seen decrease in electricity production from oil,gas, and coal sources. We have seen slight decrease in urban population growth and fossil fuel energy consumption. One detail that we noticed that deviancates from what we expected is population density increase. Other factors that might not have the biggest effect could also be GDP growth and total greenhouse gas emissions because we sees outliers and no strong patterns. Our question for this project is to figure out which factor/s that are causing decrease in CO2 emissions.  The big obvious pattern in this dataset is what we expected.
