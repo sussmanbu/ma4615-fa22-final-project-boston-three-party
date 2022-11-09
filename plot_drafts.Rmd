@@ -1,0 +1,22 @@
+---
+title: "plots post4"
+output: html_document
+date: "2022-11-07"
+---
+
+```{r}
+library(tidyverse)
+ccdata <- read_csv("/Users/VS/Desktop/MA415/Project/ma4615-fa22-final-project-boston-three-party/dataset/fixed climate data.csv")
+ccdata
+ggplot(data = ccdata, aes(x=CO2 emissions (kt) [EN.ATM.CO2E.KT]`, y = Population growth (annual %) [SP.POP.GROW]`)) + geom_line()
+
+ccdata$`Country Name`
+
+ggplot(aes(x=ccdata$`CO2 emissions (kt) [EN.ATM.CO2E.KT]`, 
+           y =ccdata$`Population growth (annual %) [SP.POP.GROW]`)) + geom_line()
+str(ccdata)
+ccdata <- ccdata%>%type.convert()
+
+#change names of variables and go through and change everything to a numerical value - maybe as a new sheet?
+```
+
