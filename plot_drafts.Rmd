@@ -21,3 +21,15 @@ ccdata <- ccdata%>%type.convert()
 #change names of variables and go through and change everything to a numerical value - maybe as a new sheet?
 ```
 
+```{r}
+
+
+ggplot(Trial, aes(Time, CO2_emissions_kt)) + geom_point() + xlab("Year") + ylab("CO2 Emission")
+
+#+ theme(panel.background=element_blank())
+
+# scale_y_continuous(breaks=seq(4000000, 6000000, by=50000)) +
+```
+
+
+
