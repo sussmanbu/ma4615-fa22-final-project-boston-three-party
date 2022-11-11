@@ -6,14 +6,15 @@ date: "2022-11-07"
 
 ```{r}
 library(tidyverse)
-ccdata <- read_csv("/Users/VS/Desktop/MA415/Project/ma4615-fa22-final-project-boston-three-party/dataset/fixed climate data.csv")
+ccdata <- read_csv(here::here("dataset", "fixed_climate_data.csv"))
 ccdata
-ggplot(data = ccdata, aes(x=CO2 emissions (kt) [EN.ATM.CO2E.KT]`, y = Population growth (annual %) [SP.POP.GROW]`)) + geom_line()
+ggplot(data = ccdata, aes(x=CO2_emissions_kt, y = Population_growth_annual_percent
+)) + geom_line()
 
-ccdata$`Country Name`
+ccdata$`Country_Name`
 
-ggplot(aes(x=ccdata$`CO2 emissions (kt) [EN.ATM.CO2E.KT]`, 
-           y =ccdata$`Population growth (annual %) [SP.POP.GROW]`)) + geom_line()
+ggplot(aes(x=ccdata$`CO2_emissions_kt`, 
+           y =ccdata$`Population_growth_annual_percent`)) + geom_line()
 str(ccdata)
 ccdata <- ccdata%>%type.convert()
 
