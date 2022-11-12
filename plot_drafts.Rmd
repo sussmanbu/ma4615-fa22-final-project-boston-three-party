@@ -8,15 +8,13 @@ date: "2022-11-07"
 library(tidyverse)
 ccdata <- read_csv(here::here("dataset", "fixed_climate_data.csv"))
 ccdata
-ggplot(data = ccdata, aes(x=CO2_emissions_kt, y = Population_growth_annual_percent
-)) + geom_line()
+#ggplot(data = ccdata, aes(x=CO2_emissions_kt, y = Population_growth_annual_percent)) + geom_line()
 
-ccdata$`Country_Name`
+#ccdata$`Country_Name`
 
-ggplot(aes(x=ccdata$`CO2_emissions_kt`, 
-           y =ccdata$`Population_growth_annual_percent`)) + geom_line()
-str(ccdata)
-ccdata <- ccdata%>%type.convert()
+#ggplot(aes(x=ccdata$`CO2_emissions_kt`, y =ccdata$`Population_growth_annual_percent`)) + geom_line()
+#str(ccdata)
+#ccdata <- ccdata%>%type.convert()
 
 #change names of variables and go through and change everything to a numerical value - maybe as a new sheet?
 ```
