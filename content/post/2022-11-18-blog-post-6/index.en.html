@@ -1,0 +1,28 @@
+---
+title: Blog Post 6
+author: Tessa,Priya,Veer,Maryam
+date: '2022-11-18'
+slug: []
+categories: []
+tags: []
+description: ~
+toc: yes
+authors: []
+series: []
+lastmod: '2022-11-18T18:28:54-05:00'
+featuredVideo: ~
+featuredImage: ~
+---
+
+
+<div id="TOC">
+
+</div>
+
+<p>By nature, our data is not very specific. Our first dataset (fixed_climate_data) has broad features which span the entire US and examine the climate data yearly. This is not very conducive for an interactive, as there are not many options to choose from.</p>
+<p>We’ve added a third dataset containing crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models. First, we will need to clean up this dataset. In each row, we will list data for a different crop. In each column we will list a year. In each cell, we will list the corresponding crop production, area used, yield%, etc, for the corresponding year.</p>
+<p>We had the idea of a “choose your crop” interactive where users can select which crop they want to observe over time in comparison to CO2 emissions and other climate data. Additionally, we wanted to allow the user to compare such values of crops against each other to see how they change over time.</p>
+<p>We can incorporate Shiny, by creating an interactive graph that lets users filter through different years to see the increase/decrease of the different crops we will include (x-axis) and the output of CO2 emissions (y-axis). Users will be able to select the crops that they want to compare, which will allow them to see emissions for the graphs they please.</p>
+<p>Another possible interactive could be which variable each year contributes the most to CO2 emission each year. However, this might not be a good idea if the variable is mostly or always the same.</p>
+<p>In terms of looking at the big picture, one possibility could be to show how crop output changes over time for all crops, as well as making a time series prediction on the output changes with future changes in CO2. Similarly, we could do this for other variables such as crop output and farmland, and any other combination from our 2 datasets.</p>
+<p>An important limitation of our dataset is that it currently shows that CO2 emissions are declining. This could lead to inaccurate predictions in our models. To remedy this we plan on looking for more data about US CO2 emissions from more recent and multiple sources to verify this. We also will look for more global data on CO2 emissions, as just what is happening in the US with regards to CO2 emissions does not necessarily represent the global trend around CO2 emissions.</p>
