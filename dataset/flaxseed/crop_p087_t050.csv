@@ -1,0 +1,46 @@
+50,"t","Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA)."
+50,"t","Flaxseed Area Planted and Harvested, Yield, Production, Price, and Value –"
+50,"t","United States: 1866-2021 (continued)"
+50,"t","[Blank data cells indicate a program change or that the estimation period has not yet begun]"
+50,"h","","","","","","",""
+50,"h","Year 1/","Area planted","Area harvested","Yield per acre","Production","Price per bushel 2/","Value of production"
+50,"h","","","","","","",""
+50,"u","","(1,000 acres)","(1,000 acres)","(bushels)","(1,000 bushels)","(dollars)","(1,000 dollars)"
+50,"d","1990",260,253,15.1,3812,5.27,20108
+50,"d","1991",356,342,18.1,6200,3.52,21845
+50,"d","1992",171,165,19.9,3288,4.12,13543
+50,"d","1993",206,191,18.2,3482,4.25,14857
+50,"d","1994",178,171,17.1,2922,4.63,13590
+50,"d","1995",165,147,15.0,2212,5.20,11481
+50,"d","1996",96,92,17.4,1602,6.37,10197
+50,"d","1997",151,146,16.6,2420,5.81,14046
+50,"d","1998",336,329,20.4,6708,5.05,33809
+50,"d","1999",387,381,20.6,7864,3.79,30098
+50,"d","",,,,,,
+50,"d","2000",536,517,20.8,10730,3.30,35569
+50,"d","2001",585,578,19.8,11455,4.29,49004
+50,"d","2002",784,703,16.9,11863,5.77,68564
+50,"d","2003",595,588,17.9,10516,5.88,61900
+50,"d","2004",523,511,20.3,10368,8.07,83767
+50,"d","2005",983,955,20.6,19695,5.94,117070
+50,"d","2006",813,767,14.4,11019,5.80,63961
+50,"d","2007",354,349,16.9,5896,13.00,76521
+50,"d","2008",354,340,16.8,5716,12.70,72773
+50,"d","2009",317,314,23.6,7423,8.15,60373
+50,"d","",,,,,,
+50,"d","2010",421,418,21.7,9056,12.20,110251
+50,"d","2011",178,173,16.1,2791,13.90,38570
+50,"d","2012",349,336,17.3,5798,13.80,79919
+50,"d","2013",181,172,19.5,3356,13.80,46325
+50,"d","2014",311,302,21.1,6368,11.80,75077
+50,"d","2015",463,456,22.1,10095,8.95,90561
+50,"d","2016",374,366,23.7,8656,8.00,69352
+50,"d","2017",303,272,14.1,3842,9.53,36340
+50,"d","2018",208,198,22.6,4466,9.89,43533
+50,"d","2019",374,284,19.8,5625,9.15,49734
+50,"d","",,,,,,
+50,"d","2020",305,296,19.3,5706,11.10,62357
+50,"d","2021",325,268,10.1,2708,27.00,72098
+50,"c",""
+50,"f","1/ Prior to 1991, Minnesota, North Dakota, and South Dakota only. For 1991-1999, all States except Alaska and Hawaii. For 2000-2015, Minnesota, Montana, North Dakota, and South Dakota only. Starting in 2016, Montana, North Dakota, and South Dakota only. Starting in 2019, Montana and North Dakota only."
+50,"f","2/ Prior to 1986 price includes adjustments for outstanding loans and government purchases."
