@@ -1,6 +1,6 @@
 ---
 title: Blog post 1
-author: Daniel Sussman
+author: Tessa,Maryam,Veer and Priya 
 date: '2022-10-18'
 slug: []
 categories: []
