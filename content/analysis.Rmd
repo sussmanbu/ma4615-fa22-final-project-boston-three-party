@@ -32,7 +32,7 @@ barley_ts <- ggplot(barely_co2_data, aes(x=Year, y=Production)) +
 barley_ts
 
 ```
-
+In our time series analysis above, we analyze the production of barley over time.
 
 ## Note on Attribution
 
