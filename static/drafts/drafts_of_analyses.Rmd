@@ -1,0 +1,16 @@
+```{r}
+Year <- barely_co2_data %>% pull(Time)
+Area_Planted <- barely_co2_data %>% pull(`Area planted`)
+co_emit <- barely_co2_data %>% pull(CO2_emissions_kt)
+forest_area <- barely_co2_data %>% pull(Forest_area_percent)
+good_serv <- barely_co2_data %>% pull(Goods_services_exports)
+gdp_growth <- barely_co2_data %>% pull(GDP_growth)
+
+barley_ts <- ggplot(barely_co2_data, aes(x=Year)) +
+  geom_line(aes(y=Area_Planted), color="darkred") + 
+  geom_line(aes(y=gdp_growth), color="steelblue")
+
+barley_ts
+
+```
+

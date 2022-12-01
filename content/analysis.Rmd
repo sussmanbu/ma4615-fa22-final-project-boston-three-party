@@ -14,11 +14,25 @@ We describe here our detailed data analysis.
 
 ```{r}
 library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
+# print(getwd())
+# data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
+# load(here::here("dataset/loan_refusal.RData"))
+# print(ls())
 ```
+
+```{r barley_timeseries}
+
+Year <- barely_co2_data %>% pull(Time)
+Production <- barely_co2_data %>% pull(Production)
+co_emit <- barely_co2_data %>% pull(CO2_emissions_kt)
+
+barley_ts <- ggplot(barely_co2_data, aes(x=Year, y=Production)) +
+  geom_line() + 
+  xlab("")
+barley_ts
+
+```
+
 
 ## Note on Attribution
 
