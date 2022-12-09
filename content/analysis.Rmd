@@ -33,6 +33,21 @@ barley_ts
 ```
 In our time series analysis above, we analyze the production of barley over time.
 
+```{r corn_timeseries}
+
+Year <- corn_co2_data %>% pull(Time)
+Production <- corn_co2_data %>% pull(Production)
+co_emit <- corn_co2_data %>% pull(CO2_emissions_kt)
+
+corn_ts <- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
+  geom_line() + 
+  xlab("")
+corn_ts
+
+```
+
+
+
 ## Note on Attribution
 
 If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
