@@ -1,7 +1,7 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-install.packages("forecast")
+#install.packages("forecast")
 require(forecast)
 ggAcf(district_pvi$pvi)
 ggPacf(district_pvi$pvi)
@@ -10,7 +10,7 @@ ggPacf(district_pvi$pvi)
 #crops and co2
 co2_data <- read_csv(here::here("dataset", "CSV_fixed_climate_data.csv"))
 
-## CLEAN the data
+## clEAN the data
 co2_data_clean <- co2_data
 
 write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
@@ -164,15 +164,51 @@ colnames(flaxseed_data_4) <- colnames(barley_data_4)
 flaxseed_data_4 <- flaxseed_data_4 %>% drop_na(Year)
 
 View(flaxseed_data_4)
-
-flaxseed_data <- flaxseed_data_3%>%bind_rows(flaxseed_data_4) %>% type_convert()
+flaxseed_data_3 <- flaxseed_data_3 %>% type_convert()
+flaxseed_data <- flaxseed_data_3%>%bind_rows(flaxseed_data_4) 
 View(flaxseed_data)
 flaxseed_co2_data <- co2_data_clean %>% left_join(flaxseed_data, by = c("Time" = "Year"))
+
+
+flaxseed_co2_data <- flaxseed_co2_data %>% filter(CO2_emissions_kt != "..") %>% type_convert()
+
 View(flaxseed_co2_data)
+
+
+ggAcf(flaxseed_co2_data$`Area harvested`)  ###use difference 
+
+ggAcf(diff(flaxseed_co2_data$`Area harvested`)) ## no autocorrelation
+
+
+# co2 emission
+ggAcf(flaxseed_co2_data$CO2_emissions_kt) ##persistent  autocorrelation 
+ggAcf(diff(flaxseed_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot
+
+
+flaxseed_co2_data %>% ggplot(aes(x = diff('Area harvested'), y = diff(CO2_emissions_kt))) + geom_point()
+
+diff_df <- data.frame(diff_area = diff(flaxseed_co2_data$`Area harvested`), diff_co2 = diff(flaxseed_co2_data$CO2_emissions_kt) )
+diff_df %>% ggplot(aes(x = diff_area, y = diff_co2)) + geom_point()+ geom_smooth()
+### weak correlation between co2 and harvested
+
+flaxseed_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
+##there is very strong correlation here
+
+lm2 <- (lm(`Area harvested`~ CO2_emissions_kt, flaxseed_co2_data)) 
+
+lm2_diff <-lm(diff_area ~ diff_co2, diff_df) 
+
+ggAcf(lm2$residuals)
+ggAcf(lm1_diff$residuals)
+
 
 
 
 ## OATS
+
+
+
+
 
 oat_dataset_3 <- read_csv("dataset/oat/crop_p124_t077.csv", 
                           col_types = cols(`77` = col_skip(), t = col_skip(), 
@@ -180,7 +216,10 @@ oat_dataset_3 <- read_csv("dataset/oat/crop_p124_t077.csv",
                                            u = col_skip(), ...3 = col_double(), 
                                            `(1,000 acres)...4` = col_double(), 
                                            `(bushels)` = col_double(), `(1,000 bushels)` = col_double()), 
-                          skip = 7)
+                          
+                          
+                          skip = 4)
+colnames(oat_data_3) <- colnames(barley_data_3)
 View(oat_dataset_3)
 
 oat_dataset_4 <- read_csv("dataset/oat/crop_p125_t078.csv", 
@@ -188,6 +227,8 @@ oat_dataset_4 <- read_csv("dataset/oat/crop_p125_t078.csv",
                                            u = col_skip(), ...3 = col_double(), 
                                            `(1,000 acres)...4` = col_double()), 
                           skip = 7)
+
+
 View(oat_dataset_4)
 
 
@@ -218,7 +259,6 @@ rye_dataset_4 <- read_csv("dataset/rye/crop_p171_t102.csv",
 View(rye_dataset_4)
 
 rye_dataset <- rye_dataset_3%>%bind_rows(rye_dataset_4)
-
 
 
 
