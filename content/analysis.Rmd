@@ -21,7 +21,6 @@ library(tidyverse)
 ```
 
 ```{r barley_timeseries}
-
 Year <- barely_co2_data %>% pull(Time)
 Production <- barely_co2_data %>% pull(Production)
 co_emit <- barely_co2_data %>% pull(CO2_emissions_kt)
