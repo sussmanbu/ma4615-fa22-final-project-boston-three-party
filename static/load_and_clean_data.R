@@ -7,6 +7,8 @@ ggAcf(district_pvi$pvi)
 ggPacf(district_pvi$pvi)
 
 
+## Load CO2 dataset
+
 #crops and co2
 co2_data <- read_csv(here::here("dataset", "CSV_fixed_climate_data.csv"))
 
@@ -16,11 +18,6 @@ co2_data_clean <- co2_data
 write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
 
 save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
-
-
-
-
-
 
 
 
@@ -134,14 +131,6 @@ ggAcf(lm1_diff$residuals)
 
 
 
-
-
-
-
-
-
-
-
 ## FLAXSEED
 
 flaxseed_data_3 <- read_csv("dataset/flaxseed/crop_p086_t049.csv", 
@@ -204,10 +193,9 @@ ggAcf(lm1_diff$residuals)
 
 
 
+
+
 ## OATS
-
-
-
 
 
 oat_dataset_3 <- read_csv("dataset/oat/crop_p124_t077.csv", 
@@ -233,9 +221,6 @@ View(oat_dataset_4)
 
 
 oat_data <- oat_data_3%>%bind_rows(oat_data_4)
-
-
-
 
 
 
