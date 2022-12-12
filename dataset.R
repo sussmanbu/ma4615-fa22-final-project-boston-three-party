@@ -5,9 +5,43 @@ library(dplyr)
 require(forecast)
 ggAcf(district_pvi$pvi)
 ggPacf(district_pvi$pvi)
+library(readr)
 
 
-## Load CO2 dataset
+
+## clEAN the data
+co2_data_clean <- read.csv("dataset/clean_co2.csv")
+
+#write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
+
+#save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
+co2_data_clean <- co2_data_clean[,-1]
+
+co2_data_clean[co2_data_clean == ".."] = NA
+co2_data_clean <- co2_data_clean %>% type_convert()
+co2_data_clean[is.na(co2_data_clean)] = 0
+
+
+co2_data_clean <- co2_data_clean[19:50,]
+
+for(i in 2:ncol(co2_data_clean)){
+  co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
+}
+
+#Correlation matrix of all variables with all other variables
+res = cor(co2_data_clean[2:13])
+res
+
+#Correlation of all other variables with CO2 emissions
+cor(co2_data_clean[,-1], co2_data_clean$CO2_emissions_kt)
+
+#plot of correlation: heatmap
+heatmap(res)
+
+
+
+## BARLEY
+
 
 #crops and co2
 co2_data <- read_csv(here::here("dataset", "CSV_fixed_climate_data.csv"))
@@ -18,10 +52,21 @@ co2_data_clean <- co2_data
 write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
 
 save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
+co2_data_clean <- co2_data_clean[,-1]
+co2_data_clean <- co2_data_clean %>% type_convert()
+co2_data_clean[co2_data_clean == ".."] = NA
+co2_data_clean[is.na(co2_data_clean)] = 0
+co2_data_clean[co2_data_clean == 0] = NA
 
+co2_data_clean <- co2_data_clean[19:50,]
 
-
-
+for(i in 3:ncol(co2_data_clean)){
+  co2_data_clean[,i][is.na(co2_data_clean[,i])] = mean(co2_data_clean[,i],na.rm=TRUE)
+}
+cor(co2_data_clean$CO2_emissions_kt,co2_data_clean$Population_growth_annual_percent,na.rm =TRUE) 
+co2_data_clean$CO2_emissions_kt[co2_data_clean$CO2_emissions_kt==0,] <- mean(co2_data_clean$CO2_emissions_kt, na.rm = TRUE)
+cor(co2_data_clean[3:14],na.rm=T)
+View(co2_data_clean)
 
 ## BARLEY
 
@@ -32,7 +77,7 @@ barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% he
 barley_data_4 <- read_csv(here::here("dataset", "barley/crop_p016_t010.csv"),skip = 5)
 barley_data_4<- barley_data_4[-2,3:ncol(barley_data_4)] %>% drop_na(Year) %>% head(-1)
 
-barley_data <- barley_data_3%>%bind_rows(barley_data_4) %>% type_convert()
+barley_data <- barley_data_3%>%bind_rows(barley_data_4) 
 
 
 barley_co2_data <- co2_data_clean %>% left_join(barley_data, by = c("Time" = "Year"))
@@ -131,6 +176,14 @@ ggAcf(lm1_diff$residuals)
 
 
 
+
+
+
+
+
+
+
+
 ## FLAXSEED
 
 flaxseed_data_3 <- read_csv("dataset/flaxseed/crop_p086_t049.csv", 
@@ -193,20 +246,20 @@ ggAcf(lm1_diff$residuals)
 
 
 
-
-
 ## OATS
 
 
+
+
+
 oat_dataset_3 <- read_csv("dataset/oat/crop_p124_t077.csv", 
-                          col_types = cols(`77` = col_skip(), t = col_skip(), 
-                                           `Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).` = col_number(), 
-                                           u = col_skip(), ...3 = col_double(), 
-                                           `(1,000 acres)...4` = col_double(), 
-                                           `(bushels)` = col_double(), `(1,000 bushels)` = col_double()), 
-                          
-                          
-                          skip = 4)
+                          col_types = cols(`77` = col_skip(), h = col_skip()), 
+                          skip = 5)
+oat_data_3<- oat_dataset_3 %>% drop_na(Year) %>%filter(nchar(Year)==4) %>% drop_na(Year) %>% type_convert()
+
+
+View(oat_dataset_3)
+
 colnames(oat_data_3) <- colnames(barley_data_3)
 View(oat_dataset_3)
 
@@ -225,22 +278,19 @@ oat_data <- oat_data_3%>%bind_rows(oat_data_4)
 
 
 
+
+
+
 ## RYE
 
-rye_dataset_3 <- read_csv("dataset/rye/crop_p170_t101.csv", 
-                          col_types = cols(`101` = col_skip(), 
-                                           t = col_skip(), `Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).` = col_double(), 
-                                           u = col_skip(), ...3 = col_double(), 
-                                           `(1,000 acres)...4` = col_double()), 
-                          skip = 7)
+rye_data_3 <-read_csv(here::here("dataset", "rye/crop_p170_t101.csv"),skip = 5)
+View(rye_dataset_3)
+rye_data_3<- rye_data_3[-2,3:ncol(rye_data_3)] %>% drop_na(Year) %>% type_convert()
+
+
 View(rye_dataset_3)
 
 
-rye_dataset_4 <- read_csv("dataset/rye/crop_p171_t102.csv", 
-                          col_types = cols(`102` = col_skip(), 
-                                           t = col_skip(), `Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).` = col_double(), 
-                                           u = col_skip(), ...3 = col_double()), 
-                          skip = 7)
 View(rye_dataset_4)
 
 rye_dataset <- rye_dataset_3%>%bind_rows(rye_dataset_4)
