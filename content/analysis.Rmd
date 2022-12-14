@@ -26,8 +26,6 @@ We are most interested in investigating how CO2 emissions relate to our crop dat
 ```{r}
 library(tidyverse)
 # print(getwd())
-# data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-# load(here::here("dataset/loan_refusal.RData"))
 # print(ls())
 ```
 
