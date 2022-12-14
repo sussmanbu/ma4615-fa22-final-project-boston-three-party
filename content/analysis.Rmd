@@ -24,41 +24,8 @@ We are most interested in investigating how CO2 emissions relate to our crop dat
 
 
 
-```{r}
+```{r packages}
 library(tidyverse)
-# print(getwd())
-# print(ls())
-```
-
-```{r barley_timeseries}
-Year <- barely_co2_data %>% pull(Time)
-Production <- barely_co2_data %>% pull(Production)
-co_emit <- barely_co2_data %>% pull(CO2_emissions_kt)
-
-barley_ts <- ggplot(barely_co2_data, aes(x=Year, y=Production)) +
-  geom_line() + 
-  xlab("")
-barley_ts
-
-```
-In our time series analysis above, we analyze the production of barley over time.
-
-```{r corn_timeseries}
-
-Year <- corn_co2_data %>% pull(Time)
-Production <- corn_co2_data %>% pull(Production)
-co_emit <- corn_co2_data %>% pull(CO2_emissions_kt)
-
-corn_ts <- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
-  geom_line() + 
-  xlab("")
-corn_ts
-
-```
-In our time series analysis above, we analyze the production of corn over time.
-
-
-```{r more_packages}
 library(ggplot2)
 library(dplyr)
 install.packages("forecast")
@@ -125,6 +92,22 @@ View(barley_co2_data)
 
 #save(barley_co2_data, file = here::here("dataset/barely_co2_data.RData"))
 ```
+
+```{r barley_timeseries}
+# read_csv(here::here("dataset/barley_co2_data"))
+
+Year <- barley_co2_data %>% pull(Time)
+Production <- barley_co2_data %>% pull(Production)
+co_emit <- barley_co2_data %>% pull(CO2_emissions_kt)
+
+barley_ts <- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
+  geom_line() +
+  xlab("")
+barley_ts
+
+```
+In our time series analysis above, we analyze the production of barley over time.
+
 
 ```{r barley_stats}
 ggAcf(barley_co2_data$`Area harvested`)  ###use difference 
