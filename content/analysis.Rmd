@@ -161,8 +161,6 @@ ggAcf(lm1_diff$residuals)
 
 ```
 
-
-
-
+The barley data as it compares to CO2 emissions is seen above.
 
 
