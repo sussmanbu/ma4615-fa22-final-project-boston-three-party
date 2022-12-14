@@ -13,13 +13,22 @@ We describe here our detailed data analysis.
 
 
 * Introduce what motivates your Data Analysis (DA)
+Which variables and relationships are you most interested in?
+What questions are you interested in answering?
 
 We are most interested in investigating how CO2 emissions relate to our crop data. We are curious as to whether crop production, area harvested, and area planted impact emission data. We're investigating the question "does farming impact CO2 emissions?"
 
-* Breadth of the DA
 
+
+* Breadth of the DA
+Make sure that you ask enough initial questions to explore the different variables in your data.
+i.e. Do you explore more than just one or two variables? Do you explore a few different relationships or many?
+
+ 
 
 * Depth of the DA
+When you answer one question, usually more questions arise as well.
+The depth of the DA is about coming up with and exploring the answers to these questions, often iterating the process a few times.
 
 
 
