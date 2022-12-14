@@ -1,7 +1,7 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-#install.packages("forecast")
+install.packages("forecast")
 require(forecast)
 ggAcf(district_pvi$pvi)
 ggPacf(district_pvi$pvi)
