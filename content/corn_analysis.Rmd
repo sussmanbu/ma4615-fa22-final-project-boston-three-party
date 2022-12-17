@@ -1,5 +1,5 @@
 ---
-title: Corn_analysis
+title: Corn Analysis
 description:
 toc: true
 featuredVideo:
@@ -17,7 +17,7 @@ library(readr)
 ```
 
 
-```{r corn_timeseries}
+```{r corn_timeseries, echo=False}
 
 # Year <- corn_co2_data %>% pull(Time)
 # Production <- corn_co2_data %>% pull(Production)
