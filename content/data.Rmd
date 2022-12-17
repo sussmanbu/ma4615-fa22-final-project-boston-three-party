@@ -1,9 +1,9 @@
 ---
 title: Data
-description:
+description: 
 toc: true
 featuredVideo:
-featuredImage:![](/./data_files/climate change.jpeg)
+featuredImage: (/./data_files/climate change.jpeg)
 draft: false
 ---
 
