@@ -49,13 +49,16 @@ menu:
       weight: 2
     - name: Posts
       url: /post/
-      weight: 6
+      weight: 7
     - name: Big Picture
       url: /big_picture/
-      weight: 5
+      weight: 6
     - name: Analysis
       url: /analysis/
       weight: 4
+    - name: Corn Analysis
+      url: /corn_analysis/
+      weight: 5
     - name: Data
       url: /data/
       weight: 3
