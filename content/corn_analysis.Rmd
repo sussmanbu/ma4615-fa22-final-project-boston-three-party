@@ -7,6 +7,16 @@ featuredImage:
 draft: false
 ---
 
+```{r packages}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+#install.packages("forecast")
+require(forecast)
+library(readr)
+```
+
+
 ```{r corn_timeseries}
 
 Year <- corn_co2_data %>% pull(Time)
