@@ -2,12 +2,6 @@
 title: Corn_analysis
 description:
 toc: true
-authors: []
-tags: []
-categories: []
-series: []
-date: 2022-12-17T18:30:41-05:00
-lastmod: 2022-12-17T18:30:41-05:00
 featuredVideo:
 featuredImage:
 draft: false
@@ -18,3 +12,31 @@ draft: false
 
 </div>
 
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+#install.packages(&quot;forecast&quot;)
+require(forecast)</code></pre>
+<pre><code>## Loading required package: forecast</code></pre>
+<pre><code>## Warning: package &#39;forecast&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
+##   method            from
+##   as.zoo.data.frame zoo</code></pre>
+<pre class="r"><code>library(readr)</code></pre>
+<pre class="r"><code># Year &lt;- corn_co2_data %&gt;% pull(Time)
+# Production &lt;- corn_co2_data %&gt;% pull(Production)
+# co_emit &lt;- corn_co2_data %&gt;% pull(CO2_emissions_kt)
+# 
+# corn_ts &lt;- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
+#   geom_line() + 
+#   xlab(&quot;&quot;)
+# corn_ts</code></pre>
+<p>In our time series analysis above, we analyze the production of corn over time.</p>
