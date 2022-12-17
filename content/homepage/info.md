@@ -4,7 +4,7 @@ draft: false
 role: Team Boston Three Party
 bio: This is my data science project. Check out the links at the top. You can update this in `content/homepage/info.md`. You can change the image above by changing `content/homepage/feature_image.md`.
 organization:
-  name:Boston University
+  name: Boston University
   url: https://www.bu.edu/
 
 
