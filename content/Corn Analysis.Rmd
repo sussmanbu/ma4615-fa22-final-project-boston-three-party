@@ -16,6 +16,7 @@ corn_ts <- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
   xlab("")
 corn_ts
 
+
 ```
 In our time series analysis above, we analyze the production of corn over time.
 ```
