@@ -18,7 +18,7 @@ We created our first dataset by choosing climate variables that we thought were 
  
 Our first dataset includes 12 variables: agriculture, forestry, and fishing value added, irrigated land, machinery and tractors, agricultural methane/nitrous oxide emissions, raw materials exports/imports, crop production index, livestock production index, percent of the rural population, and annual freshwater withdrawals. Our initial findings show that there has been a decline in agricultural land, machinery and tractors, raw materials exports, and percent rural population in the past 50 years in the United States. Conversely, there has been an increase in agricultural methane and nitrous oxide emissions, crop production, livestock production index, and annual freshwater withdrawals. 
 Our second dataset contains crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models.
-V
+
 Dataset 1 Variables: 
 
 Country: what country data is from. For our project it is all data from USA
@@ -45,25 +45,23 @@ Value of production (1,000 dollars)
 
 
 
-
-
 Clean data code can be found here :https://github.com/sussmanbu/ma4615-fa22-final-project-boston-three-party/blame/master/static/load_and_clean_data.R
 co2_data <- read_csv(here::here("dataset", "CSV_fixed_climate_data.csv"))
 
-
-
+```{r}
 
 co2_data_clean <- co2_data
 
 write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
 
 save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
-
+```
 
 
 
 For our CO2 emission we just cleaned the file and wrote a new csv file.We used here::here function to specify the file path
 
+```{r}
 
 corn_data_3 <-read_csv(here::here("dataset", "corn/crop_p031_t024.csv"),skip = 7)
 corn_data_3<- corn_data_3[-2,3:ncol(corn_data_3)] %>% drop_na(Year) %>% head(-1)
@@ -72,7 +70,7 @@ corn_data_4 <- read_csv(here::here("dataset", "corn/crop_p032_t034.csv"),skip = 
 corn_data_4<- corn_data_4[-2,3:ncol(corn_data_4)] %>% drop_na(Year) %>% head(-1)
 
 corn_data <- corn_data_3%>%bind_rows(corn_data_4) %>% type_convert()
-
+```
 
 
 
@@ -83,7 +81,7 @@ We had several csv files for each crop. So, we merged two files for each crop st
 There were some differences between each crop csv file. The csv file contained a lot of unnecessary information. Therefore, we skipped those columns. After cleaning the files, we used rbind to bind based on the columns. 
 
 
-
+```{r}
 
 rye_dataset_3 <- read_csv("dataset/rye/crop_p170_t101.csv", 
                            col_types = cols(`101` = col_skip(), 
@@ -102,8 +100,7 @@ rye_dataset_4 <- read_csv("dataset/rye/crop_p171_t102.csv",
 View(rye_dataset_4)
 
 rye_dataset <- rye_dataset_3%>%bind_rows(rye_dataset_4)
-
-
+```
 
 
 
