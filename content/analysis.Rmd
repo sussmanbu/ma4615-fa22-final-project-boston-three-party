@@ -9,7 +9,7 @@ draft: false
 
 This comes from the file `content/analysis.Rmd`.
 
-We describe here our detailed data analysis.
+We describe here our detailed data analysis
 
 
 * Introduce what motivates your Data Analysis (DA)
