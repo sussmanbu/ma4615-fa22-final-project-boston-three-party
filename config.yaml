@@ -46,19 +46,19 @@ menu:
   main:
     - name: About
       url: '/about/'
-      weight: 6
+      weight: 2
     - name: Posts
       url: /post/
-      weight: 5
+      weight: 6
     - name: Big Picture
       url: /big_picture/
-      weight: 3
+      weight: 5
     - name: Analysis
       url: /analysis/
       weight: 4
     - name: Data
       url: /data/
-      weight: 2
+      weight: 3
 
 params:      
   description: Template and directions for the MA[46]15 final project.
