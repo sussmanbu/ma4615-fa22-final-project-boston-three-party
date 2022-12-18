@@ -7,7 +7,7 @@ featuredImage:
 draft: false
 ---
 
-```{r packages}
+```{r packages, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
@@ -17,7 +17,7 @@ library(readr)
 ```
 
 
-```{r corn_timeseries, echo=False}
+```{r corn_timeseries, echo=FALSE}
 
 # Year <- corn_co2_data %>% pull(Time)
 # Production <- corn_co2_data %>% pull(Production)
