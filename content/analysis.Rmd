@@ -28,7 +28,7 @@ We are most interested in investigating how CO2 emissions relate to our crop dat
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-install.packages("forecast")
+#install.packages("forecast")
 require(forecast)
 ggAcf(district_pvi$pvi)
 ggPacf(district_pvi$pvi)
