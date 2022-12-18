@@ -1,0 +1,84 @@
+---
+title: "dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+install.packages("flexdashboard")
+
+
+---
+title: "dashboard"
+output: flexdashboard::flex_dashboard:
+    vertical_layout: fill
+date: "2022-12-17"
+---
+
+
+
+```{r}
+library(tidyverse)
+library(plotly)
+#install.packages("DT")
+library(DT)
+```
+
+
+### Chart 1
+```{r}
+library(tidyverse)
+suppressMessages(library(plotly))
+
+library(tidyr)
+# barley_data_3 <- read_csv(here::here("dataset", "barley/crop_p015_t005.csv"),skip = 5)
+# barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% head(-1)
+# 
+# barley_data_4 <- read_csv(here::here("dataset", "barley/crop_p016_t010.csv"),skip = 5)
+# barley_data_4<- barley_data_4[-2,3:ncol(barley_data_4)] %>% drop_na(Year) %>% head(-1)
+# 
+# barley_data <- barley_data_3%>%bind_rows(barley_data_4) 
+# barley_data <- barley_data %>% type_convert()
+# 
+# barley_co2_data <- co2_data_clean %>% left_join(barley_data, by = c("Time" = "Year"))
+
+#write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
+
+#save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
+
+barley <- barley_co2_data
+
+g <- ggplot(barley, aes(x = Time, y = CO2_emissions_kt, color = Production,
+  text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "GDP Growth Percent:", GDP_growth))) +
+  geom_point(position = "jitter")
+ggplotly(g, tooltip = "text")
+```
+
+
+
+```{r}
+#install.packages("gapminder")
+barley <- barley_co2_data
+
+data(barley)
+gg <- ggplot(barley,
+  aes(x = Time, y = CO2_emissions_kt,
+    color = Production,
+    size = Total_greenhouse_gas_emissions)) +
+  geom_point(alpha = 0.1) +
+  geom_point(aes(frame = Time)) +
+  scale_x_log10()
+ggplotly(gg)
+
+
+
+#data(gapminder, package = "gapminder")
+#gg <- ggplot(gapminder,
+#  aes(x = gdpPercap, y = lifeExp,
+#    color = continent,
+ #   size = pop)) +
+  #geom_point(alpha = 0.1) +
+#  geom_point(aes(frame = year)) +
+ # scale_x_log10()
+#ggplotly(gg)
+```
