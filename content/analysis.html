@@ -7,91 +7,340 @@ featuredImage: https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithqu
 draft: false
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 
 </div>
 
 <p>This comes from the file <code>content/analysis.Rmd</code>.</p>
-<p>We describe here our detailed data analysis.</p>
+<p>We describe here our detailed data analysis</p>
+<div id="introduce-what-motivates-your-data-analysis-da" class="section level2">
+<h2>Introduce what motivates your Data Analysis (DA)</h2>
+<p>We are most interested in investigating how CO2 emissions relate to our crop data. We are curious as to whether crop production, area harvested, and area planted impact emission data. We’re investigating the question “does farming impact CO2 emissions?”</p>
+</div>
+<div id="breadth-of-the-da" class="section level2">
+<h2>Breadth of the DA</h2>
+</div>
+<div id="depth-of-the-da" class="section level2">
+<h2>Depth of the DA</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.6     ✓ dplyr   1.0.8
-## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
-## ✓ readr   2.1.1     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>print(getwd())</code></pre>
-<pre><code>## [1] &quot;/Users/dsussman/Dropbox (Personal)/Teaching/MA_415/project_template/content&quot;</code></pre>
-<pre class="r"><code>data &lt;- read_csv(here::here(&quot;dataset/loan_refusal_clean.csv&quot;))</code></pre>
-<pre><code>## Rows: 20 Columns: 5</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+#install.packages(&quot;forecast&quot;)
+require(forecast)</code></pre>
+<pre><code>## Loading required package: forecast</code></pre>
+<pre><code>## Warning: package &#39;forecast&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
+##   method            from
+##   as.zoo.data.frame zoo</code></pre>
+<pre class="r"><code>library(readr)</code></pre>
+<pre class="r"><code>## CLEAN THE DATA
+co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))
+
+#write_csv(co2_data_clean, file = here::here(&quot;dataset&quot;, &quot;clean_co2.csv&quot;))
+
+#save(co2_data_clean, file = here::here(&quot;dataset/clean_co2.RData&quot;))
+co2_data_clean &lt;- co2_data_clean[,-1]
+
+co2_data_clean[co2_data_clean == &quot;..&quot;] = NA
+co2_data_clean &lt;- co2_data_clean %&gt;% type_convert()</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   CO2_emissions_kt = col_double(),
+##   Forest_area_percent = col_double(),
+##   Electricity_production = col_double(),
+##   Renewable_electricity_output = col_double(),
+##   Total_greenhouse_gas_emissions = col_double(),
+##   Fossil_fuel_energy_consumption = col_double(),
+##   Research_development_expenditure = col_double(),
+##   Goods_services_exports = col_double(),
+##   Population_density = col_double()
+## )</code></pre>
+<pre class="r"><code>co2_data_clean[is.na(co2_data_clean)] = 0
+
+
+co2_data_clean &lt;- co2_data_clean[19:50,]
+
+for(i in 2:ncol(co2_data_clean)){
+  co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
+}</code></pre>
+<pre class="r"><code>#Correlation matrix of all variables with all other variables
+res = cor(co2_data_clean[2:13])
+res</code></pre>
+<pre><code>##                                  CO2_emissions_kt
+## CO2_emissions_kt                       1.00000000
+## Population_growth_annual_percent       0.22702648
+## Forest_area_percent                   -0.19207705
+## Electricity_production                 0.66282551
+## Renewable_electricity_output          -0.35082560
+## Urban_population_growth                0.12510437
+## Total_greenhouse_gas_emissions         0.87038794
+## GDP_growth                             0.23967657
+## Fossil_fuel_energy_consumption         0.55781651
+## Research_development_expenditure      -0.01836995
+## Goods_services_exports                 0.19917366
+## Population_density                    -0.12810704
+##                                  Population_growth_annual_percent
+## CO2_emissions_kt                                      0.227026479
+## Population_growth_annual_percent                      1.000000000
+## Forest_area_percent                                  -0.408494222
+## Electricity_production                                0.639567650
+## Renewable_electricity_output                          0.123746249
+## Urban_population_growth                               0.974044450
+## Total_greenhouse_gas_emissions                       -0.097231405
+## GDP_growth                                           -0.009045422
+## Fossil_fuel_energy_consumption                        0.693580138
+## Research_development_expenditure                     -0.491881285
+## Goods_services_exports                                0.249243190
+## Population_density                                   -0.733889089
+##                                  Forest_area_percent Electricity_production
+## CO2_emissions_kt                        -0.192077048              0.6628255
+## Population_growth_annual_percent        -0.408494222              0.6395676
+## Forest_area_percent                      1.000000000             -0.3246969
+## Electricity_production                  -0.324696921              1.0000000
+## Renewable_electricity_output             0.159577241              0.2308536
+## Urban_population_growth                 -0.502837921              0.5429530
+## Total_greenhouse_gas_emissions           0.009670672              0.3669311
+## GDP_growth                              -0.486515097              0.1545704
+## Fossil_fuel_energy_consumption          -0.370480433              0.9847833
+## Research_development_expenditure         0.822968289             -0.4767414
+## Goods_services_exports                  -0.317619677              0.3885448
+## Population_density                       0.876853074             -0.5415334
+##                                  Renewable_electricity_output
+## CO2_emissions_kt                                 -0.350825601
+## Population_growth_annual_percent                  0.123746249
+## Forest_area_percent                               0.159577241
+## Electricity_production                            0.230853557
+## Renewable_electricity_output                      1.000000000
+## Urban_population_growth                           0.140917488
+## Total_greenhouse_gas_emissions                   -0.431807368
+## GDP_growth                                        0.003278736
+## Fossil_fuel_energy_consumption                    0.340988186
+## Research_development_expenditure                 -0.203693617
+## Goods_services_exports                            0.240275355
+## Population_density                               -0.076209881
+##                                  Urban_population_growth
+## CO2_emissions_kt                               0.1251044
+## Population_growth_annual_percent               0.9740445
+## Forest_area_percent                           -0.5028379
+## Electricity_production                         0.5429530
+## Renewable_electricity_output                   0.1409175
+## Urban_population_growth                        1.0000000
+## Total_greenhouse_gas_emissions                -0.2160960
+## GDP_growth                                     0.1067574
+## Fossil_fuel_energy_consumption                 0.6138091
+## Research_development_expenditure              -0.5619502
+## Goods_services_exports                         0.2872102
+## Population_density                            -0.7889479
+##                                  Total_greenhouse_gas_emissions   GDP_growth
+## CO2_emissions_kt                                    0.870387938  0.239676573
+## Population_growth_annual_percent                   -0.097231405 -0.009045422
+## Forest_area_percent                                 0.009670672 -0.486515097
+## Electricity_production                              0.366931120  0.154570443
+## Renewable_electricity_output                       -0.431807368  0.003278736
+## Urban_population_growth                            -0.216095973  0.106757372
+## Total_greenhouse_gas_emissions                      1.000000000  0.193558266
+## GDP_growth                                          0.193558266  1.000000000
+## Fossil_fuel_energy_consumption                      0.254270095  0.161703268
+## Research_development_expenditure                    0.195257286 -0.493508284
+## Goods_services_exports                              0.097327187  0.655332555
+## Population_density                                  0.147209275 -0.354628241
+##                                  Fossil_fuel_energy_consumption
+## CO2_emissions_kt                                      0.5578165
+## Population_growth_annual_percent                      0.6935801
+## Forest_area_percent                                  -0.3704804
+## Electricity_production                                0.9847833
+## Renewable_electricity_output                          0.3409882
+## Urban_population_growth                               0.6138091
+## Total_greenhouse_gas_emissions                        0.2542701
+## GDP_growth                                            0.1617033
+## Fossil_fuel_energy_consumption                        1.0000000
+## Research_development_expenditure                     -0.5529967
+## Goods_services_exports                                0.4124737
+## Population_density                                   -0.6203479
+##                                  Research_development_expenditure
+## CO2_emissions_kt                                      -0.01836995
+## Population_growth_annual_percent                      -0.49188128
+## Forest_area_percent                                    0.82296829
+## Electricity_production                                -0.47674142
+## Renewable_electricity_output                          -0.20369362
+## Urban_population_growth                               -0.56195017
+## Total_greenhouse_gas_emissions                         0.19525729
+## GDP_growth                                            -0.49350828
+## Fossil_fuel_energy_consumption                        -0.55299670
+## Research_development_expenditure                       1.00000000
+## Goods_services_exports                                -0.56239473
+## Population_density                                     0.89506647
+##                                  Goods_services_exports Population_density
+## CO2_emissions_kt                             0.19917366        -0.12810704
+## Population_growth_annual_percent             0.24924319        -0.73388909
+## Forest_area_percent                         -0.31761968         0.87685307
+## Electricity_production                       0.38854477        -0.54153339
+## Renewable_electricity_output                 0.24027536        -0.07620988
+## Urban_population_growth                      0.28721024        -0.78894794
+## Total_greenhouse_gas_emissions               0.09732719         0.14720928
+## GDP_growth                                   0.65533255        -0.35462824
+## Fossil_fuel_energy_consumption               0.41247366        -0.62034793
+## Research_development_expenditure            -0.56239473         0.89506647
+## Goods_services_exports                       1.00000000        -0.42772811
+## Population_density                          -0.42772811         1.00000000</code></pre>
+<pre class="r"><code>#Correlation of all other variables with CO2 emissions
+cor(co2_data_clean[,-1], co2_data_clean$CO2_emissions_kt)</code></pre>
+<pre><code>##                                         [,1]
+## CO2_emissions_kt                  1.00000000
+## Population_growth_annual_percent  0.22702648
+## Forest_area_percent              -0.19207705
+## Electricity_production            0.66282551
+## Renewable_electricity_output     -0.35082560
+## Urban_population_growth           0.12510437
+## Total_greenhouse_gas_emissions    0.87038794
+## GDP_growth                        0.23967657
+## Fossil_fuel_energy_consumption    0.55781651
+## Research_development_expenditure -0.01836995
+## Goods_services_exports            0.19917366
+## Population_density               -0.12810704</code></pre>
+<pre class="r"><code>#plot of correlation: heatmap
+heatmap(res)</code></pre>
+<p><img src="/analysis_files/figure-html/correlations-1.png" width="672" /></p>
+<pre class="r"><code>library(tidyr)
+barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 47 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
-## chr (1): bank
-## dbl (4): min, white, himin, hiwhite
+## chr (8): h, Year, Area planted, Area harvested, Yield per acre, Production, ...
+## dbl (1): 5
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>load(here::here(&quot;dataset/loan_refusal.RData&quot;))
-print(ls())</code></pre>
-<pre><code>## [1] &quot;data&quot;            &quot;loan_data_clean&quot;</code></pre>
-<div id="note-on-attribution" class="section level2">
-<h2>Note on Attribution</h2>
-<p>If you are directly quoting from a source, please make that clear. You can show quotes using <code>&gt;</code> like this</p>
-<pre><code>&gt; To be or not to be.</code></pre>
-<blockquote>
-<p>To be or not to be.</p>
-</blockquote>
-<p>Also, make sure to provide a link or citation to where you are quoting from.</p>
-<hr />
-</div>
-<div id="rubric-on-this-page" class="section level2">
-<h2>Rubric: On this page</h2>
-<p>you will</p>
-<ul>
-<li>Introduce what motivates your Data Analysis (DA)
-<ul>
-<li>Which variables and relationships are you most interested in?</li>
-<li>What questions are you interested in answering?</li>
-</ul></li>
-<li>Breadth of the DA
-<ul>
-<li>Make sure that you ask enough initial questions to explore the different variables in your data.</li>
-<li>i.e. Do you explore more than just one or two variables? Do you explore a few different relationships or many?</li>
-</ul></li>
-<li>Depth of the DA
-<ul>
-<li>When you answer one question, usually more questions arise as well.</li>
-<li>The depth of the DA is about coming up with and exploring the answers to these questions, often iterating the process a few times.</li>
-</ul></li>
-<li>Modeling and Inference
-<ul>
-<li>You should also include some kind of formal statistical model and/or inference. This could be a linear regression, logistic regression, hypothesis testing etc.</li>
-<li>Explain the techniques you used for validating your results.</li>
-<li>Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.</li>
-</ul></li>
-<li>Explain the flaws and limitations of your analysis
-<ul>
-<li>Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions? …</li>
-</ul></li>
-<li>Clarity Figures
-<ul>
-<li>Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?</li>
-<li>Each figure should provide a key insight. Too many figures or other data summaries can detract from this.</li>
-</ul></li>
-<li>Clarity of Explanations
-<ul>
-<li>Do you introduce why you are doing each analysis?</li>
-<li>How well do you explain each figure/result?</li>
-<li>Do you provide interpretations that suggest further analysis or explanations for observed phenomenon?</li>
-</ul></li>
-<li>Organization and cleanliness.
-<ul>
-<li>Make sure to remove excessive warnings, use clean easy-to-read code, organize with sections or multiple pages, use bullets, etc.</li>
-</ul></li>
-</ul>
-<p><strong>NOTE</strong>: Your Data Analysis can be broken up into multiple pages if that helps with your organization.</p>
+<pre class="r"><code>barley_data_3&lt;- barley_data_3[-2,3:ncol(barley_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)
+
+barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p016_t010.csv&quot;),skip = 5)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 39 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): h, Year, Area planted, Area harvested, Yield per acre, Production, ...
+## dbl (1): 10
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>barley_data_4&lt;- barley_data_4[-2,3:ncol(barley_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)
+
+barley_data &lt;- barley_data_3%&gt;%bind_rows(barley_data_4) 
+barley_data &lt;- barley_data %&gt;% type_convert()</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   Year = col_double(),
+##   `Area planted` = col_double(),
+##   `Area harvested` = col_double(),
+##   `Yield per acre` = col_double(),
+##   Production = col_double(),
+##   `Price per bushel 1/` = col_double(),
+##   `Value of production` = col_double()
+## )</code></pre>
+<pre class="r"><code>barley_co2_data &lt;- co2_data_clean %&gt;% left_join(barley_data, by = c(&quot;Time&quot; = &quot;Year&quot;))
+
+#barley_co2_data &lt;- barley_co2_data %&gt;% filter(CO2_emissions_kt != &quot;..&quot;) %&gt;% type_convert()
+View(barley_co2_data)
+
+
+#write_csv(barely_co2_data, file = here::here(&quot;dataset&quot;, &quot;barley_co2_data&quot;))
+
+#save(barley_co2_data, file = here::here(&quot;dataset/barely_co2_data.RData&quot;))</code></pre>
+<pre class="r"><code># read_csv(here::here(&quot;dataset/barley_co2_data&quot;))
+
+Year &lt;- barley_co2_data %&gt;% pull(Time)
+Production &lt;- barley_co2_data %&gt;% pull(Production)
+co_emit &lt;- barley_co2_data %&gt;% pull(CO2_emissions_kt)
+
+barley_ts &lt;- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
+  geom_line() +
+  xlab(&quot;&quot;)
+barley_ts</code></pre>
+<p><img src="/analysis_files/figure-html/barley_timeseries-1.png" width="672" />
+In our time series analysis above, we analyze the production of barley over time.</p>
+<pre class="r"><code>ggAcf(barley_co2_data$`Area harvested`)  ###use difference </code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-1.png" width="672" /></p>
+<pre class="r"><code>ggAcf(diff(barley_co2_data$`Area harvested`)) ## no autocorrelation</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-2.png" width="672" /></p>
+<pre class="r"><code># co2 emission
+ggAcf(barley_co2_data$CO2_emissions_kt) ##persistent  autocorrelation </code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-3.png" width="672" /></p>
+<pre class="r"><code>ggAcf(diff(barley_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-4.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Area harvested`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-5.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Production`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-6.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Area planted`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-7.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Yield per acre`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-8.png" width="672" /></p>
+<pre class="r"><code>diff_df &lt;- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
+diff_df %&gt;% ggplot(aes(y = diff_area, x = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-9.png" width="672" /></p>
+<pre class="r"><code>### weak correlation between difference data, relation seems to be cubic
+
+barley_co2_data %&gt;% ggplot(aes(y = `Area harvested`, x = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-10.png" width="672" /></p>
+<pre class="r"><code>##there is very weak correlation
+
+lm1 &lt;- (lm(`Area harvested`~ CO2_emissions_kt, barley_co2_data)) 
+summary(lm1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = `Area harvested` ~ CO2_emissions_kt, data = barley_co2_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2256.4 -1656.4  -582.9  1720.3  4212.1 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)      4.084e+03  5.284e+03   0.773    0.446
+## CO2_emissions_kt 2.433e-05  1.003e-03   0.024    0.981
+## 
+## Residual standard error: 1937 on 30 degrees of freedom
+## Multiple R-squared:  1.961e-05,  Adjusted R-squared:  -0.03331 
+## F-statistic: 0.0005884 on 1 and 30 DF,  p-value: 0.9808</code></pre>
+<pre class="r"><code>lm1_diff &lt;-lm(diff_area ~ poly(diff_co2,3), diff_df)
+summary(lm1_diff)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = diff_area ~ poly(diff_co2, 3), data = diff_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1058.4  -439.5  -128.4   301.6  1027.6 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)          -180.0      109.3  -1.648    0.111
+## poly(diff_co2, 3)1   -308.0      608.3  -0.506    0.617
+## poly(diff_co2, 3)2   -142.2      608.3  -0.234    0.817
+## poly(diff_co2, 3)3    610.6      608.3   1.004    0.324
+## 
+## Residual standard error: 608.3 on 27 degrees of freedom
+## Multiple R-squared:  0.04656,    Adjusted R-squared:  -0.05938 
+## F-statistic: 0.4395 on 3 and 27 DF,  p-value: 0.7266</code></pre>
+<pre class="r"><code>## No significant association between co2 emissions and area harvested
+
+ggAcf(lm1$residuals)</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-11.png" width="672" /></p>
+<pre class="r"><code>ggAcf(lm1_diff$residuals)</code></pre>
+<p><img src="/analysis_files/figure-html/barley_stats-12.png" width="672" /></p>
+<p>The barley data as it compares to CO2 emissions is seen above.</p>
 </div>

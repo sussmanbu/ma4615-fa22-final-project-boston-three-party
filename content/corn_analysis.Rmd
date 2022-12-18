@@ -1,0 +1,32 @@
+---
+title: Corn Analysis
+description:
+toc: true
+featuredVideo:
+featuredImage:
+draft: false
+---
+
+```{r packages, echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+#install.packages("forecast")
+require(forecast)
+library(readr)
+```
+
+
+```{r corn_timeseries, echo=FALSE}
+
+# Year <- corn_co2_data %>% pull(Time)
+# Production <- corn_co2_data %>% pull(Production)
+# co_emit <- corn_co2_data %>% pull(CO2_emissions_kt)
+# 
+# corn_ts <- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
+#   geom_line() + 
+#   xlab("")
+# corn_ts
+
+```
+In our time series analysis above, we analyze the production of corn over time.
