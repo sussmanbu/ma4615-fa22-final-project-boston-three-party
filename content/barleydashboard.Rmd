@@ -27,6 +27,7 @@ library(DT)
 
 ### Chart 1 Plotly Barley
 ```{r}
+library(flexdashboard)
 library(tidyverse)
 suppressMessages(library(plotly))
 
@@ -52,12 +53,12 @@ library(tidyr)
 
 
 
-#barley <- barley_co2_data
-barley <- read_csv(here::here("dataset", "barley_co2_data"))
+barley <- barley_co2_data
+#barley <- read_csv(here::here("dataset", "barley_co2_data"))
 
 
 g <- ggplot(barley, aes(x = Time, y = Production, color = CO2_emissions_kt,
-  text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "GDP Growth Percent:", GDP_growth))) +
+  text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per Acre:", barley$`Yield per acre`))) +
   geom_point(position = "jitter")
 ggplotly(g, tooltip = "text")
 ```
@@ -67,28 +68,16 @@ ggplotly(g, tooltip = "text")
 ```{r}
 #install.packages("gapminder")
 barley <- barley_co2_data
-
 data(barley)
 gg <- ggplot(barley,
   aes(x = Time, y = Production,
     color = CO2_emissions_kt,
-    size = barley$`Yield per acre`)) +
+    size = barley$`Yield per acre`, 
+      text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per acre:", barley$`Yield per acre`))) +
   geom_point(alpha = 0.1) +
   geom_point(aes(frame = Time)) +
   scale_x_log10()
-ggplotly(gg)
-
-
-
-#data(gapminder, package = "gapminder")
-#gg <- ggplot(gapminder,
-#  aes(x = gdpPercap, y = lifeExp,
-#    color = continent,
- #   size = pop)) +
-  #geom_point(alpha = 0.1) +
-#  geom_point(aes(frame = year)) +
- # scale_x_log10()
-#ggplotly(gg)
+ggplotly(gg, tooltip = "text")
 ```
 
 
