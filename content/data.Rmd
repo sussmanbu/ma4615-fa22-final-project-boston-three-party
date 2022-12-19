@@ -58,7 +58,6 @@ save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
 ```
 
 
-
 For our CO2 emission we just cleaned the file and wrote a new csv file.We used here::here function to specify the file path
 
 ```{r}
@@ -101,7 +100,6 @@ View(rye_dataset_4)
 
 rye_dataset <- rye_dataset_3%>%bind_rows(rye_dataset_4)
 ```
-
 
 
 Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers 
