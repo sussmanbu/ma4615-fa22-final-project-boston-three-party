@@ -1,5 +1,5 @@
 ---
-title: "dashboard"
+title: "corn dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -52,11 +52,11 @@ library(tidyr)
 
 
 
-#barley <- barley_co2_data
-barley <- read_csv(here::here("dataset", "barley_co2_data"))
+corn <- corn_co2_data
+#corn <- read_csv(here::here("dataset", "corn_co2_data"))
 
 
-g <- ggplot(barley, aes(x = Time, y = CO2_emissions_kt, color = barley_co2_data$Production,
+g <- ggplot(corn_co2_data, aes(x = Time, y = Production, color = CO2_emissions_kt.x,
   text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "GDP Growth Percent:", GDP_growth))) +
   geom_point(position = "jitter")
 ggplotly(g, tooltip = "text")
@@ -66,13 +66,12 @@ ggplotly(g, tooltip = "text")
 ### Chart 2 Animation Barley
 ```{r}
 #install.packages("gapminder")
-barley <- barley_co2_data
-
-data(barley)
-gg <- ggplot(barley,
-  aes(x = Time, y = CO2_emissions_kt,
-    color = Production,
-    size = Total_greenhouse_gas_emissions)) +
+corn <- corn_co2_data
+data(corn)
+gg <- ggplot(corn,
+  aes(x = Time, y = Production,
+    color = CO2_emissions_kt.x,
+    size = corn$`Yield per acre`)) +
   geom_point(alpha = 0.1) +
   geom_point(aes(frame = Time)) +
   scale_x_log10()
@@ -98,13 +97,13 @@ ggplotly(gg)
 
 
 library(DT)
-barley %>%
+corn %>%
   datatable(rownames = FALSE, options = list(pageLength = 5))
 
-barley %>% select(Time, CO2_emissions_kt, Production) %>%
+corn %>% select(Time, CO2_emissions_kt.x, Production) %>%
   #filter(row_number() %% 20 == 0) %>%
   formattable(list(displ = color_tile("white", "orange"),
-    area(col = c(CO2_emissions_kt)) ~ normalize_bar("green", 0.2),
+    area(col = c(CO2_emissions_kt.x)) ~ normalize_bar("green", 0.2),
     Production = formatter("span",
       style = Production ~ ifelse(Production<=200000, style(color = "red"),
         ifelse(Production>20000, style(color = "blue"),

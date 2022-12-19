@@ -52,7 +52,8 @@ barley_data <- barley_data_3%>%bind_rows(barley_data_4)
 barley_data <- barley_data %>% type_convert()
 
 barley_co2_data <- co2_data_clean %>% left_join(barley_data, by = c("Time" = "Year"))
-
+write_csv(co2_data_clean, file = here::here("dataset", "barley_co2_data"))
+save(co2_data_clean, file = here::here("dataset/barley_co2_.RData"))
 #barley_co2_data <- barley_co2_data %>% filter(CO2_emissions_kt != "..") %>% type_convert()
 View(barley_co2_data)
 
