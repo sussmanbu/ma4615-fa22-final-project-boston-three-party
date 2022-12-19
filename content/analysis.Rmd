@@ -3,7 +3,7 @@ title: Analysis
 description:
 toc: true
 featuredVideo:
-featuredImage: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Change_in_Average_Temperature_With_Fahrenheit.svg/1280px-Change_in_Average_Temperature_With_Fahrenheit.svg.png
+featuredImage: 
 draft: false
 ---
 
