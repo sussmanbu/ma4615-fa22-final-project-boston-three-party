@@ -9,7 +9,6 @@ draft: false
 
 This comes from the file `content/corn_analysis.Rmd`.
 
-
 ```{r packages, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
@@ -20,7 +19,7 @@ library(readr)
 library(tidyr)
 ```
 
-```{r cleaning_data}
+```{r cleaning_data, echo=FALSE}
 ## CLEAN THE DATA
 co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
 
@@ -75,7 +74,7 @@ View(corn_co2_data)
 ```
 
 
-```{r corn_timeseries, echo=FALSE}
+```{r corn_timeseries}
 
 Year <- corn_co2_data %>% pull(Time)
 Production <- corn_co2_data %>% pull(Production)
@@ -122,9 +121,6 @@ ggAcf(lm1_diff$residuals)
 
 
 ```
-
-
-
 
 
 

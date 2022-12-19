@@ -28,8 +28,8 @@ markup:
     noClasses: false
   tableOfContents:
     startLevel: 2
-    endLevel: 7
-    ordered: true
+    endLevel: 9
+    ordered: false
   goldmark:
     renderer:
       unsafe: true
@@ -48,20 +48,26 @@ menu:
       url: '/about/'
       weight: 2
     - name: Data
-      url: /data/
+      url: '/data/'
       weight: 3
     - name: Analysis
-      url: /analysis/
+      url: '/analysis/'
       weight: 4
     - name: Corn Analysis
-      url: /corn_analysis/
+      url: '/corn_analysis/'
       weight: 5
     - name: Big Picture
-      url: /big_picture/
+      url: '/big_picture/'
       weight: 6
     - name: Posts
-      url: /post/
+      url: '/post/'
       weight: 7
+    - name: Barley Analysis
+      url: '/barley_analysis/'
+      weight: 8
+    - name: Flaxseed Analysis
+      url: '/flaxseed_analysis/'
+      weight: 9
     
 
 params:      

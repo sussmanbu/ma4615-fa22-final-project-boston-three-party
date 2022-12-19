@@ -1,5 +1,5 @@
 ---
-title: "dashboard"
+title: "barley dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -56,7 +56,7 @@ library(tidyr)
 barley <- read_csv(here::here("dataset", "barley_co2_data"))
 
 
-g <- ggplot(barley, aes(x = Time, y = CO2_emissions_kt, color = barley_co2_data$Production,
+g <- ggplot(barley, aes(x = Time, y = Production, color = CO2_emissions_kt,
   text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "GDP Growth Percent:", GDP_growth))) +
   geom_point(position = "jitter")
 ggplotly(g, tooltip = "text")
@@ -70,9 +70,9 @@ barley <- barley_co2_data
 
 data(barley)
 gg <- ggplot(barley,
-  aes(x = Time, y = CO2_emissions_kt,
-    color = Production,
-    size = Total_greenhouse_gas_emissions)) +
+  aes(x = Time, y = Production,
+    color = CO2_emissions_kt,
+    size = barley$`Yield per acre`)) +
   geom_point(alpha = 0.1) +
   geom_point(aes(frame = Time)) +
   scale_x_log10()
@@ -94,7 +94,7 @@ ggplotly(gg)
 
 ### formatted table barley
 ```{r}
-#install.packages("formattable")
+install.packages("formattable")
 
 
 library(DT)
