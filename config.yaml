@@ -28,8 +28,8 @@ markup:
     noClasses: false
   tableOfContents:
     startLevel: 2
-    endLevel: 6
-    ordered: false
+    endLevel: 7
+    ordered: true
   goldmark:
     renderer:
       unsafe: true
