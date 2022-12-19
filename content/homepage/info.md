@@ -7,7 +7,6 @@ organization:
   name: Boston University
   url: https://www.bu.edu/
 
-
 weight: 2
 widget:
   handler: about
