@@ -27,36 +27,7 @@ draft: false
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
 <pre class="r"><code>## CLEAN THE DATA
-co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))
-
-#write_csv(co2_data_clean, file = here::here(&quot;dataset&quot;, &quot;clean_co2.csv&quot;))
-
-#save(co2_data_clean, file = here::here(&quot;dataset/clean_co2.RData&quot;))
-co2_data_clean &lt;- co2_data_clean[,-1]
-
-co2_data_clean[co2_data_clean == &quot;..&quot;] = NA
-co2_data_clean &lt;- co2_data_clean %&gt;% type_convert()</code></pre>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   CO2_emissions_kt = col_double(),
-##   Forest_area_percent = col_double(),
-##   Electricity_production = col_double(),
-##   Renewable_electricity_output = col_double(),
-##   Total_greenhouse_gas_emissions = col_double(),
-##   Fossil_fuel_energy_consumption = col_double(),
-##   Research_development_expenditure = col_double(),
-##   Goods_services_exports = col_double(),
-##   Population_density = col_double()
-## )</code></pre>
-<pre class="r"><code>co2_data_clean[is.na(co2_data_clean)] = 0
-
-
-co2_data_clean &lt;- co2_data_clean[19:50,]
-
-for(i in 2:ncol(co2_data_clean)){
-  co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
-}</code></pre>
+co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))</code></pre>
 <pre class="r"><code>barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 47 Columns: 9
@@ -151,16 +122,18 @@ summary(lm1)</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -2256.4 -1656.4  -582.9  1720.3  4212.1 
+## -2240.5 -1319.0  -437.9  1488.3  4254.3 
 ## 
 ## Coefficients:
-##                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)      4.084e+03  5.284e+03   0.773    0.446
-## CO2_emissions_kt 2.433e-05  1.003e-03   0.024    0.981
+##                   Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      2.332e+03  1.280e+03   1.822   0.0785 .
+## CO2_emissions_kt 3.799e-04  2.500e-04   1.519   0.1392  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1937 on 30 degrees of freedom
-## Multiple R-squared:  1.961e-05,  Adjusted R-squared:  -0.03331 
-## F-statistic: 0.0005884 on 1 and 30 DF,  p-value: 0.9808</code></pre>
+## Residual standard error: 1867 on 30 degrees of freedom
+## Multiple R-squared:  0.07145,    Adjusted R-squared:  0.04049 
+## F-statistic: 2.308 on 1 and 30 DF,  p-value: 0.1392</code></pre>
 <pre class="r"><code>lm1_diff &lt;-lm(diff_area ~ poly(diff_co2,3), diff_df)
 summary(lm1_diff)</code></pre>
 <pre><code>## 
@@ -169,18 +142,18 @@ summary(lm1_diff)</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -1058.4  -439.5  -128.4   301.6  1027.6 
+## -1102.2  -413.9  -122.6   367.2  1134.6 
 ## 
 ## Coefficients:
 ##                    Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)          -180.0      109.3  -1.648    0.111
-## poly(diff_co2, 3)1   -308.0      608.3  -0.506    0.617
-## poly(diff_co2, 3)2   -142.2      608.3  -0.234    0.817
-## poly(diff_co2, 3)3    610.6      608.3   1.004    0.324
+## (Intercept)          -180.0      111.0  -1.621    0.117
+## poly(diff_co2, 3)1   -230.4      618.2  -0.373    0.712
+## poly(diff_co2, 3)2   -311.9      618.2  -0.505    0.618
+## poly(diff_co2, 3)3   -107.8      618.2  -0.174    0.863
 ## 
-## Residual standard error: 608.3 on 27 degrees of freedom
-## Multiple R-squared:  0.04656,    Adjusted R-squared:  -0.05938 
-## F-statistic: 0.4395 on 3 and 27 DF,  p-value: 0.7266</code></pre>
+## Residual standard error: 618.2 on 27 degrees of freedom
+## Multiple R-squared:  0.01545,    Adjusted R-squared:  -0.09394 
+## F-statistic: 0.1413 on 3 and 27 DF,  p-value: 0.9344</code></pre>
 <pre class="r"><code>## No significant association between co2 emissions and area harvested
 
 ggAcf(lm1$residuals)</code></pre>
