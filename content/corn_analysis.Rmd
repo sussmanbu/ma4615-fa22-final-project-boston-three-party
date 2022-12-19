@@ -19,7 +19,7 @@ library(readr)
 library(tidyr)
 ```
 
-```{r cleaning_data}
+```{r cleaning_data, echo=FALSE}
 ## CLEAN THE DATA
 co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
 
