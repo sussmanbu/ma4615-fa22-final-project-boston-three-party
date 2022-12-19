@@ -1,9 +1,9 @@
 ---
 title: Flaxseed Analysis
-description:
+description: 
 toc: true
-featuredVideo:
-featuredImage:
+featuredVideo: 
+featuredImage: 
 draft: false
 ---
 
