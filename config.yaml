@@ -28,7 +28,7 @@ markup:
     noClasses: false
   tableOfContents:
     startLevel: 2
-    endLevel: 10
+    endLevel: 11
     ordered: false
   goldmark:
     renderer:
@@ -71,6 +71,9 @@ menu:
     - name: Oat Analysis
       url: '/oat_analysis/'
       weight: 10
+    - name: Rye Analysis
+      url: '/rye_analysis/'
+      weight: 11
     
 
 params:      
