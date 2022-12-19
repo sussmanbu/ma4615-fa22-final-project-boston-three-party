@@ -48,7 +48,7 @@ menu:
       url: '/about/'
       weight: 2
     - name: Data
-      url: /data/
+      url: '/data/'
       weight: 3
     - name: Analysis
       url: /analysis/
