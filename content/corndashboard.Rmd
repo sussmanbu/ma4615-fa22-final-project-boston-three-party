@@ -5,7 +5,7 @@ output:
     orientation: columns
     vertical_layout: fill
 ---
-install.packages("flexdashboard")
+#install.packages("flexdashboard")
 
 
 ---
@@ -18,6 +18,7 @@ date: "2022-12-17"
 
 
 ```{r}
+library(flexdashboard)
 library(tidyverse)
 library(plotly)
 #install.packages("DT")
@@ -72,7 +73,7 @@ gg <- ggplot(corn,
   aes(x = Time, y = Production,
     color = CO2_emissions_kt.x,
     size = corn$`Yield per acre`, 
-      text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per acre:", GDP_growth))) +
+      text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per acre:", barley$`Yield per acre`))) +
   geom_point(alpha = 0.1) +
   geom_point(aes(frame = Time)) +
   scale_x_log10()
@@ -121,20 +122,4 @@ corn %>% select(Time, CO2_emissions_kt.x, Production) %>%
 
 
 
-
-
-```{r}
-# install.packages("d3scatter")
-# library(d3scatter)
-# shared_mtcars <- SharedData$new(mtcars)
-# bscols(widths = c(3,NA,NA),
-#   list(
-#     filter_checkbox("cyl", "Cylinders", shared_mtcars, ~cyl, inline = TRUE),
-#     filter_slider("hp", "Horsepower", shared_mtcars, ~hp, width = "100%"),
-#     filter_select("auto", "Automatic", shared_mtcars, ~ifelse(am == 0, "Yes", "No"))
-#   ),
-#   d3scatter(shared_mtcars, ~wt, ~mpg, ~factor(cyl), width="100%", height=250),
-#   d3scatter(shared_mtcars, ~hp, ~qsec, ~factor(cyl), width="100%", height=250)
-# )
-```
 
