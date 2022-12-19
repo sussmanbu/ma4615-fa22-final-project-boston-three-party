@@ -61,7 +61,7 @@ barley_ts
 
 ```
 The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years,
-we can see a clear net downward trend. 
+we can see a clear net downward trend.
 
 
 
