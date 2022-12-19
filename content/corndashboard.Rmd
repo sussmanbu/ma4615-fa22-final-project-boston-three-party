@@ -25,7 +25,7 @@ library(DT)
 ```
 
 
-### Chart 1 Plotly Barley
+### Chart 1 Plotly Corn
 ```{r}
 library(tidyverse)
 suppressMessages(library(plotly))
@@ -63,7 +63,7 @@ ggplotly(g, tooltip = "text")
 ```
 
 
-### Chart 2 Animation Barley
+### Chart 2 Animation Corn
 ```{r}
 #install.packages("gapminder")
 corn <- corn_co2_data
@@ -91,7 +91,7 @@ ggplotly(gg)
 ```
 
 
-### formatted table barley
+### formatted table corn
 ```{r}
 #install.packages("formattable")
 
