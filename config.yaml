@@ -28,7 +28,7 @@ markup:
     noClasses: false
   tableOfContents:
     startLevel: 2
-    endLevel: 9
+    endLevel: 10
     ordered: false
   goldmark:
     renderer:
@@ -68,6 +68,9 @@ menu:
     - name: Flaxseed Analysis
       url: '/flaxseed_analysis/'
       weight: 9
+    - name: Oat Analysis
+      url: '/oat_analysis/'
+      weight: 10
     
 
 params:      
