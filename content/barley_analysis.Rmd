@@ -60,42 +60,36 @@ barley_ts <- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
 barley_ts
 
 ```
-In our time series analysis above, we analyze the production of barley over time.
+The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years,
+we can see a clear net downward trend. 
 
 
-```{r barley_stats}
-ggAcf(barley_co2_data$`Area harvested`)  ###use difference 
-
-ggAcf(diff(barley_co2_data$`Area harvested`)) ## no autocorrelation
 
 
-# co2 emission
-ggAcf(barley_co2_data$CO2_emissions_kt) ##persistent  autocorrelation 
-ggAcf(diff(barley_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot
+```{r,1}
+barley_co2_data %>% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(x = `Area planted`, y = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + geom_point()
 
-barley_co2_data %>% ggplot(aes(y = `Area harvested`, x = (CO2_emissions_kt))) + geom_point()
-barley_co2_data %>% ggplot(aes(y = `Production`, x = (CO2_emissions_kt))) + geom_point()
-barley_co2_data %>% ggplot(aes(y = `Area planted`, x = (CO2_emissions_kt))) + geom_point()
-barley_co2_data %>% ggplot(aes(y = `Yield per acre`, x = (CO2_emissions_kt))) + geom_point()
+```
+We explored different variables and factors to conclude that there seems to be no relationship between the co2 emission and any of the barley variables. 
 
+```{r,2}
 diff_df <- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
 diff_df %>% ggplot(aes(y = diff_area, x = diff_co2)) + geom_point()+ geom_smooth()
-### weak correlation between difference data, relation seems to be cubic
+```
+There seems to be a weak correlation between diff data. We are using diff to compute the difference between pairs of consecutive elements of co2 emission and barely area harvest. We trying to figure out if the difference between them is significant.  The relation seems to be cubic and not significant. 
 
-barley_co2_data %>% ggplot(aes(y = `Area harvested`, x = CO2_emissions_kt)) + geom_point()+ geom_smooth()
-##there is very weak correlation
-
+```{r,3}
 lm1 <- (lm(`Area harvested`~ CO2_emissions_kt, barley_co2_data)) 
 summary(lm1)
 
 lm1_diff <-lm(diff_area ~ poly(diff_co2,3), diff_df)
 summary(lm1_diff)
 
-## No significant association between co2 emissions and area harvested
-
-ggAcf(lm1$residuals)
-ggAcf(lm1_diff$residuals)
-
 ```
+The R^2 value is 0.04049, so in other words, area harvested for barley accounts for 4% of variation in co2 outputs. Thus there no relationship between area harvested and co2 emission.
 
-The barley data as it compares to CO2 emissions is seen above.
+
+
