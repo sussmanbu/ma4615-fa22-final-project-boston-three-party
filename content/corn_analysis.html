@@ -1,0 +1,216 @@
+---
+title: Corn Analysis
+description:
+toc: true
+featuredVideo:
+featuredImage:
+draft: false
+---
+
+
+<div id="TOC">
+
+</div>
+
+<p>This comes from the file <code>content/corn_analysis.Rmd</code>.</p>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## Loading required package: forecast</code></pre>
+<pre><code>## Warning: package &#39;forecast&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
+##   method            from
+##   as.zoo.data.frame zoo</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   CO2_emissions_kt = col_double(),
+##   Forest_area_percent = col_double(),
+##   Electricity_production = col_double(),
+##   Renewable_electricity_output = col_double(),
+##   Total_greenhouse_gas_emissions = col_double(),
+##   Fossil_fuel_energy_consumption = col_double(),
+##   Research_development_expenditure = col_double(),
+##   Goods_services_exports = col_double(),
+##   Population_density = col_double()
+## )</code></pre>
+<pre class="r"><code># used barley datasets for col names
+barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 47 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): h, Year, Area planted, Area harvested, Yield per acre, Production, ...
+## dbl (1): 5
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>barley_data_3&lt;- barley_data_3[-2,3:ncol(barley_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)
+
+barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p016_t010.csv&quot;),skip = 5)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 39 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): h, Year, Area planted, Area harvested, Yield per acre, Production, ...
+## dbl (1): 10
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>barley_data_4&lt;- barley_data_4[-2,3:ncol(barley_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)
+
+
+
+corn_data_3 &lt;-read_csv(here::here(&quot;dataset&quot;, &quot;corn/crop_p031_t024.csv&quot;),skip = 7)</code></pre>
+<pre><code>## New names:
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`
+## • `` -&gt; `...8`
+## • `` -&gt; `...9`
+## • `` -&gt; `...10`
+## • `` -&gt; `...11`
+## • `` -&gt; `...12`
+## • `` -&gt; `...13`</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 49 Columns: 14
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (13): h, Year, ...4, ...5, ...6, ...7, ...8, ...9, ...10, ...11, ...12, ...
+## dbl  (1): 24
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>corn_data_3&lt;- corn_data_3[-2,3:ncol(corn_data_3)] %&gt;% drop_na(Year) %&gt;%filter(nchar(Year)==4)
+colnames(corn_data_3) &lt;- colnames(barley_data_3) ## (barley_data_3)
+corn_data_3 &lt;- corn_data_3[,1:7]
+# View(corn_data_3)
+
+corn_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;corn/crop_p032_t034.csv&quot;),skip = 7)</code></pre>
+<pre><code>## New names:
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`
+## • `` -&gt; `...8`
+## • `` -&gt; `...9`
+## • `` -&gt; `...10`
+## • `` -&gt; `...11`
+## • `` -&gt; `...12`
+## • `` -&gt; `...13`</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 42 Columns: 14
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (13): h, Year, ...4, ...5, ...6, ...7, ...8, ...9, ...10, ...11, ...12, ...
+## dbl  (1): 34
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>corn_data_4&lt;- corn_data_4[-2,3:ncol(corn_data_4)] %&gt;% drop_na(Year) %&gt;%filter(nchar(Year)==4)
+colnames(corn_data_4) &lt;- colnames(barley_data_4) ## (barley_data_4)
+corn_data_4 &lt;- corn_data_4[,1:7]
+# View(corn_data_4)
+
+
+corn_data &lt;- corn_data_3%&gt;%bind_rows(corn_data_4) 
+corn_data &lt;- corn_data %&gt;% type_convert()</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   Year = col_double(),
+##   `Area planted` = col_double(),
+##   `Area harvested` = col_double(),
+##   `Yield per acre` = col_double(),
+##   Production = col_double(),
+##   `Price per bushel 1/` = col_double(),
+##   `Value of production` = col_double()
+## )</code></pre>
+<pre class="r"><code>View(corn_data)
+
+corn_co2_data &lt;- co2_data_clean %&gt;% left_join(corn_data, by = c(&quot;Time&quot; = &quot;Year&quot;))
+View(corn_co2_data)</code></pre>
+<pre class="r"><code>Year &lt;- corn_co2_data %&gt;% pull(Time)
+Production &lt;- corn_co2_data %&gt;% pull(Production)
+co_emit &lt;- corn_co2_data %&gt;% pull(CO2_emissions_kt)
+
+corn_ts &lt;- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
+  geom_line() +
+  xlab(&quot;&quot;)
+corn_ts</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_timeseries-1.png" width="672" />
+In our time series analysis above, we analyze the production of corn over time.</p>
+<pre class="r"><code>ggAcf(corn_co2_data$`Area harvested`)  ###use difference </code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-1.png" width="672" /></p>
+<pre class="r"><code>ggAcf(diff(corn_co2_data$`Area harvested`)) ## no autocorrelation</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-2.png" width="672" /></p>
+<pre class="r"><code># co2 emission
+ggAcf(corn_co2_data$CO2_emissions_kt) ##persistent  autocorrelation </code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-3.png" width="672" /></p>
+<pre class="r"><code>ggAcf(diff(corn_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-4.png" width="672" /></p>
+<pre class="r"><code>#corn_co2_data %&gt;% ggplot(aes(x = diff(`Area harvested`), y = diff(CO2_emissions_kt))) + geom_point()
+
+diff_df &lt;- data.frame(diff_area = diff(corn_co2_data$`Area harvested`), diff_co2 = diff(corn_co2_data$CO2_emissions_kt) )
+diff_df %&gt;% ggplot(aes(x = diff_area, y = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-5.png" width="672" /></p>
+<pre class="r"><code>### weak correlation between co2 and harvested
+
+corn_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-6.png" width="672" /></p>
+<pre class="r"><code>##there is weak correlation here, the relation seems to be cubic
+
+lm1 &lt;- (lm(`Area harvested`~ poly(CO2_emissions_kt,3), corn_co2_data)) 
+summary(lm1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = `Area harvested` ~ poly(CO2_emissions_kt, 3), data = corn_co2_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15771.7  -3240.6    -87.8   5267.1  12311.7 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   82637       1260  65.566   &lt;2e-16 ***
+## poly(CO2_emissions_kt, 3)1   -11308       7130  -1.586    0.124    
+## poly(CO2_emissions_kt, 3)2    -3124       7130  -0.438    0.665    
+## poly(CO2_emissions_kt, 3)3     7362       7130   1.033    0.311    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7130 on 28 degrees of freedom
+## Multiple R-squared:  0.1188, Adjusted R-squared:  0.02434 
+## F-statistic: 1.258 on 3 and 28 DF,  p-value: 0.3078</code></pre>
+<pre class="r"><code>lm1_diff &lt;-lm(diff_area ~ diff_co2, diff_df) 
+summary(lm1_diff)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = diff_area ~ diff_co2, data = diff_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9389.1 -2783.1   498.6  1870.5 14569.1 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 5.946e+02  9.014e+02   0.660    0.515
+## diff_co2    3.499e-03  6.154e-03   0.569    0.574
+## 
+## Residual standard error: 5018 on 29 degrees of freedom
+## Multiple R-squared:  0.01103,    Adjusted R-squared:  -0.02308 
+## F-statistic: 0.3233 on 1 and 29 DF,  p-value: 0.574</code></pre>
+<pre class="r"><code># No significant association
+
+ggAcf(lm1$residuals)</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-7.png" width="672" /></p>
+<pre class="r"><code>ggAcf(lm1_diff$residuals)</code></pre>
+<p><img src="/corn_analysis_files/figure-html/corn_stats-8.png" width="672" /></p>
