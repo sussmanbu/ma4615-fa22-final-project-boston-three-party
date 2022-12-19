@@ -95,7 +95,7 @@ summary(lm1_diff)
 ## No significant association between co2 emissions and area harvested
 
 ggAcf(lm1$residuals)
-ggAcf(lm1_diff$residuals)
+#ggAcf(lm1_diff$residuals)
 
 #------------------------------------------------------------------------------------------
 
