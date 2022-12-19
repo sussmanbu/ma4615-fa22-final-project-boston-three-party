@@ -74,7 +74,7 @@ View(corn_co2_data)
 ```
 
 
-```{r corn_timeseries, echo=FALSE}
+```{r corn_timeseries}
 
 Year <- corn_co2_data %>% pull(Time)
 Production <- corn_co2_data %>% pull(Production)

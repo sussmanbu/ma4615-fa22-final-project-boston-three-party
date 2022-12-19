@@ -28,7 +28,7 @@ markup:
     noClasses: false
   tableOfContents:
     startLevel: 2
-    endLevel: 8
+    endLevel: 9
     ordered: false
   goldmark:
     renderer:
@@ -65,6 +65,9 @@ menu:
     - name: Barley Analysis
       url: '/barley_analysis/'
       weight: 8
+    - name: Flaxseed Analysis
+      url: '/flaxseed_analysis/'
+      weight: 9
     
 
 params:      
