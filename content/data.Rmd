@@ -14,6 +14,7 @@ Climate Change Data: https://databank.worldbank.org/reports.aspx?source=2&series
 
 Crop data Pdf: https://downloads.usda.library.cornell.edu/usda-esmis/files/c534fn92g/g158cn09g/zc77tv62q/croptr22.pdf
 
+
 We created our first dataset by choosing climate variables that we thought were vital contributions from the World Bank. The data from World Bank was collected by GHG Emissions Washington, D.C: World Resources Institute, climatewatchdata.org/ghg-emissions.  This data was compiled for research and policy purposes. Our second dataset, Crop Proudction Dataset, was collected by the USDA for the purpose of creating a reference for data users.
  
 Our first dataset includes 12 variables: agriculture, forestry, and fishing value added, irrigated land, machinery and tractors, agricultural methane/nitrous oxide emissions, raw materials exports/imports, crop production index, livestock production index, percent of the rural population, and annual freshwater withdrawals. Our initial findings show that there has been a decline in agricultural land, machinery and tractors, raw materials exports, and percent rural population in the past 50 years in the United States. Conversely, there has been an increase in agricultural methane and nitrous oxide emissions, crop production, livestock production index, and annual freshwater withdrawals. 
