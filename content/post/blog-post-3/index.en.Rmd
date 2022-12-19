@@ -14,7 +14,7 @@ featuredVideo: ~
 featuredImage: ~
 ---
 
-We are examining the CO2 Emissions dataset in Blogpost 3!
+We are examining the CO2 Emissions dataset in Blogpost 3.
 
 Our data highlights the physical effects of climate change in the US in comparison to a number of financial indicators over time. Data collectors analyzed factors related to CO2 emissions related to human activities such as deforestation and use of electricity.
 
