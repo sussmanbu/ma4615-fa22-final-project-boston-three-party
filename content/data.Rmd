@@ -103,4 +103,4 @@ rye_dataset <- rye_dataset_3%>%bind_rows(rye_dataset_4)
 ```
 
 
-Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers 
+Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers. 
