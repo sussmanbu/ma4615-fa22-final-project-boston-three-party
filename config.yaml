@@ -28,7 +28,7 @@ markup:
     noClasses: false
   tableOfContents:
     startLevel: 2
-    endLevel: 7
+    endLevel: 8
     ordered: false
   goldmark:
     renderer:
@@ -62,6 +62,9 @@ menu:
     - name: Posts
       url: /post/
       weight: 7
+    - name: Barley Analysis
+      url: /barley_analysis/
+      weight: 8
     
 
 params:      

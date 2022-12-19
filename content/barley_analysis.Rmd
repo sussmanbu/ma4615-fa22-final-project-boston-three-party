@@ -9,7 +9,7 @@ draft: false
 
 This comes from the file `content/barley_analysis.Rmd`.
 
-```{r packages}
+```{r packages, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
