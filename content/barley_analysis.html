@@ -26,9 +26,6 @@ draft: false
 <pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
-<pre class="r"><code>## CLEAN THE DATA
-co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))</code></pre>
-<pre class="r"><code>barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 47 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -38,9 +35,6 @@ co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))</co
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>barley_data_3&lt;- barley_data_3[-2,3:ncol(barley_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)
-
-barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p016_t010.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 39 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -49,12 +43,8 @@ barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p
 ## dbl (1): 10
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>barley_data_4&lt;- barley_data_4[-2,3:ncol(barley_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)
-
-barley_data &lt;- barley_data_3%&gt;%bind_rows(barley_data_4) 
-barley_data &lt;- barley_data %&gt;% type_convert()</code></pre>
-<pre><code>## 
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Year = col_double(),
@@ -65,15 +55,6 @@ barley_data &lt;- barley_data %&gt;% type_convert()</code></pre>
 ##   `Price per bushel 1/` = col_double(),
 ##   `Value of production` = col_double()
 ## )</code></pre>
-<pre class="r"><code>barley_co2_data &lt;- co2_data_clean %&gt;% left_join(barley_data, by = c(&quot;Time&quot; = &quot;Year&quot;))
-
-#barley_co2_data &lt;- barley_co2_data %&gt;% filter(CO2_emissions_kt != &quot;..&quot;) %&gt;% type_convert()
-View(barley_co2_data)
-
-
-#write_csv(barely_co2_data, file = here::here(&quot;dataset&quot;, &quot;barley_co2_data&quot;))
-
-#save(barley_co2_data, file = here::here(&quot;dataset/barely_co2_data.RData&quot;))</code></pre>
 <pre class="r"><code># read_csv(here::here(&quot;dataset/barley_co2_data&quot;))
 
 Year &lt;- barley_co2_data %&gt;% pull(Time)

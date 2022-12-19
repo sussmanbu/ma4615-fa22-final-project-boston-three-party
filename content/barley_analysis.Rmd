@@ -19,14 +19,14 @@ library(readr)
 library(tidyr)
 ```
 
-```{r load_co2_data}
+```{r load_co2_data, echo=FALSE}
 ## CLEAN THE DATA
 co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
 
 ```
 
 
-```{r barley_co2_dataset}
+```{r barley_co2_dataset, echo=FALSE}
 barley_data_3 <- read_csv(here::here("dataset", "barley/crop_p015_t005.csv"),skip = 5)
 barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% head(-1)
 
