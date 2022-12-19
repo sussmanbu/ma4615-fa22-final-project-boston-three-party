@@ -56,17 +56,17 @@ menu:
     - name: Corn Analysis
       url: '/corn_analysis/'
       weight: 5
-    - name: Big Picture
-      url: '/big_picture/'
-      weight: 6
-    - name: Posts
-      url: '/post/'
-      weight: 7
     - name: Barley Analysis
       url: '/barley_analysis/'
-      weight: 8
+      weight: 6
     - name: Flaxseed Analysis
       url: '/flaxseed_analysis/'
+      weight: 7
+    - name: Big Picture
+      url: '/big_picture/'
+      weight: 8
+    - name: Posts
+      url: '/post/'
       weight: 9
     
 
