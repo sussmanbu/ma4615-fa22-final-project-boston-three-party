@@ -82,7 +82,7 @@ params:
   titleSeparator:
   
   # Options: auto, light and dark. Default is auto.
-  colorScheme: auto
+  colorScheme: light
   
   # E.g. Person, Organization, LocalBusiness, Project, EducationalOrganization
   siteType: Project
