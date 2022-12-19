@@ -1,0 +1,117 @@
+---
+title: Barley Analysis
+description:
+toc: true
+featuredVideo:
+featuredImage:
+draft: false
+---
+
+This comes from the file `content/barley_analysis.Rmd`.
+
+```{r packages}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+#install.packages("forecast")
+require(forecast)
+library(readr)
+library(tidyr)
+```
+
+```{r cleaning_data}
+## CLEAN THE DATA
+co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
+
+#write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
+
+#save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
+co2_data_clean <- co2_data_clean[,-1]
+
+co2_data_clean[co2_data_clean == ".."] = NA
+co2_data_clean <- co2_data_clean %>% type_convert()
+co2_data_clean[is.na(co2_data_clean)] = 0
+
+
+co2_data_clean <- co2_data_clean[19:50,]
+
+for(i in 2:ncol(co2_data_clean)){
+  co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
+}
+
+```
+
+
+```{r barley_co2_dataset}
+barley_data_3 <- read_csv(here::here("dataset", "barley/crop_p015_t005.csv"),skip = 5)
+barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% head(-1)
+
+barley_data_4 <- read_csv(here::here("dataset", "barley/crop_p016_t010.csv"),skip = 5)
+barley_data_4<- barley_data_4[-2,3:ncol(barley_data_4)] %>% drop_na(Year) %>% head(-1)
+
+barley_data <- barley_data_3%>%bind_rows(barley_data_4) 
+barley_data <- barley_data %>% type_convert()
+
+barley_co2_data <- co2_data_clean %>% left_join(barley_data, by = c("Time" = "Year"))
+
+#barley_co2_data <- barley_co2_data %>% filter(CO2_emissions_kt != "..") %>% type_convert()
+View(barley_co2_data)
+
+
+#write_csv(barely_co2_data, file = here::here("dataset", "barley_co2_data"))
+
+#save(barley_co2_data, file = here::here("dataset/barely_co2_data.RData"))
+```
+
+```{r barley_timeseries}
+# read_csv(here::here("dataset/barley_co2_data"))
+
+Year <- barley_co2_data %>% pull(Time)
+Production <- barley_co2_data %>% pull(Production)
+co_emit <- barley_co2_data %>% pull(CO2_emissions_kt)
+
+barley_ts <- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
+  geom_line() +
+  xlab("")
+barley_ts
+
+```
+In our time series analysis above, we analyze the production of barley over time.
+
+
+```{r barley_stats}
+ggAcf(barley_co2_data$`Area harvested`)  ###use difference 
+
+ggAcf(diff(barley_co2_data$`Area harvested`)) ## no autocorrelation
+
+
+# co2 emission
+ggAcf(barley_co2_data$CO2_emissions_kt) ##persistent  autocorrelation 
+ggAcf(diff(barley_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot
+
+barley_co2_data %>% ggplot(aes(y = `Area harvested`, x = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(y = `Production`, x = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(y = `Area planted`, x = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(y = `Yield per acre`, x = (CO2_emissions_kt))) + geom_point()
+
+diff_df <- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
+diff_df %>% ggplot(aes(y = diff_area, x = diff_co2)) + geom_point()+ geom_smooth()
+### weak correlation between difference data, relation seems to be cubic
+
+barley_co2_data %>% ggplot(aes(y = `Area harvested`, x = CO2_emissions_kt)) + geom_point()+ geom_smooth()
+##there is very weak correlation
+
+lm1 <- (lm(`Area harvested`~ CO2_emissions_kt, barley_co2_data)) 
+summary(lm1)
+
+lm1_diff <-lm(diff_area ~ poly(diff_co2,3), diff_df)
+summary(lm1_diff)
+
+## No significant association between co2 emissions and area harvested
+
+ggAcf(lm1$residuals)
+ggAcf(lm1_diff$residuals)
+
+```
+
+The barley data as it compares to CO2 emissions is seen above.
