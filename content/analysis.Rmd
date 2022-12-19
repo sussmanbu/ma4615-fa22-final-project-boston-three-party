@@ -68,6 +68,7 @@ heatmap(res)
 
 ```{r barley_co2_dataset}
 library(tidyr)
+install.packages("XQuartz")
 barley_data_3 <- read_csv(here::here("dataset", "barley/crop_p015_t005.csv"),skip = 5)
 barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% head(-1)
 

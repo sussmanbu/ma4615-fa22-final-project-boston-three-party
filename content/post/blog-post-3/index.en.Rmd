@@ -16,9 +16,9 @@ featuredImage: ~
 
 We are examining the CO2 Emissions dataset in Blogpost 3.
 
-Our data highlights the physical effects of climate change in the US in comparison to a number of financial indicators over time. Data collectors analyzed factors related to CO2 emissions related to human activities such as deforestation and use of electricity. 
+Our data highlights the physical effects of climate change in the US in comparison to a number of financial indicators over time. Data collectors analyzed factors related to CO2 emissions related to human activities such as deforestation and use of electricity.
 
-The equitable data practice of justice is relevant to this dataset and its analysis because climate change negatively impacts minority populations. By examining the correlation between climate change and economic outputs such as GDP growth, we can begin to consider how climate change unfairly impacts certain communities. We can also examine the correlation between climate change and human activities such as deforestation and electricity use to examine conservation efforts over time. The point of this study might be to emphasize the importance of furthering conservation efforts to reduce CO2 emissions.
+The equitable data practice of justice is relevant to this dataset and its analysis because climate change negatively impacts minority populations. By examining the correlation between climate change and economic outputs such as GDP growth, we can begin to consider how climate change unfairly impacts certain communities. We can also examine the correlation between climate change and human activities such as deforestation and electricity use to examine conservation efforts over time. The point of this study might be to emphasize the importance of furthering conservation efforts to reduce CO2 emissions.  
 
 The practice of beneficence is also relevant to this dataset and its analysis because reducing CO2 emission ultimately will benefit this and future generations. To adhere to the practice of beneficence, it is important that we recognize the benefits of tackling climate change while analyzing the data. The implications of the analyses will hopefully point to concrete solutions for mitigating the harmful effects of climate change.
 
