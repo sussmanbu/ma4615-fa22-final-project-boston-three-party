@@ -1,23 +1,15 @@
 ---
-title: "barley dashboard"
+title: "flaxseed dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
 ---
-install.packages("flexdashboard")
 
-
----
-title: "dashboard"
-output: flexdashboard::flex_dashboard:
-    vertical_layout: fill
-date: "2022-12-17"
----
-
-
+flaxseed_co2_data
 
 ```{r}
+library(flexdashboard)
 library(tidyverse)
 library(plotly)
 #install.packages("DT")
@@ -25,9 +17,8 @@ library(DT)
 ```
 
 
-### Chart 1 Plotly Barley
+### Chart 1 Plotly flax
 ```{r}
-library(flexdashboard)
 library(tidyverse)
 suppressMessages(library(plotly))
 
@@ -53,27 +44,27 @@ library(tidyr)
 
 
 
-barley <- barley_co2_data
-#barley <- read_csv(here::here("dataset", "barley_co2_data"))
+flax <- flaxseed_co2_data
+#corn <- read_csv(here::here("dataset", "corn_co2_data"))
 
 
-g <- ggplot(barley, aes(x = Time, y = Production, color = CO2_emissions_kt,
-  text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per Acre:", barley$`Yield per acre`))) +
+g <- ggplot(flaxseed_co2_data, aes(x = Time, y = Production, color = CO2_emissions_kt.x,
+  text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per Acre:", corn$`Yield per acre`))) +
   geom_point(position = "jitter")
 ggplotly(g, tooltip = "text")
 ```
 
 
-### Chart 2 Animation Barley
+### Chart 2 Animation flax
 ```{r}
 #install.packages("gapminder")
-barley <- barley_co2_data
-data(barley)
-gg <- ggplot(barley,
+flax <- flaxseed_co2_data
+data(flax)
+gg <- ggplot(flax,
   aes(x = Time, y = Production,
-    color = CO2_emissions_kt,
-    size = barley$`Yield per acre`, 
-      text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per acre:", barley$`Yield per acre`))) +
+    color = CO2_emissions_kt.x,
+    size = flax$`Yield per acre`, 
+      text = paste("Year:", Time, "<br>", "Production Output:", Production, "<br>", "Yield per acre:", GDP_growth))) +
   geom_point(alpha = 0.1) +
   geom_point(aes(frame = Time)) +
   scale_x_log10()
@@ -81,19 +72,20 @@ ggplotly(gg, tooltip = "text")
 ```
 
 
-### formatted table barley
+### formatted table flax
 ```{r}
-install.packages("formattable")
+#install.packages("formattable")
+
 
 
 library(DT)
-barley %>%
+flax %>%
   datatable(rownames = FALSE, options = list(pageLength = 5))
 
-barley %>% select(Time, CO2_emissions_kt, Production) %>%
+flax %>% select(Time, CO2_emissions_kt.x, Production) %>%
   #filter(row_number() %% 20 == 0) %>%
   formattable(list(displ = color_tile("white", "orange"),
-    area(col = c(CO2_emissions_kt)) ~ normalize_bar("green", 0.2),
+    area(col = c(CO2_emissions_kt.x)) ~ normalize_bar("green", 0.2),
     Production = formatter("span",
       style = Production ~ ifelse(Production<=200000, style(color = "red"),
         ifelse(Production>20000, style(color = "blue"),
@@ -119,22 +111,4 @@ barley %>% select(Time, CO2_emissions_kt, Production) %>%
 
 ```
 
-
-
-
-
-```{r}
-# install.packages("d3scatter")
-# library(d3scatter)
-# shared_mtcars <- SharedData$new(mtcars)
-# bscols(widths = c(3,NA,NA),
-#   list(
-#     filter_checkbox("cyl", "Cylinders", shared_mtcars, ~cyl, inline = TRUE),
-#     filter_slider("hp", "Horsepower", shared_mtcars, ~hp, width = "100%"),
-#     filter_select("auto", "Automatic", shared_mtcars, ~ifelse(am == 0, "Yes", "No"))
-#   ),
-#   d3scatter(shared_mtcars, ~wt, ~mpg, ~factor(cyl), width="100%", height=250),
-#   d3scatter(shared_mtcars, ~hp, ~qsec, ~factor(cyl), width="100%", height=250)
-# )
-```
 
