@@ -38,6 +38,7 @@ cor(co2_data_clean[,-1], co2_data_clean$CO2_emissions_kt)
 #plot of correlation: heatmap
 heatmap(res)
 
+
 #------------------------------------------------------------------------------------------
 
 ## BARLEY
@@ -211,23 +212,45 @@ diff_df <- data.frame(diff_area = diff(flaxseed_co2_data$Area.harvested), diff_c
 diff_df %>% ggplot(aes(x = diff_area, y = diff_co2)) + geom_point()+ geom_smooth()
 ### weak correlation between co2 and harvested
 
-flaxseed_co2_data %>% ggplot(aes(x = Area.harvested, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
+flaxseed_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
 ##there is very strong correlation here
+flaxseed_co2_data <- flaxseed_co2_data %>% mutate(t = c(1:nrow(flaxseed_co2_data)))
 
-lm2 <- (lm(Area.harvested~ CO2_emissions_kt, flaxseed_co2_data)) 
+#lm2 <- (lm(`Area harvested`~ CO2_emissions_kt + I(CO2_emissions_kt^2) + lag(`Area harvested`), flaxseed_co2_data)) 
+#using lag, it is autogressive term, used in time series in lag. 
+lm2 <- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
 summary(lm2)
+#as c02 emission increase the area harvested decrease.Adjusting the model to show autocorrelation
+ggAcf(lm2$residuals) #some autocorrelation
 #High correlation
 
-lm2_diff <-lm(diff_area ~ diff_co2, diff_df) 
-summary(lm2_diff)
-#differenced data has no correlation, differencing is not required
+
+
 
 ggAcf(lm2$residuals)
-ggAcf(lm1_diff$residuals)
-
-
-
-
+#Show plot of (249, ggplot, there is some correlation between to of them. (252, lm2,show the summary)
+# It is important to show they are not autocorrelated by showing ggACF of residuals
+#flaxseed_co2_data %>% mutate(y_fit = c(NA,predict(lm2))) %>% ggplot(aes(x = `Area harvested`, y = y_fit)) + geom_point()+ geom_smooth(method="lm")
+flaxseed_co2_data %>% mutate(y_fit = predict(lm2)) %>% ggplot(aes(x = `Area harvested`, y = y_fit)) + geom_point()+ geom_smooth(method="lm")
+#predicted 400, and true value is 200. 
+#lag of harvest data, and co2 emission
+#prediction aganist the real value of area harvested. The point needs to be aligned and 45 degrees. 
+lm2 <- (lm(`Area harvested`~ lag(CO2_emissions_kt) +  I(lag(CO2_emissions_kt)^2) + t,  flaxseed_co2_data)) 
+summary(lm2)
+y_pred <- flaxseed_co2_data %>% select(`Area harvested`,CO2_emissions_kt, t) 
+y_pred <-rbind(y_pred, c(NA,NA,33))
+y_pred2 <- predict(lm2,y_pred)
+flaxseed_pred <- data.frame(y = c(flaxseed_co2_data$`Area harvested`, NA),
+                            y_fit= c(y_pred2),
+                            Year= c(1990:2022))
+flaxseed_pred %>% ggplot()+
+  geom_line(aes(x = Year, y = y, color = "Obs"))+
+  geom_line(aes(x = Year, y = y_fit, color = "pred"))
+flaxseed_pred %>% tail(5)
+# next year harvest based on the co2 emission is 295.4370 2022
+#we are plot obs values in red. The blue line is predict values. We predicting 2022 using 
+#lag of co2 emission that is why co2 emission, we used 2021 to predict 2022. We are using the trend 
+#which is variable
 #------------------------------------------------------------------------------------------
 ## OATS
 oat_dataset_3<- read_csv(here::here("dataset", "oat/crop_p124_t077.csv"),skip = 5)
