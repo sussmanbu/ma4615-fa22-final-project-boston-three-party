@@ -12,9 +12,6 @@ library(readr)
 ## CLEAN THE DATA
 co2_data_clean <- read.csv("dataset/clean_co2.csv")
 
-#write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
-
-#save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
 co2_data_clean <- co2_data_clean[,-1]
 
 co2_data_clean[co2_data_clean == ".."] = NA
@@ -23,6 +20,10 @@ co2_data_clean[is.na(co2_data_clean)] = 0
 
 
 co2_data_clean <- co2_data_clean[19:50,]
+
+write_csv(co2_data_clean, file = here::here("dataset", "clean_co2.csv"))
+
+save(co2_data_clean, file = here::here("dataset/clean_co2.RData"))
 
 for(i in 2:ncol(co2_data_clean)){
   co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
