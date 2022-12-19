@@ -51,19 +51,19 @@ menu:
       url: '/data/'
       weight: 3
     - name: Analysis
-      url: /analysis/
+      url: '/analysis/'
       weight: 4
     - name: Corn Analysis
-      url: /corn_analysis/
+      url: '/corn_analysis/'
       weight: 5
     - name: Big Picture
-      url: /big_picture/
+      url: '/big_picture/'
       weight: 6
     - name: Posts
-      url: /post/
+      url: '/post/'
       weight: 7
     - name: Barley Analysis
-      url: /barley_analysis/
+      url: '/barley_analysis/'
       weight: 8
     
 
