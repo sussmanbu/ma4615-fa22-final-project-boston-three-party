@@ -2,7 +2,7 @@
 title: Big Picture
 description:
 toc: true
-featuredImage: /images/The_Big_Picture_2.jpeg
+featuredImage: /images/The_Big_Picture_2.jpeg 
 featuredVideo:
 draft: false
 ---
@@ -57,7 +57,7 @@ This can be presented by any subset of the team members.
 
 ### Rest of the Site
 
-Finally, here are important things to keep in mind for the rest of the site. 
+Finally, here are important things to keep in mind for the rest of the site 
 
 The main title of your page is informative.
 Each post has an author/description/informative title.
