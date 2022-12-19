@@ -26,8 +26,6 @@ draft: false
 <pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
-<pre class="r"><code># used barley datasets for col names
-barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 47 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -37,9 +35,6 @@ barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>barley_data_3&lt;- barley_data_3[-2,3:ncol(barley_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)
-
-barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p016_t010.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 39 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -48,23 +43,8 @@ barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p
 ## dbl (1): 10
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>barley_data_4&lt;- barley_data_4[-2,3:ncol(barley_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)
-
-
-
-corn_data_3 &lt;-read_csv(here::here(&quot;dataset&quot;, &quot;corn/crop_p031_t024.csv&quot;),skip = 7)</code></pre>
-<pre><code>## New names:
-## • `` -&gt; `...4`
-## • `` -&gt; `...5`
-## • `` -&gt; `...6`
-## • `` -&gt; `...7`
-## • `` -&gt; `...8`
-## • `` -&gt; `...9`
-## • `` -&gt; `...10`
-## • `` -&gt; `...11`
-## • `` -&gt; `...12`
-## • `` -&gt; `...13`</code></pre>
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## New names:</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 49 Columns: 14
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -73,24 +53,8 @@ corn_data_3 &lt;-read_csv(here::here(&quot;dataset&quot;, &quot;corn/crop_p031_t
 ## dbl  (1): 24
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>corn_data_3&lt;- corn_data_3[-2,3:ncol(corn_data_3)] %&gt;% drop_na(Year) %&gt;%filter(nchar(Year)==4)
-colnames(corn_data_3) &lt;- colnames(barley_data_3) ## (barley_data_3)
-corn_data_3 &lt;- corn_data_3[,1:7]
-# View(corn_data_3)
-
-corn_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;corn/crop_p032_t034.csv&quot;),skip = 7)</code></pre>
-<pre><code>## New names:
-## • `` -&gt; `...4`
-## • `` -&gt; `...5`
-## • `` -&gt; `...6`
-## • `` -&gt; `...7`
-## • `` -&gt; `...8`
-## • `` -&gt; `...9`
-## • `` -&gt; `...10`
-## • `` -&gt; `...11`
-## • `` -&gt; `...12`
-## • `` -&gt; `...13`</code></pre>
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## New names:</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 42 Columns: 14
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -99,16 +63,8 @@ corn_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;corn/crop_p032_
 ## dbl  (1): 34
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>corn_data_4&lt;- corn_data_4[-2,3:ncol(corn_data_4)] %&gt;% drop_na(Year) %&gt;%filter(nchar(Year)==4)
-colnames(corn_data_4) &lt;- colnames(barley_data_4) ## (barley_data_4)
-corn_data_4 &lt;- corn_data_4[,1:7]
-# View(corn_data_4)
-
-
-corn_data &lt;- corn_data_3%&gt;%bind_rows(corn_data_4) 
-corn_data &lt;- corn_data %&gt;% type_convert()</code></pre>
-<pre><code>## 
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Year = col_double(),
@@ -119,10 +75,6 @@ corn_data &lt;- corn_data %&gt;% type_convert()</code></pre>
 ##   `Price per bushel 1/` = col_double(),
 ##   `Value of production` = col_double()
 ## )</code></pre>
-<pre class="r"><code>View(corn_data)
-
-corn_co2_data &lt;- co2_data_clean %&gt;% left_join(corn_data, by = c(&quot;Time&quot; = &quot;Year&quot;))
-View(corn_co2_data)</code></pre>
 <pre class="r"><code>Year &lt;- corn_co2_data %&gt;% pull(Time)
 Production &lt;- corn_co2_data %&gt;% pull(Production)
 co_emit &lt;- corn_co2_data %&gt;% pull(CO2_emissions_kt)

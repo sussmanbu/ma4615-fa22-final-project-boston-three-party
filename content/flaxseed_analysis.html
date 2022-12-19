@@ -26,21 +26,6 @@ draft: false
 <pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   CO2_emissions_kt = col_double(),
-##   Forest_area_percent = col_double(),
-##   Electricity_production = col_double(),
-##   Renewable_electricity_output = col_double(),
-##   Total_greenhouse_gas_emissions = col_double(),
-##   Fossil_fuel_energy_consumption = col_double(),
-##   Research_development_expenditure = col_double(),
-##   Goods_services_exports = col_double(),
-##   Population_density = col_double()
-## )</code></pre>
-<pre class="r"><code># used barley datasets for col names
-barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 47 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -50,9 +35,6 @@ barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>barley_data_3&lt;- barley_data_3[-2,3:ncol(barley_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)
-
-barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p016_t010.csv&quot;),skip = 5)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## Rows: 39 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -61,62 +43,26 @@ barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p
 ## dbl (1): 10
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>barley_data_4&lt;- barley_data_4[-2,3:ncol(barley_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)
-
-
-
-flaxseed_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;flaxseed/crop_p086_t049.csv&quot;), 
-                            col_types = cols(`49` = col_skip(), t = col_skip(), 
-                                             `Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).` = col_double(), 
-                                             ...3 = col_double(), u = col_skip()), 
-                            skip = 7)</code></pre>
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## New names:</code></pre>
+<pre><code>## Warning: The following named parsers don&#39;t match the column names: t, Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).
+## One or more parsing issues, see `problems()` for details</code></pre>
 <pre><code>## New names:
 ## • `` -&gt; `...3`
 ## • `(1,000 acres)` -&gt; `(1,000 acres)...4`
 ## • `(1,000 acres)` -&gt; `(1,000 acres)...5`</code></pre>
 <pre><code>## Warning: The following named parsers don&#39;t match the column names: t, Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).
 ## One or more parsing issues, see `problems()` for details</code></pre>
-<pre class="r"><code>colnames(flaxseed_data_3) &lt;- colnames(barley_data_3)
-
-flaxseed_data_3 &lt;- flaxseed_data_3 %&gt;% drop_na(Year)
-
-# View(flaxseed_data_3)
-flaxseed_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;flaxseed/crop_p087_t050.csv&quot;), 
-                            col_types = cols(`50` = col_skip(), t = col_skip(), 
-                                             `Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).` = col_double(), 
-                                             ...3 = col_double(), u = col_skip()), 
-                            skip = 7)</code></pre>
-<pre><code>## New names:
-## • `` -&gt; `...3`
-## • `(1,000 acres)` -&gt; `(1,000 acres)...4`
-## • `(1,000 acres)` -&gt; `(1,000 acres)...5`</code></pre>
-<pre><code>## Warning: The following named parsers don&#39;t match the column names: t, Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).
-## One or more parsing issues, see `problems()` for details</code></pre>
-<pre class="r"><code>colnames(flaxseed_data_4) &lt;- colnames(barley_data_4)
-
-flaxseed_data_4 &lt;- flaxseed_data_4 %&gt;% drop_na(Year)
-
-# View(flaxseed_data_4)
-flaxseed_data_3 &lt;- flaxseed_data_3 %&gt;% type_convert()</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   `Area planted` = col_double()
 ## )</code></pre>
-<pre class="r"><code>flaxseed_data &lt;- flaxseed_data_3%&gt;%bind_rows(flaxseed_data_4) 
-View(flaxseed_data)
-
-flaxseed_co2_data &lt;- co2_data_clean %&gt;% left_join(flaxseed_data, by = c(&quot;Time&quot; = &quot;Year&quot;))
-
-
-flaxseed_co2_data &lt;- flaxseed_co2_data %&gt;% filter(CO2_emissions_kt != &quot;..&quot;) %&gt;% type_convert()</code></pre>
 <pre><code>## Warning: `type_convert()` only converts columns of type &#39;character&#39;.
 ## - `df` has no columns of type &#39;character&#39;</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols()</code></pre>
-<pre class="r"><code>View(flaxseed_co2_data)</code></pre>
 <pre class="r"><code>Year &lt;- flaxseed_co2_data %&gt;% pull(Time)
 Production &lt;- flaxseed_co2_data %&gt;% pull(Production)
 co_emit &lt;- flaxseed_co2_data %&gt;% pull(CO2_emissions_kt)
@@ -157,18 +103,16 @@ summary(lm2)</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -309.05 -119.16   -4.34   81.60  427.07 
+## -275.45 -160.57  -36.51  104.06  570.14 
 ## 
 ## Coefficients:
-##                    Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)      -1.467e+03  4.328e+02  -3.390 0.001972 ** 
-## CO2_emissions_kt  3.468e-04  8.216e-05   4.221 0.000207 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+##                   Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)      1.762e+02  1.331e+02   1.323    0.196
+## CO2_emissions_kt 3.628e-05  2.600e-05   1.395    0.173
 ## 
-## Residual standard error: 158.7 on 30 degrees of freedom
-## Multiple R-squared:  0.3726, Adjusted R-squared:  0.3517 
-## F-statistic: 17.82 on 1 and 30 DF,  p-value: 0.0002073</code></pre>
+## Residual standard error: 194.1 on 30 degrees of freedom
+## Multiple R-squared:  0.06093,    Adjusted R-squared:  0.02962 
+## F-statistic: 1.946 on 1 and 30 DF,  p-value: 0.1732</code></pre>
 <pre class="r"><code>#High correlation
 
 lm2_diff &lt;-lm(diff_area ~ diff_co2, diff_df) 
@@ -179,16 +123,16 @@ summary(lm2_diff)</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -416.93  -84.21  -13.00   97.88  443.75 
+## -417.76  -83.54   -9.55   96.79  444.03 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)  5.483e-01  2.876e+01   0.019    0.985
-## diff_co2    -1.941e-05  1.964e-04  -0.099    0.922
+## (Intercept)  1.116e-02  2.922e+01   0.000    1.000
+## diff_co2    -3.025e-06  3.331e-05  -0.091    0.928
 ## 
 ## Residual standard error: 160.1 on 29 degrees of freedom
-## Multiple R-squared:  0.0003368,  Adjusted R-squared:  -0.03413 
-## F-statistic: 0.009772 on 1 and 29 DF,  p-value: 0.9219</code></pre>
+## Multiple R-squared:  0.0002842,  Adjusted R-squared:  -0.03419 
+## F-statistic: 0.008245 on 1 and 29 DF,  p-value: 0.9283</code></pre>
 <pre class="r"><code>#differenced data has no correlation, differencing is not required
 
 ggAcf(lm2$residuals)</code></pre>
