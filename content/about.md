@@ -21,7 +21,7 @@ Priya is a senior majoring in Economics and minoring in Statistics.
 
 ## Veer Sawhney
 
-Veer is a senior majoring in Statistics and minoring in Biology, Computer Science, and Economics
+Veer is a senior majoring in Statistics and minoring in Biology and Computer Science
 
 ## Maryam Bhuttor
 
