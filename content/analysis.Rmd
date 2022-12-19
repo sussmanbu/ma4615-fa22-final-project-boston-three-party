@@ -21,7 +21,7 @@ We are most interested in investigating how CO2 emissions relate to our crop dat
 
 ## Depth of the DA
 
-```{r packages}
+```{r packages, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
@@ -30,7 +30,7 @@ require(forecast)
 library(readr)
 ```
 
-```{r cleaning_data}
+```{r cleaning_data, echo=FALSE}
 ## CLEAN THE DATA
 co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
 
