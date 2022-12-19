@@ -131,7 +131,7 @@ summary(lm2_diff)
 #differenced data has no correlation, differencing is not required
 
 ggAcf(lm2$residuals)
-ggAcf(lm1_diff$residuals)
+ggAcf(lm2_diff$residuals)
 
 
 ```
