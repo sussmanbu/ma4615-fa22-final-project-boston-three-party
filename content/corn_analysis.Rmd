@@ -126,6 +126,3 @@ ggAcf(lm1_diff$residuals)
 
 
 
-
-
-
