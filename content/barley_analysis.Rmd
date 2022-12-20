@@ -3,7 +3,7 @@ title: Barley Analysis
 description:
 toc: true
 featuredVideo:
-featuredImage:
+featuredImage: 
 draft: false
 ---
  
