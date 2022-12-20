@@ -9,6 +9,8 @@ draft: false
 
 This comes from the file `content/flaxseed_analysis.Rmd`.
 
+Here we analyze the relationship between the flaxseed data and the CO2 data.
+
 ```{r packages, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
