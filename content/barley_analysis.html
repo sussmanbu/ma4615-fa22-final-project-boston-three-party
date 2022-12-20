@@ -83,14 +83,24 @@ The above line graph shows barley production in United States from 1990 to 2021.
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/barley_analysis_files/figure-html/1-4.png" width="672" />
 We explored different variables and factors to conclude that there seems to be no strong relationship between the co2 emission and area harvested, production, area planted, or yield per acre.</p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-1.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (CO2_emissions_kt), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-2.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-3.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(barley_co2_data[which(barley_co2_data$Forest_area_percent&gt;0),],aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-5.png" width="672" />
+As discussed in the main analysis page, we decided to use price per bushel as a metric for demand for each crop. We saw on the main analysis page that there was no strong correlation between GDP growth and CO2 emissions. There does not appear to be a strong correlation between demand and GDP growth, nor between demand and CO2 emissions either.</p>
+<p>We were also curious about how the crops impacted goods and serviced exports, but it appears demand and production of barley is not strongly correlated with goods and services exports either.</p>
+<p>There was a strong negative correlation between area harvested and forest area percent, which was as we expected. As more land is used for growth and harvesting of barley, there is less land available for forests, so forest area percent decreases.</p>
 <pre class="r"><code>diff_df &lt;- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
 diff_df %&gt;% ggplot(aes(y = diff_area, x = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
