@@ -87,10 +87,14 @@ corn_ts &lt;- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
 corn_ts</code></pre>
 <p><img src="/corn_analysis_files/figure-html/corn_timeseries-1.png" width="672" />
 The above line graph shows corn production in United States from 1990 to 2021. There’s a clear positive trend in production as time goes on.</p>
+<pre class="r"><code>corn_co2_data %&gt;% ggplot(aes(x = (Production), y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/corn_analysis_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>corn_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/corn_analysis_files/figure-html/unnamed-chunk-1-1.png" width="672" />
-We first started with a linear model trying to figure out if there is a relationship between corn area harvested and co2 emission. It seems like a cubic graph with no relationship. We will perform more tests and ggACF to future analyze the relationship.</p>
+<p><img src="/corn_analysis_files/figure-html/unnamed-chunk-1-2.png" width="672" />
+We first started with production of corn vs CO2 emissions and found a non-linear negative correlation between the two.</p>
+<p>We then examined a linear model trying to figure out if there is a relationship between corn area harvested and co2 emission. It seems like a cubic graph with no relationship. We will perform more tests and ggACF to future analyze the relationship.</p>
 </div>
 <div id="corn-vs.-co2-emissions-in-depth" class="section level2">
 <h2>Corn vs. CO2 Emissions In-Depth</h2>

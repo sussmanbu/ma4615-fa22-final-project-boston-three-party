@@ -104,10 +104,14 @@ summary(lm2)</code></pre>
 ## Multiple R-squared:  0.4336, Adjusted R-squared:  0.3729 
 ## F-statistic: 7.145 on 3 and 28 DF,  p-value: 0.00104</code></pre>
 <p>As c02 emission increases the area harvested decreases. This allows us to create an ACF model. We will be adjusting the model to show autocorrelation. P values are statistically significant and there strong positive relationship.</p>
-<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(x = (Production), y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/flaxseed_analysis_files/figure-html/3-1.png" width="672" /></p>
-<p>From this plot we see a strong non-linear correlation between the Area harvested and co2 emissions. As the Co2 emission increases, the flaxseed area harvested decreases. We further analyze this relationship below.</p>
+<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/3-2.png" width="672" />
+We see a weak positive correlation between flaxseed production and CO2 emissions.</p>
+<p>From the second plot we see a strong non-linear correlation between the Area harvested and co2 emissions. As the CO2 emission increases, the flaxseed area harvested decreases. We further analyze this relationship below.</p>
 <pre class="r"><code>ggAcf(lm2$residuals)</code></pre>
 <p><img src="/flaxseed_analysis_files/figure-html/4-1.png" width="672" />
 There seems to be a trend, but the variance is not constant. As flaxseed area harvested decreases, CO2 emissions increase. Adjusting the model to show autocorrelation, we find that there is not a constant autocorrelation pattern. Therefore, we can make a prediction model for flaxseed production vs. CO2 emissions. We need to perform more tests on this relationship to better inform our model.</p>

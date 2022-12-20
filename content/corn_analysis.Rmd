@@ -72,9 +72,13 @@ corn_ts
 The above line graph shows corn production in United States from 1990 to 2021. There's a clear positive trend in production as time goes on.
 
 ```{r}
+corn_co2_data %>% ggplot(aes(x = (Production), y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
+
 corn_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
 ```
-We first started with a linear model trying to figure out if there is a relationship between corn area harvested and co2 emission. It seems like a cubic graph with no relationship. We will perform more tests and ggACF to future analyze the relationship. 
+We first started with production of corn vs CO2 emissions and found a non-linear negative correlation between the two.
+
+We then examined a linear model trying to figure out if there is a relationship between corn area harvested and co2 emission. It seems like a cubic graph with no relationship. We will perform more tests and ggACF to future analyze the relationship. 
 
 
 ## Corn vs. CO2 Emissions In-Depth

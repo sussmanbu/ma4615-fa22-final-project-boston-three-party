@@ -98,11 +98,14 @@ summary(lm2)
 As c02 emission increases the area harvested decreases. This allows us to create an ACF model. We will be adjusting the model to show autocorrelation. P values are statistically significant and there strong positive relationship. 
 
 ```{r,3}
+flaxseed_co2_data %>% ggplot(aes(x = (Production), y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
+
 flaxseed_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
 
 ```
- 
-From this plot we see a strong non-linear correlation between the Area harvested and co2 emissions. As the Co2 emission increases, the flaxseed area harvested decreases. We further analyze this relationship below.
+We see a weak positive correlation between flaxseed production and CO2 emissions.
+
+From the second plot we see a strong non-linear correlation between the Area harvested and co2 emissions. As the CO2 emission increases, the flaxseed area harvested decreases. We further analyze this relationship below.
 
 
 ```{r,4}
