@@ -60,44 +60,25 @@ For our CO2 emission we just cleaned the file and wrote a new csv file.We used h
 
 ```{r}
 
-corn_data_3 <-read_csv(here::here("dataset", "corn/crop_p031_t024.csv"),skip = 7)
-corn_data_3<- corn_data_3[-2,3:ncol(corn_data_3)] %>% drop_na(Year) %>% head(-1)
+barley_data_3 <- read_csv(here::here("dataset", "barley/crop_p015_t005.csv"),skip = 5)
+barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% head(-1)
 
-corn_data_4 <- read_csv(here::here("dataset", "corn/crop_p032_t034.csv"),skip = 7)
-corn_data_4<- corn_data_4[-2,3:ncol(corn_data_4)] %>% drop_na(Year) %>% head(-1)
+barley_data_4 <- read_csv(here::here("dataset", "barley/crop_p016_t010.csv"),skip = 5)
+barley_data_4<- barley_data_4[-2,3:ncol(barley_data_4)] %>% drop_na(Year) %>% head(-1)
 
-corn_data <- corn_data_3%>%bind_rows(corn_data_4) %>% type_convert()
+barley_data <- barley_data_3%>%bind_rows(barley_data_4) 
+barley_data <- barley_data %>% type_convert()
+
+barley_co2_data <- co2_data_clean %>% left_join(barley_data, by = c("Time" = "Year"))
+
+#barley_co2_data <- barley_co2_data %>% filter(CO2_emissions_kt != "..") %>% type_convert()
+View(barley_co2_data)
 ```
-
-
-
-
 
 We had several csv files for each crop. So, we merged two files for each crop starting from 1950 to 1989. We removed the na from the years and skipped unnecessary columns. We did this for each crop. 
 
 There were some differences between each crop csv file. The csv file contained a lot of unnecessary information. Therefore, we skipped those columns. After cleaning the files, we used rbind to bind based on the columns. 
 
-
-```{r}
-
-corn_data_3 <-read_csv(here::here("dataset", "corn/crop_p031_t024.csv"),skip = 7)
-corn_data_3<- corn_data_3[-2,3:ncol(corn_data_3)] %>% drop_na(Year) %>%filter(nchar(Year)==4)
-colnames(corn_data_3) <- colnames(barley_data_3)
-corn_data_3 <- corn_data_3[,1:7]
-View(corn_data_3)
-
-corn_data_4 <- read_csv(here::here("dataset", "corn/crop_p032_t034.csv"),skip = 7)
-corn_data_4<- corn_data_4[-2,3:ncol(corn_data_4)] %>% drop_na(Year) %>%filter(nchar(Year)==4)
-colnames(corn_data_4) <- colnames(barley_data_4)
-corn_data_4 <- corn_data_4[,1:7]
-View(corn_data_4)
-
-
-corn_data <- corn_data_3%>%bind_rows(corn_data_4) %>% type_convert()
-View(corn_data)
-corn_co2_data <- co2_data_clean %>% left_join(corn_data, by = c("Time" = "Year"))
-View(corn_co2_data)
-
-```
+We used left join to merge the individual crop datasets with the CO2 dataset for each crop, merging along the years.
 
 Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers. 

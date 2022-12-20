@@ -36,7 +36,18 @@ draft: false
 <pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
-<pre class="r"><code>#Correlation matrix of all variables with all other variables
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 2 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="/analysis_files/figure-html/loaddata_and_plots-1.png" width="672" />
+We examined the impact of GDP growth on CO2 emissions and found a slight positive correlation between the two. We expand on this in our analyses of the crops, but this is an important relationship to consider how climate change may be related to fiscal gains for the US.</p>
+<pre class="r"><code>co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))
+
+for(i in 2:ncol(co2_data_clean)){
+  co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
+}
+
+#Correlation matrix of all variables with all other variables
 res = cor(co2_data_clean[2:13])
 res</code></pre>
 <pre><code>##                                  CO2_emissions_kt
@@ -173,5 +184,6 @@ cor(co2_data_clean[,-1], co2_data_clean$CO2_emissions_kt)</code></pre>
 ## Population_density               -0.12810704</code></pre>
 <pre class="r"><code>#plot of correlation: heatmap
 heatmap(res)</code></pre>
-<p><img src="/analysis_files/figure-html/correlations-1.png" width="672" /></p>
+<p><img src="/analysis_files/figure-html/correlations-1.png" width="672" />
+Instead of looking at the relationships between all the variables in the CO2 dataset independently, we created the above heatmap to display the correlations between all the features. The variable most highly correlated with CO2 emissions is total greenhouse gas emissions. Electricity production and fossil fuel energy consumption have a significantly strong correlation with CO2 emissions as well.</p>
 </div>

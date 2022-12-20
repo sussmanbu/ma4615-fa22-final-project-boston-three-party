@@ -30,17 +30,27 @@ require(forecast)
 library(readr)
 ```
 
-```{r cleaning_data, echo=FALSE}
-## CLEAN THE DATA
+```{r loaddata_and_plots, echo=FALSE}
+
+co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
+
+co2_data_clean[co2_data_clean == 0] = NA
+
+co2_data_clean %>% ggplot(aes(x = (GDP_growth), y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
+
+
+
+```
+We examined the impact of GDP growth on CO2 emissions and found a slight positive correlation between the two. We expand on this in our analyses of the crops, but this is an important relationship to consider how climate change may be related to fiscal gains for the US.
+
+
+```{r correlations}
 co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
 
 for(i in 2:ncol(co2_data_clean)){
   co2_data_clean[,i][(co2_data_clean[,i]==0)] = mean(co2_data_clean[,i])
 }
 
-```
-
-```{r correlations}
 #Correlation matrix of all variables with all other variables
 res = cor(co2_data_clean[2:13])
 res
@@ -52,4 +62,7 @@ cor(co2_data_clean[,-1], co2_data_clean$CO2_emissions_kt)
 heatmap(res)
 
 ```
+Instead of looking at the relationships between all the variables in the CO2 dataset independently, we created the above heatmap to display the correlations between all the features. The variable most highly correlated with CO2 emissions is total greenhouse gas emissions. Electricity production and fossil fuel energy consumption have a significantly strong correlation with CO2 emissions as well.
+
+
 
