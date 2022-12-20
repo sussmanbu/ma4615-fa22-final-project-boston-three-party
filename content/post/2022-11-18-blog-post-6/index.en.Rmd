@@ -1,11 +1,11 @@
 ---
-title: Blog Post 6
+title: Blog Post 6 - Interactive using Shiny! 
 author: Tessa,Priya,Veer,Maryam
 date: '2022-11-18'
 slug: []
 categories: []
 tags: []
-description: ~
+description: Finding bigger picture trends on subsets of our datatsets. 
 toc: yes
 authors: []
 series: []
