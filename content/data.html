@@ -3,7 +3,7 @@ title: Data
 description: 
 toc: true
 featuredVideo:
-featuredImage: (/./data_files/climate change.jpeg)
+featuredImage: 
 draft: false
 ---
 
@@ -17,9 +17,8 @@ draft: false
 <p>Crop data Pdf: <a href="https://downloads.usda.library.cornell.edu/usda-esmis/files/c534fn92g/g158cn09g/zc77tv62q/croptr22.pdf" class="uri">https://downloads.usda.library.cornell.edu/usda-esmis/files/c534fn92g/g158cn09g/zc77tv62q/croptr22.pdf</a></p>
 <p>We created our first dataset by choosing climate variables that we thought were vital contributions from the World Bank. The data from World Bank was collected by GHG Emissions Washington, D.C: World Resources Institute, climatewatchdata.org/ghg-emissions. This data was compiled for research and policy purposes. Our second dataset, Crop Proudction Dataset, was collected by the USDA for the purpose of creating a reference for data users.</p>
 <p>Our first dataset includes 12 variables: agriculture, forestry, and fishing value added, irrigated land, machinery and tractors, agricultural methane/nitrous oxide emissions, raw materials exports/imports, crop production index, livestock production index, percent of the rural population, and annual freshwater withdrawals. Our initial findings show that there has been a decline in agricultural land, machinery and tractors, raw materials exports, and percent rural population in the past 50 years in the United States. Conversely, there has been an increase in agricultural methane and nitrous oxide emissions, crop production, livestock production index, and annual freshwater withdrawals.
-Our second dataset contains crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models.
-V
-Dataset 1 Variables:</p>
+Our second dataset contains crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models.</p>
+<p>Dataset 1 Variables:</p>
 <p>Country: what country data is from. For our project it is all data from USA
 Time: Measures year data was collected in. Data ranges from 1972 to 2021
 CO2_emissions_kt: CO2 Emissions in year measured in kilotons
@@ -42,29 +41,66 @@ Price per bushel (dollars)
 Value of production (1,000 dollars)</p>
 <p>Clean data code can be found here :<a href="https://github.com/sussmanbu/ma4615-fa22-final-project-boston-three-party/blame/master/static/load_and_clean_data.R" class="uri">https://github.com/sussmanbu/ma4615-fa22-final-project-boston-three-party/blame/master/static/load_and_clean_data.R</a>
 co2_data &lt;- read_csv(here::here(“dataset”, “CSV_fixed_climate_data.csv”))</p>
-<p>co2_data_clean &lt;- co2_data</p>
-<p>write_csv(co2_data_clean, file = here::here(“dataset”, “clean_co2.csv”))</p>
-<p>save(co2_data_clean, file = here::here(“dataset/clean_co2.RData”))</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>co2_data_clean &lt;- read_csv(here::here(&quot;dataset&quot;,&quot;clean_co2.csv&quot;))</code></pre>
+<pre><code>## Rows: 32 Columns: 13
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (13): Time, CO2_emissions_kt, Population_growth_annual_percent, Forest_a...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>For our CO2 emission we just cleaned the file and wrote a new csv file.We used here::here function to specify the file path</p>
-<p>corn_data_3 &lt;-read_csv(here::here(“dataset”, “corn/crop_p031_t024.csv”),skip = 7)
-corn_data_3&lt;- corn_data_3[-2,3:ncol(corn_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)</p>
-<p>corn_data_4 &lt;- read_csv(here::here(“dataset”, “corn/crop_p032_t034.csv”),skip = 7)
-corn_data_4&lt;- corn_data_4[-2,3:ncol(corn_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)</p>
-<p>corn_data &lt;- corn_data_3%&gt;%bind_rows(corn_data_4) %&gt;% type_convert()</p>
+<pre class="r"><code>barley_data_3 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p015_t005.csv&quot;),skip = 5)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 47 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): h, Year, Area planted, Area harvested, Yield per acre, Production, ...
+## dbl (1): 5
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>barley_data_3&lt;- barley_data_3[-2,3:ncol(barley_data_3)] %&gt;% drop_na(Year) %&gt;% head(-1)
+
+barley_data_4 &lt;- read_csv(here::here(&quot;dataset&quot;, &quot;barley/crop_p016_t010.csv&quot;),skip = 5)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## Rows: 39 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): h, Year, Area planted, Area harvested, Yield per acre, Production, ...
+## dbl (1): 10
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>barley_data_4&lt;- barley_data_4[-2,3:ncol(barley_data_4)] %&gt;% drop_na(Year) %&gt;% head(-1)
+
+barley_data &lt;- barley_data_3%&gt;%bind_rows(barley_data_4) 
+barley_data &lt;- barley_data %&gt;% type_convert()</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   Year = col_double(),
+##   `Area planted` = col_double(),
+##   `Area harvested` = col_double(),
+##   `Yield per acre` = col_double(),
+##   Production = col_double(),
+##   `Price per bushel 1/` = col_double(),
+##   `Value of production` = col_double()
+## )</code></pre>
+<pre class="r"><code>barley_co2_data &lt;- co2_data_clean %&gt;% left_join(barley_data, by = c(&quot;Time&quot; = &quot;Year&quot;))
+
+#barley_co2_data &lt;- barley_co2_data %&gt;% filter(CO2_emissions_kt != &quot;..&quot;) %&gt;% type_convert()
+View(barley_co2_data)</code></pre>
 <p>We had several csv files for each crop. So, we merged two files for each crop starting from 1950 to 1989. We removed the na from the years and skipped unnecessary columns. We did this for each crop.</p>
 <p>There were some differences between each crop csv file. The csv file contained a lot of unnecessary information. Therefore, we skipped those columns. After cleaning the files, we used rbind to bind based on the columns.</p>
-<p>rye_dataset_3 &lt;- read_csv(“dataset/rye/crop_p170_t101.csv”,
-col_types = cols(<code>101</code> = col_skip(),
-t = col_skip(), <code>Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).</code> = col_double(),
-u = col_skip(), …3 = col_double(),
-<code>(1,000 acres)...4</code> = col_double()),
-skip = 7)
-View(rye_dataset_3)</p>
-<p>rye_dataset_4 &lt;- read_csv(“dataset/rye/crop_p171_t102.csv”,
-col_types = cols(<code>102</code> = col_skip(),
-t = col_skip(), <code>Crop Production Historical Track Records: Released April 11, 2022, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).</code> = col_double(),
-u = col_skip(), …3 = col_double()),
-skip = 7)
-View(rye_dataset_4)</p>
-<p>rye_dataset &lt;- rye_dataset_3%&gt;%bind_rows(rye_dataset_4)</p>
-<p>Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers</p>
+<p>We used left join to merge the individual crop datasets with the CO2 dataset for each crop, merging along the years.</p>
+<p>Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers.</p>

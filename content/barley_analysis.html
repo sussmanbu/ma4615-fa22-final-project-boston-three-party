@@ -13,6 +13,7 @@ draft: false
 </div>
 
 <p>This comes from the file <code>content/barley_analysis.Rmd</code>.</p>
+<p>Here we analyze the relationship between the barley data and the CO2 data.</p>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -55,6 +56,8 @@ draft: false
 ##   `Price per bushel 1/` = col_double(),
 ##   `Value of production` = col_double()
 ## )</code></pre>
+<div id="barley-vs.-co2" class="section level2">
+<h2>Barley vs. CO2</h2>
 <pre class="r"><code># read_csv(here::here(&quot;dataset/barley_co2_data&quot;))
 
 Year &lt;- barley_co2_data %&gt;% pull(Time)
@@ -66,36 +69,34 @@ barley_ts &lt;- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
   xlab(&quot;&quot;)
 barley_ts</code></pre>
 <p><img src="/barley_analysis_files/figure-html/barley_timeseries-1.png" width="672" />
-In our time series analysis above, we analyze the production of barley over time.</p>
-<pre class="r"><code>ggAcf(barley_co2_data$`Area harvested`)  ###use difference </code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-1.png" width="672" /></p>
-<pre class="r"><code>ggAcf(diff(barley_co2_data$`Area harvested`)) ## no autocorrelation</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-2.png" width="672" /></p>
-<pre class="r"><code># co2 emission
-ggAcf(barley_co2_data$CO2_emissions_kt) ##persistent  autocorrelation </code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-3.png" width="672" /></p>
-<pre class="r"><code>ggAcf(diff(barley_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-4.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Area harvested`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-5.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Production`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-6.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Area planted`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-7.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = `Yield per acre`, x = (CO2_emissions_kt))) + geom_point()</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-8.png" width="672" /></p>
+The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years, we can see a clear net downward trend in barley production.</p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/1-1.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/1-2.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Area planted`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/1-3.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/1-4.png" width="672" />
+We explored different variables and factors to conclude that there seems to be no strong relationship between the co2 emission and area harvested, production, area planted, or yield per acre.</p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point()</code></pre>
+<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point()</code></pre>
+<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point()</code></pre>
+<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point()</code></pre>
+<p><img src="/barley_analysis_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
 <pre class="r"><code>diff_df &lt;- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
 diff_df %&gt;% ggplot(aes(y = diff_area, x = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-9.png" width="672" /></p>
-<pre class="r"><code>### weak correlation between difference data, relation seems to be cubic
-
-barley_co2_data %&gt;% ggplot(aes(y = `Area harvested`, x = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-10.png" width="672" /></p>
-<pre class="r"><code>##there is very weak correlation
-
-lm1 &lt;- (lm(`Area harvested`~ CO2_emissions_kt, barley_co2_data)) 
+<p><img src="/barley_analysis_files/figure-html/2-1.png" width="672" />
+There seems to be a weak correlation between diff data. We are using diff to compute the difference between pairs of consecutive elements of co2 emission and barely area harvest. We trying to figure out if the difference between them is significant. The relation seems to be cubic and not significant.</p>
+<pre class="r"><code>lm1 &lt;- (lm(`Area harvested`~ CO2_emissions_kt, barley_co2_data)) 
 summary(lm1)</code></pre>
 <pre><code>## 
 ## Call:
@@ -135,10 +136,5 @@ summary(lm1_diff)</code></pre>
 ## Residual standard error: 618.2 on 27 degrees of freedom
 ## Multiple R-squared:  0.01545,    Adjusted R-squared:  -0.09394 
 ## F-statistic: 0.1413 on 3 and 27 DF,  p-value: 0.9344</code></pre>
-<pre class="r"><code>## No significant association between co2 emissions and area harvested
-
-ggAcf(lm1$residuals)</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-11.png" width="672" /></p>
-<pre class="r"><code>ggAcf(lm1_diff$residuals)</code></pre>
-<p><img src="/barley_analysis_files/figure-html/barley_stats-12.png" width="672" /></p>
-<p>The barley data as it compares to CO2 emissions is seen above.</p>
+<p>The R^2 value is 0.04049, so in other words, area harvested for barley accounts for 4% of variation in co2 outputs. Thus there no relationship between area harvested and co2 emission.</p>
+</div>
