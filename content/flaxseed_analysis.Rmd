@@ -144,7 +144,7 @@ flaxseed_pred %>% tail(5)
 
 ```
 
-The obs values are in red, and the blue line is the predicted values. We predicted 2022 using the lag of co2 emission in 2021. We were able to predict this because of ACF model, which showed no autocorrelation. The prediction produced is on average close to the observed values. 
+The observation values are in red, and the blue line is the predicted values. We predicted 2022 using the lag of co2 emission in 2021. We were able to predict this because of ACF model, which showed no autocorrelation. The prediction produced is on average close to the observed values. The exact value predicted was 276.6401, meaning we expect a production value of 276.6401 thousand bushels.
 
 
 ## Price as a Metric for Demand and Forest Area
