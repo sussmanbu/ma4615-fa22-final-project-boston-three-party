@@ -6,7 +6,7 @@ featuredVideo:
 featuredImage:
 draft: false
 ---
-
+ 
 This comes from the file `content/barley_analysis.Rmd`.
 
 ```{r packages, echo=FALSE}
