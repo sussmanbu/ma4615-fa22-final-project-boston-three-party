@@ -2,7 +2,7 @@
 title: About
 lastmod: 2021-10-11T09:20:50-05:00
 featuredVideo:
-featuredImage:
+featuredImage: /images/about.webp
 draft: false
 ---
 
