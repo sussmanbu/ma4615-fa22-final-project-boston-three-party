@@ -5,6 +5,9 @@ toc: true
 featuredImage: /images/climate-change-backgrounder.jpeg 
 featuredVideo:
 draft: false
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
 
@@ -12,85 +15,46 @@ draft: false
 
 </div>
 
-<div id="head" class="section level2">
-<h2>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h2>
-<p>=======
-This comes from the file <code>content/big_picture.Rmd</code>.
-## PLEASE ADD GRAPH: CO2 EMISSIONS OVER TIME (LINE GRAPH)</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>e89057d1b5ab72c8b6820176a404c1c7067c9470</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</div>
-<div id="does-crop-production-cause-climate-change" class="section level2">
-<h2>Does crop production cause climate change?</h2>
-<p>In this project, we wanted to investigate the relationship between different crop production and
-its effect on CO2 emissions.</p>
-</div>
-<div id="rubric-on-this-page" class="section level2">
-<h2>Rubric: On this page</h2>
-<p>You will</p>
-<ul>
-<li>Title
-<ul>
-<li>Your big picture page should have a creative/click-baity title/headline that provides a hint about your thesis.</li>
-</ul></li>
-<li>Clarity of Explanation
-<ul>
-<li>You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don’t go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible).</li>
-</ul></li>
-<li>Quality of Figures
-<ul>
-<li>Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.</li>
-</ul></li>
-<li>Creativity
-<ul>
-<li>Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.</li>
-</ul></li>
-</ul>
-<p><strong>Note</strong>: This page should have no code visible, i.e. use <code>echo=FALSE</code>.</p>
+<div id="how-does-us-crop-production-impact-climate-change" class="section level2">
+<h2>## HOW DOES US CROP PRODUCTION IMPACT CLIMATE CHANGE?</h2>
+<p>This comes from the file <code>content/big_picture.Rmd</code>.</p>
+<p>The central goal of our project is to examine if there is a relationship between the production of agricultural crops in the United States and the output of carbon dioxide into the atmosphere from the United States.
+One of the most common ways of offsetting greenhouse gas emissions is through planting vegetation.
+However, commercial agriculture, the type of agriculture that dominates the US farming economy, has come under scrutiny for its lack of sustainability and the harms it causes to the environment.
+Thus, we wanted to explore if there is some relationship between the most commonly produced crops in the US, as well as other related economic variables.</p>
+<p><img src="images/bigpic1.PNG" /></p>
+<p>The first figure we analyzed was simply examining how the CO2 emissions from the US have changed over time.
+Historically, CO2 emissions have been on the rise since the 1950s.
+However, in the past 10 years we have actually seen a decrease in CO2 emissions, contrary to what many may believe, as well as against overall global trends.
+This is most likely due to the effects of the US taking steps to combat climate change and its carbon footprint.
+We found this to be quite interesting and were still curious with how this may impact the overall crop production.</p>
+<p>We specifically chose to conduct an in depth analysis of barley, corn, and flaxseed production in the US, as well as other related agricultural variables such as the area of land used for harvesting, yield per harvest, and monetary value of the harvest for each year for the last 30+ years.
+We found no correlation between demand for crops and GDP growth, as well as demand for crops and CO2 Emissions.
+There was also no clear relationship between area harvested for each crop and forest area percentage, as we saw different relationships between the two for each crop.</p>
+<p>We ran correlation analyses between crop output for each individual crop and CO2 output, as that was our primary relationship of interest.
+We then analyzed the results to see if we could feasibly make a prediction of crop output and CO2 emissions for the future using our data.
+We found that this was only possible for flaxseeds.
+Using our data, we were able to predict the total CO2 emissions and flaxseed production.
+Overall, our results suggest that there is no significant relationship between CO2 and overall crop production.
+However, there was a significant relationship between flaxseed production and CO2 output, suggesting that this specific crop may have more of an impact on the environment than others.</p>
+<p><img src="images/bigpic2.PNG" /></p>
+<p>Since flaxseed was the only crop to have a direct correlation between CO2 emissions and production, we decided to conduct an ARIMA Time Series analysis of flaxseed production in order to predict what the production of flax seeds would be for the next year.
+From our model, we predict that the US will produce approximately 276640.1 bushels of flaxseed.</p>
 <hr />
-</div>
-<div id="rubric-other-components" class="section level2">
-<h2>Rubric: Other components</h2>
 <div id="interactive" class="section level3">
 <h3>Interactive</h3>
-<p>You will also be required to make an interactive dashboard like <a href="/flex/flex.html">this one</a>.</p>
-<p>Your Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor’s approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.</p>
-<ul>
-<li>Quality and ease of use of the interactive components.
-Is it clear what can be explored using your interactive components?
-Does it enhance and reinforce your conclusions from the Big Picture?
-Plotly with default hover text will get no credit. Be creative!</li>
-</ul>
+<p><a href="https://vsawhney.shinyapps.io/dashboard/" class="uri">https://vsawhney.shinyapps.io/dashboard/</a></p>
+<p>Our interactive component focuses specifically on our flaxseed data.
+We chose to do this specifically because flaxseeds were the only crop to show a statistically significant correlation between CO2 emissions and production.
+Our interactive component has 2 separate figures.
+The first figure depicts the production of flaxseed in 1000s of bushels vs time for each year analyzed.
+Each data point is colored by the specific CO2 emissions for the corresponding year, and the size of each dot represents the corresponding crop yield for each year.
+Each data point also allows the user to learn the corresponding economic value of flaxseed per year.</p>
+<p>The second figure depicts CO2 emissions vs production output of flaxseeds.
+Specifically, it allows the user to see how there is indeed a slight negative relationship between CO2 emissions and flaxseed output.</p>
+<hr />
 </div>
 <div id="video-recording" class="section level3">
 <h3>Video Recording</h3>
-<p>Make a video recording (probably using Zoom) demonstrating your interactive components.
-You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA.
-This video should be no longer than 4 minutes.
-Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website.
-This can be presented by any subset of the team members.</p>
-</div>
-<div id="rest-of-the-site" class="section level3">
-<h3>Rest of the Site</h3>
-<p>Finally, here are important things to keep in mind for the rest of the site</p>
-<p>The main title of your page is informative.
-Each post has an author/description/informative title.
-All lab required posts are present.
-Each page (including the home page) has a nice featured image associated with it.
-Your about page is up to date and clean.
-You have removed the generic posts from the initial site template.</p>
 </div>
 </div>

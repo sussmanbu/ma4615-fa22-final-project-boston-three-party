@@ -187,3 +187,12 @@ heatmap(res)</code></pre>
 <p><img src="/analysis_files/figure-html/correlations-1.png" width="672" />
 Instead of looking at the relationships between all the variables in the CO2 dataset independently, we created the above heatmap to display the correlations between all the features. The variable most highly correlated with CO2 emissions is total greenhouse gas emissions. Electricity production and fossil fuel energy consumption have a significantly strong correlation with CO2 emissions as well.</p>
 </div>
+<div id="modeling-and-interference" class="section level2">
+<h2>Modeling and Interference</h2>
+<p>Our formal statistical model is shown with our time series analysis on the flaxseed analysis page.</p>
+<p>We used the ggAcf to determine which crops were best to create a prediction model. After performing several tests, linear models, diffs, and ggAcf, we compared the crops and determined the strongest relationship between production and CO2 emission was present for flaxseed. We therefore made our predictive model based on the flaxseed data, because there was no significant relationship between production and CO2 emissions for corn nor for barley.</p>
+</div>
+<div id="flaws-and-limitations" class="section level2">
+<h2>Flaws and Limitations</h2>
+<p>Our main limitation for this project was a lack of data availability for CO2 emissions produced by the US. Although there are many datasets available which measure CO2 emissions globally, we had difficulty finding such data confined to the US. Our CO2 emissions dataset only contained about 20 years of CO2 emission data. Observing relationships between many of the crop variables with CO2 emissions for a longer span of time may also have proved useful in highlighting trends.</p>
+</div>

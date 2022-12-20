@@ -75,7 +75,7 @@ barley_co2_data <- co2_data_clean %>% left_join(barley_data, by = c("Time" = "Ye
 View(barley_co2_data)
 ```
 
-We had several csv files for each crop. So, we merged two files for each crop starting from 1950 to 1989. We removed the na from the years and skipped unnecessary columns. We did this for each crop. 
+We had several csv files for each crop. So, we merged two files for each crop starting from 1950 to 1989. We removed the "NA" values from the years and skipped unnecessary columns. We did this for each crop. 
 
 There were some differences between each crop csv file. The csv file contained a lot of unnecessary information. Therefore, we skipped those columns. After cleaning the files, we used rbind to bind based on the columns. 
 

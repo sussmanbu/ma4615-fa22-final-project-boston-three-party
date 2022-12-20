@@ -109,7 +109,7 @@ barley_data &lt;- barley_data %&gt;% type_convert()</code></pre>
 
 #barley_co2_data &lt;- barley_co2_data %&gt;% filter(CO2_emissions_kt != &quot;..&quot;) %&gt;% type_convert()
 View(barley_co2_data)</code></pre>
-<p>We had several csv files for each crop. So, we merged two files for each crop starting from 1950 to 1989. We removed the na from the years and skipped unnecessary columns. We did this for each crop.</p>
+<p>We had several csv files for each crop. So, we merged two files for each crop starting from 1950 to 1989. We removed the “NA” values from the years and skipped unnecessary columns. We did this for each crop.</p>
 <p>There were some differences between each crop csv file. The csv file contained a lot of unnecessary information. Therefore, we skipped those columns. After cleaning the files, we used rbind to bind based on the columns.</p>
 <p>We used left join to merge the individual crop datasets with the CO2 dataset for each crop, merging along the years.</p>
 <p>Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers.</p>
