@@ -1,0 +1,13 @@
+name: slide
+title: slide
+username:
+account: vsawhney
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7919790
+bundleId: 6655824
+url: https://vsawhney.shinyapps.io/slide/
+when: 1671498268.71797
+lastSyncTime: 1671498268.71799
+asMultiple: FALSE
+asStatic: FALSE
