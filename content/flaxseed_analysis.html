@@ -73,8 +73,11 @@ flaxseed_ts &lt;- ggplot(flaxseed_co2_data, aes(x=Year, y=Production)) +
   geom_line() +
   xlab(&quot;&quot;)
 flaxseed_ts</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_timeseries-1.png" width="672" /></p>
-<p>In our time series analysis above, we analyze the production of flaxseed over time.The production of flaxseed peaks around the year 2005. Then it drastically went down.</p>
+<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_timeseries-1.png" width="672" />
+In our line graph above, we analyze the production of flaxseed over time. The production of flaxseed peaks around the year 2005, then it drastically decreased.</p>
+</div>
+<div id="flaxseed-vs.-co2-emissions-in-depth" class="section level2">
+<h2>Flaxseed vs. CO2 Emissions In-Depth</h2>
 <pre class="r"><code>flaxseed_co2_data &lt;- flaxseed_co2_data %&gt;% mutate(t = c(1:nrow(flaxseed_co2_data)))
 lm2 &lt;- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
 summary(lm2)</code></pre>
@@ -103,10 +106,10 @@ summary(lm2)</code></pre>
 <pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/flaxseed_analysis_files/figure-html/3-1.png" width="672" /></p>
-<p>From this plot we see a strong non-linear correlation between the Area harvest and co2 emission. As the Co2 emission increases the flaxseed area harvest decrease. We further analyze this relationship</p>
+<p>From this plot we see a strong non-linear correlation between the Area harvested and co2 emissions. As the Co2 emission increases, the flaxseed area harvested decreases. We further analyze this relationship below.</p>
 <pre class="r"><code>ggAcf(lm2$residuals)</code></pre>
 <p><img src="/flaxseed_analysis_files/figure-html/4-1.png" width="672" />
-Again the high correlation and the ggAcf of residuals show there is no autocorrelation. This allows us to create a prediction model</p>
+Again the high correlation and the ggAcf of residuals show there is no autocorrelation. This allows us to create a prediction model.</p>
 <pre class="r"><code>flaxseed_co2_data &lt;- flaxseed_co2_data %&gt;% mutate(t = c(1:nrow(flaxseed_co2_data)))
 lm2 &lt;- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
 summary(lm2)</code></pre>
@@ -183,4 +186,25 @@ flaxseed_pred %&gt;% ggplot()+
 ## 32 268 272.8024 2021
 ## 33  NA 276.6401 2022</code></pre>
 <p>The obs values are in red, and the blue line is the predicted values. We predicted 2022 using the lag of co2 emission in 2021. We were able to predict this because of ACF model, which showed no autocorrelation. The prediction produced is on average close to the observed values.</p>
+</div>
+<div id="price-as-a-metric-for-demand-and-forest-area" class="section level2">
+<h2>Price as a Metric for Demand and Forest Area</h2>
+<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/demand-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(flaxseed_co2_data[which(flaxseed_co2_data$CO2_emissions_kt&gt;0),],aes(y = (CO2_emissions_kt), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/demand-2.png" width="672" /></p>
+<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/demand-3.png" width="672" /></p>
+<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/demand-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(flaxseed_co2_data[which(flaxseed_co2_data$Forest_area_percent&gt;0),],aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/demand-5.png" width="672" />
+As discussed in the main analysis page, we decided to use price per bushel as a metric for demand for each crop. We saw on the main analysis page that there was no strong correlation between GDP growth and CO2 emissions. There does not appear to be a strong correlation between demand for flaxseed and GDP growth, nor between demand for flaxseed and CO2 emissions.</p>
+<p>It appears demand and production of flaxseed is not strongly correlated with goods and services exports either.</p>
+<p>Unlike we saw with barley, there does not appear to be a strong correlation between area harvested and forest area percent. We predicted a negative correlation between the two, as we hypothesized that more land for agriculture would equate to less land for forests. However, the data do not reflect this hypothesis for flaxseed.</p>
 </div>

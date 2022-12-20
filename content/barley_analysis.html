@@ -84,27 +84,6 @@ The above line graph shows barley production in United States from 1990 to 2021.
 <p><img src="/barley_analysis_files/figure-html/1-4.png" width="672" />
 We explored different variables and factors to conclude that there seems to be no strong relationship between the co2 emission and area harvested, production, area planted, or yield per acre.</p>
 </div>
-<div id="price-as-a-metric-for-demand-and-forest-area" class="section level2">
-<h2>Price as a Metric for Demand and Forest Area</h2>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/demand-1.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (CO2_emissions_kt), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/demand-2.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/demand-3.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point() + geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/demand-4.png" width="672" /></p>
-<pre class="r"><code>ggplot(barley_co2_data[which(barley_co2_data$Forest_area_percent&gt;0),],aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point() + geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/barley_analysis_files/figure-html/demand-5.png" width="672" />
-As discussed in the main analysis page, we decided to use price per bushel as a metric for demand for each crop. We saw on the main analysis page that there was no strong correlation between GDP growth and CO2 emissions. There does not appear to be a strong correlation between demand and GDP growth, nor between demand and CO2 emissions either.</p>
-<p>We were also curious about how the crops impacted goods and serviced exports, but it appears demand and production of barley is not strongly correlated with goods and services exports either.</p>
-<p>There was a strong negative correlation between area harvested and forest area percent, which was as we expected. As more land is used for growth and harvesting of barley, there is less land available for forests, so forest area percent decreases.</p>
-</div>
 <div id="barley-vs.-co2-emissions-in-depth" class="section level2">
 <h2>Barley vs. CO2 Emissions In-Depth</h2>
 <pre class="r"><code>diff_df &lt;- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
@@ -152,5 +131,27 @@ summary(lm1_diff)</code></pre>
 ## Residual standard error: 618.2 on 27 degrees of freedom
 ## Multiple R-squared:  0.01545,    Adjusted R-squared:  -0.09394 
 ## F-statistic: 0.1413 on 3 and 27 DF,  p-value: 0.9344</code></pre>
-<p>The R^2 value is 0.04049, so in other words, area harvested for barley accounts for 4% of variation in co2 outputs. Thus there no relationship between area harvested and co2 emission.</p>
+<p>In the above graph, the harvesting of one acre of land of barley is associated with a 2.433*10-5 increase in CO2 emissions.</p>
+<p>The R^2 value is 0.04049, so in other words, area harvested for barley accounts for 4% of variation in co2 outputs. Thus there is a very weak positive correlation between area harvested and co2 emission.</p>
+</div>
+<div id="price-as-a-metric-for-demand-and-forest-area" class="section level2">
+<h2>Price as a Metric for Demand and Forest Area</h2>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-1.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (CO2_emissions_kt), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-2.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-3.png" width="672" /></p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(barley_co2_data[which(barley_co2_data$Forest_area_percent&gt;0),],aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/barley_analysis_files/figure-html/demand-5.png" width="672" />
+As discussed in the main analysis page, we decided to use price per bushel as a metric for demand for each crop. We saw on the main analysis page that there was no strong correlation between GDP growth and CO2 emissions. There does not appear to be a strong correlation between demand for barley and GDP growth, nor between demand for barley and CO2 emissions either.</p>
+<p>We were also curious about how the crops impacted goods and serviced exports, but it appears demand and production of barley is not strongly correlated with goods and services exports either.</p>
+<p>There was a strong negative correlation between area harvested and forest area percent, which was as we expected. As more land is used for growth and harvesting of barley, there is less land available for forests, so forest area percent decreases.</p>
 </div>
