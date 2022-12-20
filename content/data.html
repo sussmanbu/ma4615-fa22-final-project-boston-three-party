@@ -3,7 +3,7 @@ title: Data
 description: 
 toc: true
 featuredVideo:
-featuredImage: /images/climate-change-backgrounder.jpeg 
+featuredImage: /images/data page.jpeg
 draft: false
 ---
 
@@ -12,13 +12,16 @@ draft: false
 
 </div>
 
+<div id="overview" class="section level2">
+<h2>Overview</h2>
 <p>As we know, climate change continues to be one of the greatest existential threats to our future and our planet. The three biggest causes of this threat are burning fossil fuels, cutting down forests, and farming livestock which add enormous amounts of greenhouse gases to those naturally occurring in the atmosphere. The topic of combating global warming is currently being discussed widely, with leaders all over the world coming up with solutions to slow down this catastrophe. Our group decided to take a further look into CO2 emissions and other various factors that contribute to this global threat in the past 50 years. We also decided to do further analysis on crop production in the United States to see the connection between certain crops and various climate variables.</p>
 <p>Climate Change Data: <a href="https://databank.worldbank.org/reports.aspx?source=2&amp;series=EN.ATM.CO2E.KT&amp;country=#" class="uri">https://databank.worldbank.org/reports.aspx?source=2&amp;series=EN.ATM.CO2E.KT&amp;country=#</a></p>
 <p>Crop data Pdf: <a href="https://downloads.usda.library.cornell.edu/usda-esmis/files/c534fn92g/g158cn09g/zc77tv62q/croptr22.pdf" class="uri">https://downloads.usda.library.cornell.edu/usda-esmis/files/c534fn92g/g158cn09g/zc77tv62q/croptr22.pdf</a></p>
 <p>We created our first dataset by choosing climate variables that we thought were vital contributions from the World Bank. The data from World Bank was collected by GHG Emissions Washington, D.C: World Resources Institute, climatewatchdata.org/ghg-emissions. This data was compiled for research and policy purposes. Our second dataset, Crop Proudction Dataset, was collected by the USDA for the purpose of creating a reference for data users.</p>
 <p>Our first dataset includes 12 variables: agriculture, forestry, and fishing value added, irrigated land, machinery and tractors, agricultural methane/nitrous oxide emissions, raw materials exports/imports, crop production index, livestock production index, percent of the rural population, and annual freshwater withdrawals. Our initial findings show that there has been a decline in agricultural land, machinery and tractors, raw materials exports, and percent rural population in the past 50 years in the United States. Conversely, there has been an increase in agricultural methane and nitrous oxide emissions, crop production, livestock production index, and annual freshwater withdrawals.
 Our second dataset contains crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models.</p>
-<p>Dataset 1 Variables:</p>
+<div id="dataset-1-variables" class="section level3">
+<h3>Dataset 1 Variables:</h3>
 <p>Country: what country data is from. For our project it is all data from USA
 Time: Measures year data was collected in. Data ranges from 1972 to 2021
 CO2_emissions_kt: CO2 Emissions in year measured in kilotons
@@ -32,8 +35,10 @@ Fossil_fuel_energy_consumption: Percentage of total energy consumption that come
 Research_development_expenditure: Percentage of GDP spent on research and development
 Goods_services_exports: Percentage of GDP from exports of goods and services
 Population_density: people per sq. km of land area</p>
-<p>Dataset 2 Variables:
-Area harvested (1,000 acres)
+</div>
+<div id="dataset-2-variables" class="section level3">
+<h3>Dataset 2 Variables:</h3>
+<p>Area harvested (1,000 acres)
 Area planted (1,000 acres)
 Yield per acre (bushels)
 Production (1,000 bushels)
@@ -104,3 +109,5 @@ View(barley_co2_data)</code></pre>
 <p>There were some differences between each crop csv file. The csv file contained a lot of unnecessary information. Therefore, we skipped those columns. After cleaning the files, we used rbind to bind based on the columns.</p>
 <p>We used left join to merge the individual crop datasets with the CO2 dataset for each crop, merging along the years.</p>
 <p>Our first dataset on climate change did not have the variables input as “numbers” so we had to go in and reset each numerical cell as a numbers.</p>
+</div>
+</div>

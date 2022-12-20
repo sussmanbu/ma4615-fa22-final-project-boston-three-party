@@ -3,11 +3,11 @@ title: Data
 description: 
 toc: true
 featuredVideo:
-featuredImage: /images/climate-change-backgrounder.jpeg 
+featuredImage: /images/data page.jpeg
 draft: false
 ---
 
-
+## Overview
 As we know, climate change continues to be one of the greatest existential threats to our future and our planet. The three biggest causes of this threat are burning fossil fuels, cutting down forests, and farming livestock which add enormous amounts of greenhouse gases to those naturally occurring in the atmosphere. The topic of combating global warming is currently being discussed widely, with leaders all over the world coming up with solutions to slow down this catastrophe. Our group decided to take a further look into CO2 emissions and other various factors that contribute to this global threat in the past 50 years. We also decided to do further analysis on crop production in the United States to see the connection between certain crops and various climate variables.
  
 Climate Change Data: https://databank.worldbank.org/reports.aspx?source=2&series=EN.ATM.CO2E.KT&country=# 
@@ -20,7 +20,7 @@ We created our first dataset by choosing climate variables that we thought were 
 Our first dataset includes 12 variables: agriculture, forestry, and fishing value added, irrigated land, machinery and tractors, agricultural methane/nitrous oxide emissions, raw materials exports/imports, crop production index, livestock production index, percent of the rural population, and annual freshwater withdrawals. Our initial findings show that there has been a decline in agricultural land, machinery and tractors, raw materials exports, and percent rural population in the past 50 years in the United States. Conversely, there has been an increase in agricultural methane and nitrous oxide emissions, crop production, livestock production index, and annual freshwater withdrawals. 
 Our second dataset contains crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models.
 
-Dataset 1 Variables: 
+### Dataset 1 Variables: 
 
 Country: what country data is from. For our project it is all data from USA
 Time: Measures year data was collected in. Data ranges from 1972 to 2021
@@ -36,7 +36,7 @@ Research_development_expenditure: Percentage of GDP spent on research and develo
 Goods_services_exports: Percentage of GDP from exports of goods and services
 Population_density: people per sq. km of land area
 
-Dataset 2 Variables:
+### Dataset 2 Variables:
 Area harvested (1,000 acres)
 Area planted (1,000 acres)
 Yield per acre (bushels)
