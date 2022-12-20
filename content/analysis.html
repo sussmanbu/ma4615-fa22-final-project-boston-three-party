@@ -13,16 +13,16 @@ draft: false
 </div>
 
 <p>This comes from the file <code>content/analysis.Rmd</code>.</p>
-<p>We describe here our detailed data analysis</p>
+<p>We describe here our detailed data analysis of the CO2 dataset. We explore how CO2 emissions are impacted by agriculture on the analysis pages for each of the following crops which we examined: barley, corn, and flaxseed.</p>
 <div id="introduce-what-motivates-your-data-analysis-da" class="section level2">
 <h2>Introduce what motivates your Data Analysis (DA)</h2>
-<p>We are most interested in investigating how CO2 emissions relate to our crop data. We are curious as to whether crop production, area harvested, and area planted impact emission data. We’re investigating the question “does farming impact CO2 emissions?”</p>
+<p>We’re interested in investigating how different factors contribute to CO2 emissions. From our first dataset, we want to investigate which variables most greatly influence CO2 emissions as well as whether any of the variables in the dataset don’t heavily affect emissions.</p>
+<p>We are interested in seeing how crop production and CO2 emission are related as well. Since agriculture can contribute to pollution due to a number of factors (land use, fertilizers and pesticides, deforestation, etc.), we would like to investigate the relationship between crop production and emissions.</p>
 </div>
-<div id="breadth-of-the-da" class="section level2">
-<h2>Breadth of the DA</h2>
-</div>
-<div id="depth-of-the-da" class="section level2">
-<h2>Depth of the DA</h2>
+<div id="breadth-and-depth-of-the-da" class="section level2">
+<h2>Breadth and Depth of the DA</h2>
+<p>The primary response variable we are examining is CO2 emissions, but we are also curious about the relationship between the crop data and some of the other variables in the CO2 emissions dataset. For example, is there a positive or negative correlation between crop production and goods and services exports? What is the relationship between crop area harvested and forest area percentage? While the crop data likely only represents a portion of the factors we’re examining in the CO2 emissions dataset (for example, flaxseed, corn, and barley are only a fraction of crops the US produces and therefore are not the only factors that influence deforestation/forest area in the US), we’d like to see whether such crops are good predictors of these larger metrics.</p>
+<p>Upon exploring some of the data, we recognized that demand for crops might be an interesting factor to examine. While the crop datasets don’t contain direct variables for demand, we decided to use price per bushel as a metric for demand. We’d like to explore if there is any relationship between price per bushel for these crops and GDP growth. As the main focus of our project is to investigate variables as they relate to CO2 emissions, we’d like to tie our findings of demand and price back to how they influence CO2 emissions. We also would like to investigate how, if at all, demand impacts goods and services exports.</p>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -40,7 +40,7 @@ draft: false
 <pre><code>## Warning: Removed 2 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <p><img src="/analysis_files/figure-html/loaddata_and_plots-1.png" width="672" />
-We examined the impact of GDP growth on CO2 emissions and found a slight positive correlation between the two. We expand on this in our analyses of the crops, but this is an important relationship to consider how climate change may be related to fiscal gains for the US.</p>
+We examined the impact of GDP growth on CO2 emissions and did not find a strong correlation between the two. We expand on this in our analyses of the crops, but this is an important relationship to consider whether climate change may be related to financial growth or decline for the US. According to this plot, there does not seem to be a strong correlation between the two, but there are many other factors involved.</p>
 <pre class="r"><code>co2_data_clean &lt;- read.csv(here::here(&quot;dataset/clean_co2.csv&quot;))
 
 for(i in 2:ncol(co2_data_clean)){
