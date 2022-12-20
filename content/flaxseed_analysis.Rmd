@@ -19,13 +19,15 @@ library(readr)
 library(tidyr)
 ```
 
+
 ```{r cleaning_data, echo=FALSE}
 ## CLEAN THE DATA
 co2_data_clean <- read.csv(here::here("dataset/clean_co2.csv"))
 
+view(co2_data_clean)
 ```
 
-```{r corn_co2_dataset, echo=FALSE}
+```{r flaxseed_co2_dataset, echo=FALSE}
 # used barley datasets for col names
 barley_data_3 <- read_csv(here::here("dataset", "barley/crop_p015_t005.csv"),skip = 5)
 barley_data_3<- barley_data_3[-2,3:ncol(barley_data_3)] %>% drop_na(Year) %>% head(-1)
@@ -68,7 +70,7 @@ View(flaxseed_co2_data)
 
 ```
 
-
+## Flaxseed vs. CO2 Preliminary Analyses
 ```{r flaxseed_timeseries}
 
 Year <- flaxseed_co2_data %>% pull(Time)
@@ -80,45 +82,70 @@ flaxseed_ts <- ggplot(flaxseed_co2_data, aes(x=Year, y=Production)) +
   xlab("")
 flaxseed_ts
 
-
 ```
 
-In our time series analysis above, we analyze the production of flaxseed over time.
+In our time series analysis above, we analyze the production of flaxseed over time.The production of flaxseed peaks around the year 2005. Then it drastically went down. 
 
 
-```{r flaxseed_stats}
 
-ggAcf(flaxseed_co2_data$`Area harvested`)  ###use difference 
-ggAcf(diff(flaxseed_co2_data$`Area harvested`)) ## no autocorrelation
-
-
-# co2 emission
-ggAcf(flaxseed_co2_data$CO2_emissions_kt) ##persistent  autocorrelation 
-ggAcf(diff(flaxseed_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot
-
-
-#flaxseed_co2_data %>% ggplot(aes(x = diff('Area harvested'), y = diff(CO2_emissions_kt))) + geom_point()
-
-diff_df <- data.frame(diff_area = diff(flaxseed_co2_data$`Area harvested`), diff_co2 = diff(flaxseed_co2_data$CO2_emissions_kt) )
-diff_df %>% ggplot(aes(x = diff_area, y = diff_co2)) + geom_point()+ geom_smooth()
-### weak correlation between co2 and harvested
-
-flaxseed_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
-##there is very strong correlation here
-
-lm2 <- (lm(`Area harvested`~ CO2_emissions_kt, flaxseed_co2_data)) 
+```{r,2}
+flaxseed_co2_data <- flaxseed_co2_data %>% mutate(t = c(1:nrow(flaxseed_co2_data)))
+lm2 <- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
 summary(lm2)
-#High correlation
-
-lm2_diff <-lm(diff_area ~ diff_co2, diff_df) 
-summary(lm2_diff)
-#differenced data has no correlation, differencing is not required
-
-ggAcf(lm2$residuals)
-ggAcf(lm2_diff$residuals)
-
 
 ```
+As c02 emission increases the area harvested decreases. This allows us to create an ACF model. We will be adjusting the model to show autocorrelation. P values are statistically significant and there strong positive relationship. 
+
+```{r,3}
+flaxseed_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()
+
+```
+ 
+From this plot we see a strong non-linear correlation between the Area harvest and co2 emission. As the Co2 emission increases the flaxseed area harvest decrease. We further analyze this relationship
+
+
+```{r,4}
+ggAcf(lm2$residuals)
+```
+Again the high correlation and the ggAcf of residuals show there is no autocorrelation. This allows us to create a prediction model
+
+```{r}
+flaxseed_co2_data <- flaxseed_co2_data %>% mutate(t = c(1:nrow(flaxseed_co2_data)))
+lm2 <- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
+summary(lm2)
+
+```
+
+
+As c02 emission increases the area harvested decreases. This allows us to create an ACF model. We will be adjusting the model to show autocorrelation. P values are statistically significant and there strong positive relationship. 
+
+
+
+```{r}
+flaxseed_co2_data %>% mutate(y_fit = predict(lm2)) %>% ggplot(aes(x = `Area harvested`, y = y_fit)) + geom_point()+ geom_smooth(method="lm")
+#predicted 400, and true value is 200. 
+#lag of harvest data, and co2 emission
+#prediction aganist the real value of area harvested. The point needs to be aligned and 45 degrees. 
+lm2 <- (lm(`Area harvested`~ lag(CO2_emissions_kt) +  I(lag(CO2_emissions_kt)^2) + t,  flaxseed_co2_data)) 
+summary(lm2)
+y_pred <- flaxseed_co2_data %>% select(`Area harvested`,CO2_emissions_kt, t) 
+y_pred <-rbind(y_pred, c(NA,NA,33))
+y_pred2 <- predict(lm2,y_pred)
+flaxseed_pred <- data.frame(y = c(flaxseed_co2_data$`Area harvested`, NA),
+                            y_fit= c(y_pred2),
+                            Year= c(1990:2022))
+
+flaxseed_pred %>% ggplot()+
+  geom_line(aes(x = Year, y = y, color = "Obs"))+
+  geom_line(aes(x = Year, y = y_fit, color = "pred")) + labs(y = "Production") + labs(title = "  Prediction Model for Flaxseed" )
+flaxseed_pred %>% tail(5)
+
+```
+
+The obs values are in red, and the blue line is the predicted values. We predicted 2022 using the lag of co2 emission in 2021. We were able to predict this because of ACF model, which showed no autocorrelation. The prediction produced is on average close to the observed values. 
+
+
+
 
 
 
