@@ -7,7 +7,13 @@ featuredVideo:
 draft: false
 ---
 
+<<<<<<< HEAD
 ---
+=======
+This comes from the file `content/big_picture.Rmd`.
+## PLEASE ADD GRAPH: CO2 EMISSIONS OVER TIME (LINE GRAPH)
+
+>>>>>>> e89057d1b5ab72c8b6820176a404c1c7067c9470
 
 ## Does crop production cause climate change? 
 
