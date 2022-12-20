@@ -14,26 +14,26 @@ draft: false
 
 <p>This comes from the file <code>content/analysis.Rmd</code>.</p>
 <p>We describe here our detailed data analysis of the CO2 dataset. We explore how CO2 emissions are impacted by agriculture on the analysis pages for each of the following crops which we examined: barley, corn, and flaxseed.</p>
-<div id="introduce-what-motivates-your-data-analysis-da" class="section level2">
-<h2>Introduce what motivates your Data Analysis (DA)</h2>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>We’re interested in investigating how different factors contribute to CO2 emissions. From our first dataset, we want to investigate which variables most greatly influence CO2 emissions as well as whether any of the variables in the dataset don’t heavily affect emissions.</p>
 <p>We are interested in seeing how crop production and CO2 emission are related as well. Since agriculture can contribute to pollution due to a number of factors (land use, fertilizers and pesticides, deforestation, etc.), we would like to investigate the relationship between crop production and emissions.</p>
 </div>
-<div id="breadth-and-depth-of-the-da" class="section level2">
-<h2>Breadth and Depth of the DA</h2>
+<div id="breadth-and-depth-of-the-data-analysis" class="section level2">
+<h2>Breadth and Depth of the Data Analysis</h2>
 <p>The primary response variable we are examining is CO2 emissions, but we are also curious about the relationship between the crop data and some of the other variables in the CO2 emissions dataset. For example, is there a positive or negative correlation between crop production and goods and services exports? What is the relationship between crop area harvested and forest area percentage? While the crop data likely only represents a portion of the factors we’re examining in the CO2 emissions dataset (for example, flaxseed, corn, and barley are only a fraction of crops the US produces and therefore are not the only factors that influence deforestation/forest area in the US), we’d like to see whether such crops are good predictors of these larger metrics.</p>
 <p>Upon exploring some of the data, we recognized that demand for crops might be an interesting factor to examine. While the crop datasets don’t contain direct variables for demand, we decided to use price per bushel as a metric for demand. We’d like to explore if there is any relationship between price per bushel for these crops and GDP growth. As the main focus of our project is to investigate variables as they relate to CO2 emissions, we’d like to tie our findings of demand and price back to how they influence CO2 emissions. We also would like to investigate how, if at all, demand impacts goods and services exports.</p>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.3.5      ✔ purrr   0.3.4 
-## ✔ tibble  3.1.6      ✔ dplyr   1.0.10
-## ✔ tidyr   1.2.0      ✔ stringr 1.4.0 
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.0      ✔ stringr 1.4.1 
 ## ✔ readr   2.1.2      ✔ forcats 0.5.2 
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
-## Loading required package: forecast
-## 
-## Registered S3 method overwritten by &#39;quantmod&#39;:
+## Loading required package: forecast</code></pre>
+<pre><code>## Warning: package &#39;forecast&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
