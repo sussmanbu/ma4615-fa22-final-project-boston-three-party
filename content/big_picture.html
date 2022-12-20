@@ -16,7 +16,7 @@ editor_options:
 </div>
 
 <div id="how-does-us-crop-production-impact-climate-change" class="section level2">
-<h2>## HOW DOES US CROP PRODUCTION IMPACT CLIMATE CHANGE?</h2>
+<h2>HOW DOES US CROP PRODUCTION IMPACT CLIMATE CHANGE?</h2>
 <p>This comes from the file <code>content/big_picture.Rmd</code>.</p>
 <p>The central goal of our project is to examine if there is a relationship between the production of agricultural crops in the United States and the output of carbon dioxide into the atmosphere from the United States.
 One of the most common ways of offsetting greenhouse gas emissions is through planting vegetation.
@@ -39,6 +39,7 @@ Overall, our results suggest that there is no significant relationship between C
 However, there was a significant relationship between flaxseed production and CO2 output, suggesting that this specific crop may have more of an impact on the environment than others.</p>
 <p><img src="images/bigpic2.PNG" /></p>
 <p>Since flaxseed was the only crop to have a direct correlation between CO2 emissions and production, we decided to conduct an ARIMA Time Series analysis of flaxseed production in order to predict what the production of flax seeds would be for the next year.
+The above figure highlights the accuracy of our time series prediction model against the actual observed data points.
 From our model, we predict that the US will produce approximately 276640.1 bushels of flaxseed.</p>
 <hr />
 <div id="interactive" class="section level3">
@@ -50,8 +51,8 @@ Our interactive component has 2 separate figures.
 The first figure depicts the production of flaxseed in 1000s of bushels vs time for each year analyzed.
 Each data point is colored by the specific CO2 emissions for the corresponding year, and the size of each dot represents the corresponding crop yield for each year.
 Each data point also allows the user to learn the corresponding economic value of flaxseed per year.</p>
-<p>The second figure depicts CO2 emissions vs production output of flaxseeds.
-Specifically, it allows the user to see how there is indeed a slight negative relationship between CO2 emissions and flaxseed output.</p>
+<p>The second figure depicts CO2 emissions vs production output of flaxseeds. Specifically, it allows the user to see how there is indeed a slight negative relationship between CO2 emissions and flaxseed output.</p>
+<p>The third figure is a data table specifically focusing on the 3 primary variables of interest in our analysis. The CO2 emissions column is also a bar chart with relative sizes of the bar representing the total emissions for the corresponding year. The flaxseed production column is also color coded to represent the different amounts of production for each year. Specifically, red years represent less than 5000000 bushels produced, blue between 5 million and ten million bushels in a year, and green greater than ten million bushels produced in the year. This creates another visual way for the user to see that there is a slight positive correlation between CO2 emissions and flaxseed production.</p>
 <hr />
 </div>
 <div id="video-recording" class="section level3">

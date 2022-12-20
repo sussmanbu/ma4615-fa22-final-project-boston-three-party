@@ -10,7 +10,7 @@ editor_options:
     wrap: sentence
 ---
 
-## \## HOW DOES US CROP PRODUCTION IMPACT CLIMATE CHANGE?
+## HOW DOES US CROP PRODUCTION IMPACT CLIMATE CHANGE?
 
 This comes from the file `content/big_picture.Rmd`.
 
@@ -41,6 +41,7 @@ However, there was a significant relationship between flaxseed production and CO
 ![](images/bigpic2.PNG)
 
 Since flaxseed was the only crop to have a direct correlation between CO2 emissions and production, we decided to conduct an ARIMA Time Series analysis of flaxseed production in order to predict what the production of flax seeds would be for the next year.
+The above figure highlights the accuracy of our time series prediction model against the actual observed data points.
 From our model, we predict that the US will produce approximately 276640.1 bushels of flaxseed.
 
 ------------------------------------------------------------------------
@@ -56,11 +57,11 @@ The first figure depicts the production of flaxseed in 1000s of bushels vs time 
 Each data point is colored by the specific CO2 emissions for the corresponding year, and the size of each dot represents the corresponding crop yield for each year.
 Each data point also allows the user to learn the corresponding economic value of flaxseed per year.
 
-The second figure depicts CO2 emissions vs production output of flaxseeds.
-Specifically, it allows the user to see how there is indeed a slight negative relationship between CO2 emissions and flaxseed output.
+The second figure depicts CO2 emissions vs production output of flaxseeds. Specifically, it allows the user to see how there is indeed a slight negative relationship between CO2 emissions and flaxseed output.
+
+The third figure is a data table specifically focusing on the 3 primary variables of interest in our analysis. The CO2 emissions column is also a bar chart with relative sizes of the bar representing the total emissions for the corresponding year. The flaxseed production column is also color coded to represent the different amounts of production for each year. Specifically, red years represent less than 5000000 bushels produced, blue between 5 million and ten million bushels in a year, and green greater than ten million bushels produced in the year. This creates another visual way for the user to see that there is a slight positive correlation between CO2 emissions and flaxseed production.  
+
 
 ------------------------------------------------------------------------
 
 ### Video Recording
-
-
