@@ -63,6 +63,8 @@ draft: false
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols()</code></pre>
+<div id="flaxseed-vs.-co2-preliminary-analyses" class="section level2">
+<h2>Flaxseed vs. CO2 Preliminary Analyses</h2>
 <pre class="r"><code>Year &lt;- flaxseed_co2_data %&gt;% pull(Time)
 Production &lt;- flaxseed_co2_data %&gt;% pull(Production)
 co_emit &lt;- flaxseed_co2_data %&gt;% pull(CO2_emissions_kt)
@@ -72,70 +74,113 @@ flaxseed_ts &lt;- ggplot(flaxseed_co2_data, aes(x=Year, y=Production)) +
   xlab(&quot;&quot;)
 flaxseed_ts</code></pre>
 <p><img src="/flaxseed_analysis_files/figure-html/flaxseed_timeseries-1.png" width="672" /></p>
-<p>In our time series analysis above, we analyze the production of flaxseed over time.</p>
-<pre class="r"><code>ggAcf(flaxseed_co2_data$`Area harvested`)  ###use difference </code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-1.png" width="672" /></p>
-<pre class="r"><code>ggAcf(diff(flaxseed_co2_data$`Area harvested`)) ## no autocorrelation</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-2.png" width="672" /></p>
-<pre class="r"><code># co2 emission
-ggAcf(flaxseed_co2_data$CO2_emissions_kt) ##persistent  autocorrelation </code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-3.png" width="672" /></p>
-<pre class="r"><code>ggAcf(diff(flaxseed_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-4.png" width="672" /></p>
-<pre class="r"><code>#flaxseed_co2_data %&gt;% ggplot(aes(x = diff(&#39;Area harvested&#39;), y = diff(CO2_emissions_kt))) + geom_point()
-
-diff_df &lt;- data.frame(diff_area = diff(flaxseed_co2_data$`Area harvested`), diff_co2 = diff(flaxseed_co2_data$CO2_emissions_kt) )
-diff_df %&gt;% ggplot(aes(x = diff_area, y = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-5.png" width="672" /></p>
-<pre class="r"><code>### weak correlation between co2 and harvested
-
-flaxseed_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-6.png" width="672" /></p>
-<pre class="r"><code>##there is very strong correlation here
-
-lm2 &lt;- (lm(`Area harvested`~ CO2_emissions_kt, flaxseed_co2_data)) 
+<p>In our time series analysis above, we analyze the production of flaxseed over time.The production of flaxseed peaks around the year 2005. Then it drastically went down.</p>
+<pre class="r"><code>flaxseed_co2_data &lt;- flaxseed_co2_data %&gt;% mutate(t = c(1:nrow(flaxseed_co2_data)))
+lm2 &lt;- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
 summary(lm2)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = `Area harvested` ~ CO2_emissions_kt, data = flaxseed_co2_data)
+## lm(formula = `Area harvested` ~ CO2_emissions_kt + I(CO2_emissions_kt^2) + 
+##     t, data = flaxseed_co2_data)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -275.45 -160.57  -36.51  104.06  570.14 
+## -276.03 -103.84  -10.43   68.86  405.18 
 ## 
 ## Coefficients:
-##                   Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)      1.762e+02  1.331e+02   1.323    0.196
-## CO2_emissions_kt 3.628e-05  2.600e-05   1.395    0.173
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.350e+02  1.523e+02   0.886 0.382905    
+## CO2_emissions_kt      -3.231e-04  9.386e-05  -3.443 0.001829 ** 
+## I(CO2_emissions_kt^2)  6.640e-11  1.620e-11   4.097 0.000323 ***
+## t                      4.759e+00  3.332e+00   1.428 0.164300    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 194.1 on 30 degrees of freedom
-## Multiple R-squared:  0.06093,    Adjusted R-squared:  0.02962 
-## F-statistic: 1.946 on 1 and 30 DF,  p-value: 0.1732</code></pre>
-<pre class="r"><code>#High correlation
-
-lm2_diff &lt;-lm(diff_area ~ diff_co2, diff_df) 
-summary(lm2_diff)</code></pre>
+## Residual standard error: 156.1 on 28 degrees of freedom
+## Multiple R-squared:  0.4336, Adjusted R-squared:  0.3729 
+## F-statistic: 7.145 on 3 and 28 DF,  p-value: 0.00104</code></pre>
+<p>As c02 emission increases the area harvested decreases. This allows us to create an ACF model. We will be adjusting the model to show autocorrelation. P values are statistically significant and there strong positive relationship.</p>
+<pre class="r"><code>flaxseed_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/3-1.png" width="672" /></p>
+<p>From this plot we see a strong non-linear correlation between the Area harvest and co2 emission. As the Co2 emission increases the flaxseed area harvest decrease. We further analyze this relationship</p>
+<pre class="r"><code>ggAcf(lm2$residuals)</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/4-1.png" width="672" />
+Again the high correlation and the ggAcf of residuals show there is no autocorrelation. This allows us to create a prediction model</p>
+<pre class="r"><code>flaxseed_co2_data &lt;- flaxseed_co2_data %&gt;% mutate(t = c(1:nrow(flaxseed_co2_data)))
+lm2 &lt;- (lm(`Area harvested`~ CO2_emissions_kt +  I(CO2_emissions_kt^2) + t,  flaxseed_co2_data)) 
+summary(lm2)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = diff_area ~ diff_co2, data = diff_df)
+## lm(formula = `Area harvested` ~ CO2_emissions_kt + I(CO2_emissions_kt^2) + 
+##     t, data = flaxseed_co2_data)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -417.76  -83.54   -9.55   96.79  444.03 
+## -276.03 -103.84  -10.43   68.86  405.18 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)  1.116e-02  2.922e+01   0.000    1.000
-## diff_co2    -3.025e-06  3.331e-05  -0.091    0.928
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.350e+02  1.523e+02   0.886 0.382905    
+## CO2_emissions_kt      -3.231e-04  9.386e-05  -3.443 0.001829 ** 
+## I(CO2_emissions_kt^2)  6.640e-11  1.620e-11   4.097 0.000323 ***
+## t                      4.759e+00  3.332e+00   1.428 0.164300    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 160.1 on 29 degrees of freedom
-## Multiple R-squared:  0.0002842,  Adjusted R-squared:  -0.03419 
-## F-statistic: 0.008245 on 1 and 29 DF,  p-value: 0.9283</code></pre>
-<pre class="r"><code>#differenced data has no correlation, differencing is not required
+## Residual standard error: 156.1 on 28 degrees of freedom
+## Multiple R-squared:  0.4336, Adjusted R-squared:  0.3729 
+## F-statistic: 7.145 on 3 and 28 DF,  p-value: 0.00104</code></pre>
+<p>As c02 emission increases the area harvested decreases. This allows us to create an ACF model. We will be adjusting the model to show autocorrelation. P values are statistically significant and there strong positive relationship.</p>
+<pre class="r"><code>flaxseed_co2_data %&gt;% mutate(y_fit = predict(lm2)) %&gt;% ggplot(aes(x = `Area harvested`, y = y_fit)) + geom_point()+ geom_smooth(method=&quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>#predicted 400, and true value is 200. 
+#lag of harvest data, and co2 emission
+#prediction aganist the real value of area harvested. The point needs to be aligned and 45 degrees. 
+lm2 &lt;- (lm(`Area harvested`~ lag(CO2_emissions_kt) +  I(lag(CO2_emissions_kt)^2) + t,  flaxseed_co2_data)) 
+summary(lm2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = `Area harvested` ~ lag(CO2_emissions_kt) + I(lag(CO2_emissions_kt)^2) + 
+##     t, data = flaxseed_co2_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -249.68  -84.35   -3.05   73.07  397.86 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 1.500e+02  1.784e+02   0.841 0.407881    
+## lag(CO2_emissions_kt)      -3.598e-04  9.697e-05  -3.710 0.000949 ***
+## I(lag(CO2_emissions_kt)^2)  7.319e-11  1.575e-11   4.648 7.85e-05 ***
+## t                           3.838e+00  3.147e+00   1.220 0.233182    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 147.4 on 27 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.5086, Adjusted R-squared:  0.454 
+## F-statistic: 9.317 on 3 and 27 DF,  p-value: 0.0002139</code></pre>
+<pre class="r"><code>y_pred &lt;- flaxseed_co2_data %&gt;% select(`Area harvested`,CO2_emissions_kt, t) 
+y_pred &lt;-rbind(y_pred, c(NA,NA,33))
+y_pred2 &lt;- predict(lm2,y_pred)
+flaxseed_pred &lt;- data.frame(y = c(flaxseed_co2_data$`Area harvested`, NA),
+                            y_fit= c(y_pred2),
+                            Year= c(1990:2022))
 
-ggAcf(lm2$residuals)</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-7.png" width="672" /></p>
-<pre class="r"><code>ggAcf(lm2_diff$residuals)</code></pre>
-<p><img src="/flaxseed_analysis_files/figure-html/flaxseed_stats-8.png" width="672" /></p>
+flaxseed_pred %&gt;% ggplot()+
+  geom_line(aes(x = Year, y = y, color = &quot;Obs&quot;))+
+  geom_line(aes(x = Year, y = y_fit, color = &quot;pred&quot;)) + labs(y = &quot;Production&quot;) + labs(title = &quot;  Prediction Model for Flaxseed&quot; )</code></pre>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).
+## Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="/flaxseed_analysis_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>flaxseed_pred %&gt;% tail(5)</code></pre>
+<pre><code>##      y    y_fit Year
+## 29 198 227.5177 2018
+## 30 284 287.0496 2019
+## 31 296 234.6229 2020
+## 32 268 272.8024 2021
+## 33  NA 276.6401 2022</code></pre>
+<p>The obs values are in red, and the blue line is the predicted values. We predicted 2022 using the lag of co2 emission in 2021. We were able to predict this because of ACF model, which showed no autocorrelation. The prediction produced is on average close to the observed values.</p>
+</div>
