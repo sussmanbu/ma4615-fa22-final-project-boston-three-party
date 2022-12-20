@@ -22,28 +22,32 @@ draft: false
 Our second dataset contains crop production data for individual crops. The dataset has a lot of specific values for each crop over time, which is better suited for interactive models.</p>
 <div id="dataset-1-variables" class="section level3">
 <h3>Dataset 1 Variables:</h3>
-<p><em>Country: what country data is from. For our project it is all data from USA
-</em>Time: Measures year data was collected in. Data ranges from 1972 to 2021
-<em>CO2_emissions_kt: CO2 Emissions in year measured in kilotons
-</em>Population_growth_annual_percent: Change in population` growth across the year. Measured as a percentage
-<em>Forest_area_percent: Measures percent of country covered by forest area in sq km
-</em>Electricity_production: measures total amount of electricity produced in country in kilowatts
-<em>Renewable_electricity_output: measures total amount of electricity produced from renewable sources (i.e. non fossil fuels) in country in kilowatts
-</em>Total_greenhouse_gas_emissions: measures total greenhouse gas emissions per year for country in kt
-<em>GDP_growth: measures annual percent change in GDP of country
-</em>Fossil_fuel_energy_consumption: Percentage of total energy consumption that comes from fossil fuels and not from other sources (such as renewables)
-<em>Research_development_expenditure: Percentage of GDP spent on research and development
-</em>Goods_services_exports: Percentage of GDP from exports of goods and services
-*Population_density: people per sq. km of land area</p>
+<ol style="list-style-type: decimal">
+<li>Country: what country data is from. For our project it is all data from USA</li>
+<li>Time: Measures year data was collected in. Data ranges from 1972 to 2021</li>
+<li>CO2_emissions_kt: CO2 Emissions in year measured in kilotons</li>
+<li>Population_growth_annual_percent: Change in population` growth across the year. Measured as a percentage</li>
+<li>Forest_area_percent: Measures percent of country covered by forest area in sq km</li>
+<li>Electricity_production: measures total amount of electricity produced in country in kilowatts</li>
+<li>Renewable_electricity_output: measures total amount of electricity produced from renewable sources (i.e. non fossil fuels) in country in kilowatts</li>
+<li>Total_greenhouse_gas_emissions: measures total greenhouse gas emissions per year for country in kt</li>
+<li>GDP_growth: measures annual percent change in GDP of country</li>
+<li>Fossil_fuel_energy_consumption: Percentage of total energy consumption that comes from fossil fuels and not from other sources (such as renewables)</li>
+<li>Research_development_expenditure: Percentage of GDP spent on research and development</li>
+<li>Goods_services_exports: Percentage of GDP from exports of goods and services</li>
+<li>Population_density: people per sq. km of land area</li>
+</ol>
 </div>
 <div id="dataset-2-variables" class="section level3">
 <h3>Dataset 2 Variables:</h3>
-<p><em>Area harvested (1,000 acres)
-</em>Area planted (1,000 acres)
-<em>Yield per acre (bushels)
-</em>Production (1,000 bushels)
-<em>Price per bushel (dollars)
-</em>Value of production (1,000 dollars)</p>
+<ol style="list-style-type: decimal">
+<li>Area harvested (1,000 acres)</li>
+<li>Area planted (1,000 acres)</li>
+<li>Yield per acre (bushels)</li>
+<li>Production (1,000 bushels)</li>
+<li>Price per bushel (dollars)</li>
+<li>Value of production (1,000 dollars)</li>
+</ol>
 <p>Clean data code can be found here :<a href="https://github.com/sussmanbu/ma4615-fa22-final-project-boston-three-party/blame/master/static/load_and_clean_data.R" class="uri">https://github.com/sussmanbu/ma4615-fa22-final-project-boston-three-party/blame/master/static/load_and_clean_data.R</a>
 co2_data &lt;- read_csv(here::here(“dataset”, “CSV_fixed_climate_data.csv”))</p>
 <pre class="r"><code>library(tidyverse)</code></pre>

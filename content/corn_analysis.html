@@ -3,7 +3,7 @@ title: Corn Analysis
 description:
 toc: true
 featuredVideo:
-featuredImage:
+featuredImage: /images/corn .jpeg
 draft: false
 ---
 
@@ -75,6 +75,8 @@ draft: false
 ##   `Price per bushel 1/` = col_double(),
 ##   `Value of production` = col_double()
 ## )</code></pre>
+<div id="corn-vs.-co2-preliminary-analyses" class="section level2">
+<h2>Corn vs. CO2 Preliminary Analyses</h2>
 <pre class="r"><code>Year &lt;- corn_co2_data %&gt;% pull(Time)
 Production &lt;- corn_co2_data %&gt;% pull(Production)
 co_emit &lt;- corn_co2_data %&gt;% pull(CO2_emissions_kt)
@@ -84,30 +86,23 @@ corn_ts &lt;- ggplot(corn_co2_data, aes(x=Year, y=Production)) +
   xlab(&quot;&quot;)
 corn_ts</code></pre>
 <p><img src="/corn_analysis_files/figure-html/corn_timeseries-1.png" width="672" />
-In our time series analysis above, we analyze the production of corn over time.</p>
-<pre class="r"><code>ggAcf(corn_co2_data$`Area harvested`)  ###use difference </code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-1.png" width="672" /></p>
-<pre class="r"><code>ggAcf(diff(corn_co2_data$`Area harvested`)) ## no autocorrelation</code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-2.png" width="672" /></p>
-<pre class="r"><code># co2 emission
-ggAcf(corn_co2_data$CO2_emissions_kt) ##persistent  autocorrelation </code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-3.png" width="672" /></p>
-<pre class="r"><code>ggAcf(diff(corn_co2_data$CO2_emissions_kt)) #increase of c02 over time, a good plot</code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-4.png" width="672" /></p>
-<pre class="r"><code>#corn_co2_data %&gt;% ggplot(aes(x = diff(`Area harvested`), y = diff(CO2_emissions_kt))) + geom_point()
-
-diff_df &lt;- data.frame(diff_area = diff(corn_co2_data$`Area harvested`), diff_co2 = diff(corn_co2_data$CO2_emissions_kt) )
+The above line graph shows corn production in United States from 1990 to 2021. There’s a clear positive trend in production as time goes on.</p>
+<pre class="r"><code>corn_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/corn_analysis_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+We first started with a linear model trying to figure out if there is a relationship between corn area harvested and co2 emission. It seems like a cubic graph with no relationship. We will perform more tests and ggACF to future analyze the relationship.</p>
+<pre class="r"><code>ggAcf(corn_co2_data$`Area harvested`) </code></pre>
+<p><img src="/corn_analysis_files/figure-html/1-1.png" width="672" />
+We will be using diff since the ggAcf does not show any important trends.</p>
+<pre class="r"><code>ggAcf(diff(corn_co2_data$`Area harvested`)) </code></pre>
+<p><img src="/corn_analysis_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+After ACF we tried diff ACF as we did for barley. Again, we can’t conclude that there is a relationship between the co2 emission and corn harvested. There is no autocorrelation in our data.</p>
+<pre class="r"><code>diff_df &lt;- data.frame(diff_area = diff(corn_co2_data$`Area harvested`), diff_co2 = diff(corn_co2_data$CO2_emissions_kt) )
 diff_df %&gt;% ggplot(aes(x = diff_area, y = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-5.png" width="672" /></p>
-<pre class="r"><code>### weak correlation between co2 and harvested
-
-corn_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom_point()+ geom_smooth()</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-6.png" width="672" /></p>
-<pre class="r"><code>##there is weak correlation here, the relation seems to be cubic
-
-lm1 &lt;- (lm(`Area harvested`~ poly(CO2_emissions_kt,3), corn_co2_data)) 
+<p><img src="/corn_analysis_files/figure-html/4-1.png" width="672" />
+There is the same to-week correlation, and the relationship is cubic. There is not a relationship between corn harvested. After several analysis models, we can not conclude there is a relationship.</p>
+<pre class="r"><code>lm1 &lt;- (lm(`Area harvested`~ poly(CO2_emissions_kt,3), corn_co2_data)) 
 summary(lm1)</code></pre>
 <pre><code>## 
 ## Call:
@@ -147,9 +142,5 @@ summary(lm1_diff)</code></pre>
 ## Residual standard error: 5045 on 29 degrees of freedom
 ## Multiple R-squared:  2.771e-08,  Adjusted R-squared:  -0.03448 
 ## F-statistic: 8.035e-07 on 1 and 29 DF,  p-value: 0.9993</code></pre>
-<pre class="r"><code># No significant association
-
-ggAcf(lm1$residuals)</code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-7.png" width="672" /></p>
-<pre class="r"><code>ggAcf(lm1_diff$residuals)</code></pre>
-<p><img src="/corn_analysis_files/figure-html/corn_stats-8.png" width="672" /></p>
+<p>We used lag to find the difference between the consecutive pairs of co2 emission and corn. In the above graph, the harvesting of one acre of land of corn is associated with a 9.410e-07 increase in CO2 emission. The R^2 value is 0.03448, so in other words, area harvested for corn accounts for 3.4% of the variation in CO2 outputs. Thus, there is a very week positive correlation between area harvest and co2 emission.</p>
+</div>
