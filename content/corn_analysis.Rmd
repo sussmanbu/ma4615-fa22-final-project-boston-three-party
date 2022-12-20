@@ -76,6 +76,8 @@ corn_co2_data %>% ggplot(aes(x = `Area harvested`, y = CO2_emissions_kt)) + geom
 ```
 We first started with a linear model trying to figure out if there is a relationship between corn area harvested and co2 emission. It seems like a cubic graph with no relationship. We will perform more tests and ggACF to future analyze the relationship. 
 
+
+## Corn vs. CO2 Emissions In-Depth
 ```{r, 1}
 ggAcf(corn_co2_data$`Area harvested`) 
 ```
@@ -101,4 +103,23 @@ summary(lm1)
 lm1_diff <-lm(diff_area ~ diff_co2, diff_df) 
 summary(lm1_diff)
 ```
-We used lag to find the difference between the consecutive pairs of co2 emission and corn. In the above graph, the harvesting of one acre of land of corn is associated with a 9.410e-07 increase in CO2 emission. The R^2 value is 0.03448, so in other words, area harvested for corn accounts for 3.4% of the variation in CO2 outputs. Thus, there is a very week positive correlation between area harvest and co2 emission.
+We used lag to find the difference between the consecutive pairs of co2 emission and corn. In the above graph, the harvesting of one thousand acres of land of corn is associated with a 9.410e-07 increase in CO2 emission. The R^2 value is 0.03448, so in other words, area harvested for corn accounts for 3.4% of the variation in CO2 outputs. Thus, there is a very week positive correlation between area harvest and co2 emission.
+
+
+## Price as a Metric for Demand and Forest Area
+```{r demand}
+corn_co2_data %>% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()
+corn_co2_data %>% ggplot(aes(y = (CO2_emissions_kt), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()
+corn_co2_data %>% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point() + geom_smooth()
+corn_co2_data %>% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point() + geom_smooth()
+
+ggplot(corn_co2_data[which(corn_co2_data$Forest_area_percent>0),],aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point() + geom_smooth()
+
+```
+As discussed in the main analysis page, we decided to use price per bushel as a metric for demand for each crop. We saw on the main analysis page that there was no strong correlation between GDP growth and CO2 emissions. There does not appear to be a strong correlation between demand for corn and GDP growth, nor between demand for corn and CO2 emissions. 
+
+It appears demand and production of corn is not strongly correlated with goods and services exports either.
+
+There was an unexpected non-linear positive correlation between corn area harvested and forest area percent. We had predicted that more land used for growth would correspond to less land available for forests, so forest area percent would decrease as area harvested increased. This hypothesis did not hold up according to the corn analysis harvesting data.
+
+
