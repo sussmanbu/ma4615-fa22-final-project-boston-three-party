@@ -3,7 +3,7 @@ title: Flaxseed Analysis
 description: 
 toc: true
 featuredVideo: 
-featuredImage: 
+featuredImage: /images/flaxseed.webp
 draft: false
 ---
 
@@ -108,7 +108,8 @@ From this plot we see a strong non-linear correlation between the Area harvested
 ```{r,4}
 ggAcf(lm2$residuals)
 ```
-Again the high correlation and the ggAcf of residuals show there is no autocorrelation. This allows us to create a prediction model.
+There seems to be a trend, but the variance is not constant. As flaxseed area harvested decreases, CO2 emissions increase. Adjusting the model to show autocorrelation, we find that there is not a constant autocorrelation pattern. Therefore, we can make a prediction model for flaxseed production vs. CO2 emissions. We need to perform more tests on this relationship to better inform our model.
+
 
 ```{r}
 flaxseed_co2_data <- flaxseed_co2_data %>% mutate(t = c(1:nrow(flaxseed_co2_data)))
