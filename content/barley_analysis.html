@@ -66,17 +66,20 @@ barley_ts &lt;- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
   xlab(&quot;&quot;)
 barley_ts</code></pre>
 <p><img src="/barley_analysis_files/figure-html/barley_timeseries-1.png" width="672" />
-The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years,
-we can see a clear net downward trend.</p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point()</code></pre>
+The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years, we can see a clear net downward trend in barley production.</p>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/barley_analysis_files/figure-html/1-1.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point()</code></pre>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/barley_analysis_files/figure-html/1-2.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Area planted`, y = (CO2_emissions_kt))) + geom_point()</code></pre>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Area planted`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/barley_analysis_files/figure-html/1-3.png" width="672" /></p>
-<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + geom_point()</code></pre>
+<pre class="r"><code>barley_co2_data %&gt;% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/barley_analysis_files/figure-html/1-4.png" width="672" />
-We explored different variables and factors to conclude that there seems to be no relationship between the co2 emission and any of the barley variables.</p>
+We explored different variables and factors to conclude that there seems to be no strong relationship between the co2 emission and area harvested, production, area planted, or yield per acre.</p>
 <pre class="r"><code>diff_df &lt;- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
 diff_df %&gt;% ggplot(aes(y = diff_area, x = diff_co2)) + geom_point()+ geom_smooth()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>

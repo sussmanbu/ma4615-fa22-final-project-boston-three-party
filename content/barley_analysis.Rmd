@@ -60,20 +60,19 @@ barley_ts <- ggplot(barley_co2_data, aes(x=Year, y=Production)) +
 barley_ts
 
 ```
-The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years,
-we can see a clear net downward trend.
+The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years, we can see a clear net downward trend in barley production.
 
 
 
 
 ```{r,1}
-barley_co2_data %>% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point()
-barley_co2_data %>% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point()
-barley_co2_data %>% ggplot(aes(x = `Area planted`, y = (CO2_emissions_kt))) + geom_point()
-barley_co2_data %>% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + geom_point()
+barley_co2_data %>% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
+barley_co2_data %>% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
+barley_co2_data %>% ggplot(aes(x = `Area planted`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
+barley_co2_data %>% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
 
 ```
-We explored different variables and factors to conclude that there seems to be no relationship between the co2 emission and any of the barley variables. 
+We explored different variables and factors to conclude that there seems to be no strong relationship between the co2 emission and area harvested, production, area planted, or yield per acre. 
 
 ```{r,2}
 diff_df <- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
