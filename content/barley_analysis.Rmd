@@ -9,6 +9,8 @@ draft: false
  
 This comes from the file `content/barley_analysis.Rmd`.
 
+Here we analyze the relationship between the barley data and the CO2 data.
+
 ```{r packages, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
@@ -47,6 +49,7 @@ View(barley_co2_data)
 #save(barley_co2_data, file = here::here("dataset/barely_co2_data.RData"))
 ```
 
+## Barley vs. CO2
 ```{r barley_timeseries}
 # read_csv(here::here("dataset/barley_co2_data"))
 
@@ -63,8 +66,6 @@ barley_ts
 The above line graph shows barley production in United States from 1990 to 2021. Over the year last 20 years, we can see a clear net downward trend in barley production.
 
 
-
-
 ```{r,1}
 barley_co2_data %>% ggplot(aes(x = `Area harvested`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
 barley_co2_data %>% ggplot(aes(x = `Production`, y = (CO2_emissions_kt))) + geom_point() + geom_smooth()
@@ -73,6 +74,17 @@ barley_co2_data %>% ggplot(aes(x = `Yield per acre`, y = (CO2_emissions_kt))) + 
 
 ```
 We explored different variables and factors to conclude that there seems to be no strong relationship between the co2 emission and area harvested, production, area planted, or yield per acre. 
+
+
+```{r}
+barley_co2_data %>% ggplot(aes(y = (GDP_growth), x = `Price per bushel 1/`)) + geom_point()
+barley_co2_data %>% ggplot(aes(y = (Goods_services_exports), x = `Price per bushel 1/`)) + geom_point()
+barley_co2_data %>% ggplot(aes(y = (Goods_services_exports), x = (Production))) + geom_point()
+barley_co2_data %>% ggplot(aes(y = (Forest_area_percent), x = `Area harvested`)) + geom_point()
+
+```
+
+
 
 ```{r,2}
 diff_df <- data.frame(diff_area = diff(barley_co2_data$`Area harvested`), diff_co2 = diff(barley_co2_data$CO2_emissions_kt) )
